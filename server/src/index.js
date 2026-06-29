@@ -29,6 +29,11 @@ app.use("/trades" , tradeRouter)
 app.use("/api/signals/recommends" , recommendsRouter)
 
 
+app.get('/', (req, res) => {
+  res.json({ status: 'FinScope API is running' });
+});
+
+
 
 // mongodb connection
 
