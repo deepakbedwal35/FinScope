@@ -1,0 +1,153 @@
+export default function Dividend({dividends}){
+    return(
+        <div>
+            <div className="p-4  text-lg font-medium text-amber-200">Dividend History</div>
+            {dividends.length == 0 && <div className="text-center text-sm font-light text-cyan-300"> No Recent data Found</div>}
+
+            {dividends.length > 0 && 
+            <div className="pl-4  text-center grid grid-cols-4 gap-7 pt-2 text-sm font-light"> 
+            {dividends?.map(( details)=>(
+                
+                <div key={details?.date} className=" border border-gray-100/10 text-center flex flex-col  bg-sky-600/10 p-4  pl-6 pr-6 rounded-lg " style={{color:details?.profit_color}}>
+                    <div>
+                        <div>{details?.date}</div>
+                        <div className="text-lg font-bold text-sky-300">{details?.amount_str}</div>
+                    </div>
+                
+                    
+                </div>
+            ))}
+            </div>}
+        </div>
+    )
+}
+
+
+
+//    "quarterly": [],
+//   "annual": [
+//     {
+//       "year": "2026",
+//       "revenue": 10572190000000,
+//       "revenue_str": "₹10.57L Cr",
+//       "profit": 807750000000,
+//       "profit_str": "₹808 Cr",
+//       "ebitda": 2049060000000,
+//       "ebitda_str": "₹2.05L Cr",
+//       "margin_pct": 7.6,
+//       "rev_growth": null,
+//       "prof_growth": null,
+//       "profit_color": "#3dd68c",
+//       "rev_g_color": "#aaaaaa",
+//       "pro_g_color": "#aaaaaa",
+//       "rev_arrow": "—",
+//       "prof_arrow": "—",
+//       "is_profit": true
+//     },
+//     {
+//       "year": "2025",
+//       "revenue": 9646930000000,
+//       "revenue_str": "₹9.65L Cr",
+//       "profit": 696480000000,
+//       "profit_str": "₹696 Cr",
+//       "ebitda": 1812740000000,
+//       "ebitda_str": "₹1.81L Cr",
+//       "margin_pct": 7.2,
+//       "rev_growth": -8.8,
+//       "prof_growth": -13.8,
+//       "profit_color": "#3dd68c",
+//       "rev_g_color": "#f75f5f",
+//       "pro_g_color": "#f75f5f",
+//       "rev_arrow": "▼ -8.8%",
+//       "prof_arrow": "▼ -13.8%",
+//       "is_profit": true
+//     },
+//     {
+//       "year": "2024",
+//       "revenue": 9010640000000,
+//       "revenue_str": "₹9.01L Cr",
+//       "profit": 696210000000,
+//       "profit_str": "₹696 Cr",
+//       "ebitda": 1769440000000,
+//       "ebitda_str": "₹1.77L Cr",
+//       "margin_pct": 7.7,
+//       "rev_growth": -6.6,
+//       "prof_growth": 0,
+//       "profit_color": "#3dd68c",
+//       "rev_g_color": "#f75f5f",
+//       "pro_g_color": "#aaaaaa",
+//       "rev_arrow": "▼ -6.6%",
+//       "prof_arrow": "→ -0.0%",
+//       "is_profit": true
+//     },
+//     {
+//       "year": "2023",
+//       "revenue": 8778350000000,
+//       "revenue_str": "₹8.78L Cr",
+//       "profit": 667020000000,
+//       "profit_str": "₹667 Cr",
+//       "ebitda": 1533070000000,
+//       "ebitda_str": "₹1.53L Cr",
+//       "margin_pct": 7.6,
+//       "rev_growth": -2.6,
+//       "prof_growth": -4.2,
+//       "profit_color": "#3dd68c",
+//       "rev_g_color": "#f75f5f",
+//       "pro_g_color": "#f75f5f",
+//       "rev_arrow": "▼ -2.6%",
+//       "prof_arrow": "▼ -4.2%",
+//       "is_profit": true
+//     }
+//   ],
+//   "dividends": [
+//     {
+//       "date": "14 Aug 2025",
+//       "amount": 5.5,
+//       "amount_str": "₹5.5/share",
+//       "year": "2025"
+//     },
+//     {
+//       "date": "19 Aug 2024",
+//       "amount": 5,
+//       "amount_str": "₹5.0/share",
+//       "year": "2024"
+//     },
+//     {
+//       "date": "21 Aug 2023",
+//       "amount": 4.5,
+//       "amount_str": "₹4.5/share",
+//       "year": "2023"
+//     },
+//     {
+//       "date": "18 Aug 2022",
+//       "amount": 4,
+//       "amount_str": "₹4.0/share",
+//       "year": "2022"
+//     },
+//     {
+//       "date": "11 Jun 2021",
+//       "amount": 3.5,
+//       "amount_str": "₹3.5/share",
+//       "year": "2021"
+//     },
+//     {
+//       "date": "02 Jul 2020",
+//       "amount": 3.25,
+//       "amount_str": "₹3.25/share",
+//       "year": "2020"
+//     },
+//     {
+//       "date": "02 Aug 2019",
+//       "amount": 3.22,
+//       "amount_str": "₹3.22/share",
+//       "year": "2019"
+//     },
+//     {
+//       "date": "27 Jun 2018",
+//       "amount": 2.97,
+//       "amount_str": "₹2.97/share",
+//       "year": "2018"
+//     }
+//   ],
+//   "error": null
+// }
