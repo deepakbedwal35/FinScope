@@ -2,17 +2,15 @@
 
 const axios = require("axios");
 
-// Check if the Node server is live on Render or running locally
-const isProduction = process.env.NODE_ENV === "production";
-
-// Use your live FastAPI link in production, fallback to local host for offline development
-const BASE_URL = isProduction 
-  ? "https://finscope-scanner.onrender.com" 
-  : "http://127.0.0.1:8000";
+// Use a dedicated env var for the Python service URL — don't rely on NODE_ENV,
+// since Render doesn't guarantee it's set for every service.
+// Set PYTHON_API_URL=https://finscope-scanner.onrender.com in Render's dashboard.
+const BASE_URL = process.env.PYTHON_API_URL || "http://127.0.0.1:8000";
 
 // Create an isolated axios instance for your Python microservice requests
 const pythonApi = axios.create({
   baseURL: BASE_URL,
+  timeout: 20000, // Render free-tier Python service can be slow to wake from sleep
 });
 
 module.exports = { pythonApi, BASE_URL };
@@ -20,13 +18,13 @@ module.exports = { pythonApi, BASE_URL };
 
 // ✅ Get all signals
 async function getSignals() {
-  const res = await axios.get(`${BASE_URL}/scan`);
+  const res = await pythonApi.get("/scan");
   return res.data;
 }
 
 //  Get one stock
 async function getSignalForStock(symbol) {
-  const res = await axios.get(`${BASE_URL}/analyze/${symbol}`);
+  const res = await pythonApi.get(`/analyze/${symbol}`);
   return res.data;
 }
 
