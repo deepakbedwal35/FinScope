@@ -17,11 +17,22 @@ const watchRouter = require("./routes/watchlist")
 const tradeRouter = require("./routes/trades")
 const recommendsRouter = require("./routes/recommendations")
 // alow react to call Node
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true,
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://finscope-client.onrender.com', 
+];
 
-  }))
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (like curl, mobile apps, or server-to-server)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
