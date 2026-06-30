@@ -2,7 +2,20 @@
 
 const axios = require("axios");
 
-const BASE_URL = "http://127.0.0.1:8000";
+// Check if the Node server is live on Render or running locally
+const isProduction = process.env.NODE_ENV === "production";
+
+// Use your live FastAPI link in production, fallback to local host for offline development
+const BASE_URL = isProduction 
+  ? "https://finscope-scanner.onrender.com" 
+  : "http://127.0.0.1:8000";
+
+// Create an isolated axios instance for your Python microservice requests
+const pythonApi = axios.create({
+  baseURL: BASE_URL,
+});
+
+module.exports = { pythonApi, BASE_URL };
 
 
 // ✅ Get all signals

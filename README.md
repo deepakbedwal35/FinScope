@@ -97,3 +97,12 @@ npm install
 npm start
 ```
 
+
+
+https://finscope-scanner.onrender.com 
+https://finscope-w5th.onrender.com 
+https://finscope-client.onrender.com
+
+on all env variable
+render url also
+NODE_ENV === "production";

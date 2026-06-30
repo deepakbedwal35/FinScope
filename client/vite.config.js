@@ -3,16 +3,6 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite' 
 
 export default defineConfig({
-
-  content: ["./src/**/*.{js,jsx,ts,tsx,html}"],
-  theme: {
-    extend: {
-      fontFamily: {
-        
-        nova: ['"Nova Square"', 'sans-serif'], 
-      },
-    },
-  },
   plugins: [
     react(),
     tailwindcss(),
@@ -27,4 +17,5 @@ export default defineConfig({
     }
   }
 })
+
 
