@@ -1,4 +1,8 @@
-require("dotenv").config();
+// Only load .env file in local development — on Render, env vars are
+// injected directly by the platform and dotenv should not run at all.
+if (process.env.NODE_ENV !== 'production') {
+  require("dotenv").config();
+}
 const express = require('express');
 const connectDB = require("./config/db")
 const handleRedisCaching = require("./config/redis")
