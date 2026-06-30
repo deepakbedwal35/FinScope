@@ -12,7 +12,7 @@ export default function Recommendation(){
             <Header/>
             <Navbar tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
             {activeTab === "Active" && <div><Recommends isHome = {false} /></div>}
-            {activeTab === "Past Calls" && <div>OPen</div>}
+            {activeTab === "Past Calls" && <div>OP</div>}
 
         
             

@@ -1,16 +1,4 @@
-"""
-dow_theory.py
-=============
-Implements Dow Theory trend classification:
-  - Primary Trend  (The Tide)   : > 1 year
-  - Secondary Trend(The Waves)  : 3 weeks – 3 months, retraces 1/3 to 2/3
-  - Minor Trend    (The Ripples): < 3 weeks
 
-Logic:
-  1. Find swing highs / swing lows using a rolling window
-  2. Classify trend by comparing successive swings
-  3. Layer: Primary → Secondary → Minor
-"""
 
 import pandas as pd
 import numpy as np

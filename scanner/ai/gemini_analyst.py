@@ -1,25 +1,4 @@
-"""
-gemini_analyst.py  (Groq Edition)
-==================================
-Drop-in replacement for the original Gemini-based analyst.
-All public function signatures are IDENTICAL — app.py needs zero changes.
 
-Now powered by Groq (free, fast, no credit card needed):
-  - analyse_news_with_gemini()  →  same name, now calls Groq internally
-  - get_ai_decision()           →  same name, now calls Groq internally
- 
-
-Installation:
-    pip install groq
-
-Groq free tier:
-    ~14,400 requests/day on llama3-70b-8192
-    No billing required
-
-HOW IT WORKS:
-    Groq's API is OpenAI-compatible. We use the official `groq` Python SDK.
-    Model: llama3-70b-8192 (best free model for structured JSON output)
-"""
 
 import json
 import re

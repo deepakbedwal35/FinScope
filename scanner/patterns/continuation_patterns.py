@@ -1,22 +1,4 @@
-"""
-continuation_patterns.py  —  Murphy Chapter 6 + Chapter 4
-==========================================================
-Continuation Patterns (Chapter 6):
-  1. Bull Flag        — brief rectangular consolidation in uptrend
-  2. Bear Flag        — brief rectangular consolidation in downtrend
-  3. Bull Pennant     — small symmetrical triangle after sharp move up
-  4. Bear Pennant     — small symmetrical triangle after sharp move down
-  5. Cup & Handle     — rounded bottom + small consolidation (bullish)
-  6. Rectangle        — price bounces between two horizontal lines
 
-Support & Resistance (Chapter 4):
-  7. Key S/R levels   — previous highs/lows acting as support or resistance
-  8. Trendline        — connecting swing highs/lows; break = signal
-
-Golden Cross / Death Cross (Chapter 9):
-  9. Golden Cross  — SMA50 crosses above SMA200 (bullish)
-  10. Death Cross  — SMA50 crosses below SMA200 (bearish)
-"""
 
 import pandas as pd
 import numpy as np

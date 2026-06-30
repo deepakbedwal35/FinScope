@@ -1,11 +1,12 @@
 const { createClient } = require("redis");
 
 async function handleRedisCaching() {
+  
+  console.log('DEBUG REDIS_URL:', process.env.REDIS_URL);
+  console.log('DEBUG NODE_ENV:', process.env.NODE_ENV);
+  
   const redisHost = process.env.REDIS_HOST || '127.0.0.1';
   const redisPort = process.env.REDIS_PORT || '6379';
-
-  // If REDIS_URL is explicitly provided as a full URL (e.g. on Render),
-  // use it directly. Otherwise, build one from host + port (local dev).
   const redisUrl = process.env.REDIS_URL || `redis://${redisHost}:${redisPort}`;
 
   const client = createClient({ url: redisUrl });

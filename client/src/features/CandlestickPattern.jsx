@@ -19,7 +19,7 @@ export default function CandlestickPattern({ candles }) {
   
     const isBullish = latest?.direction?.toLowerCase() === "bullish";
     const cardBgColor = isBullish ? "bg-green-950/40 text-green-400" : "bg-red-950/40 text-red-400";
-    const iconBgColor = isBullish ? "bg-green-900/20 text-green-400" : "bg-red-900/20 text-red-400";
+    
     const badgeBgColor = isBullish ? "bg-green-700/50 text-green-200" : "bg-red-700/40 text-red-200";
     const tooltipBgColor = isBullish ? "green" : "#9e4c60";
 

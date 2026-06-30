@@ -1,18 +1,4 @@
-"""
-backtest.py — Enhanced Signal Accuracy Engine
-==============================================
-Upgrades over v1:
-  1. 7-filter quality gate  (weekly uptrend, vol, 52W dist, ATR expand,
-                              RS vs Nifty, MA50 extension, market regime)
-  2. Nifty cache            (fetch once, O(1) lookups for RS + regime)
-  3. Full window scan       (tests ALL bars in date range, not just one)
-  4. Grade comparison table (A+ / A / B etc → how many hit T1/T2/SL)
-  5. 50-stock portfolio backtest (was 30)
-  6. Deduplication          (consecutive same-signal bars → one trade)
 
-Everything integrates with existing NSE Pro UI — grades, equity curves,
-monthly returns, trade logs are all preserved exactly as before.
-"""
 
 import pandas as pd
 import numpy as np

@@ -35,17 +35,6 @@ export default function Candlesticks({limit = 10 , isHome =true}){
         
     }
 
-    const CalMov = (change , price)=>{
-        let priceChange = (price * change/100).toFixed(2);
-        return priceChange >= 0 ? priceChange : priceChange*(-1)
-    }
-    
-        // "success":  True,
-        // "total":    len(found),
-        // "results":  found,
-        // "bullish":  bullish,
-        // "bearish":  bearish,
-        // "neutral":  neutral,
 
     return (
         <div className="p-4">
@@ -53,7 +42,7 @@ export default function Candlesticks({limit = 10 , isHome =true}){
             
              {candleStocks?.total >  0 &&  <div  className={isHome ? "flex flex-row  gap-4  min-w-[500px]  overflow-x-auto  scroll-smooth sm:scroll-auto scrollbar-hide transition duration-150 ease-in-out" : "flex gap-4  flex-wrap"}>
                 {candleStocks?.results?.map((details)=>(
-                        <div className="text-gray-100 flex flex-row w-[430px]   border border-white/20 rounded-lg ">
+                        <div className="text-gray-100 flex flex-row    border border-white/20 rounded-lg ">
                             <Tooltip title = {details?.candle?.desc}  {...getTooltipConfig('top', details?.candle?.color)}>
                                 <div className={`w-1/5 flex flex-col justify-center items-center pb-4 pt-2 ${details?.candle?.direction == "BEARISH" ? "bg-amber-950/30 text-amber-700" : "bg-green-950/50 text-green-400"}`}>    
                                     <CandlePatternIcon name={details?.candle?.name}/>

@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 export default function AdminPage(){
     const [runFullScan , setFullScan] = useState("");
     const [addRecom , setRecom] = useState("");
+    const [handleRecommend , setRecommend] = useState("");
     const handleFullscan = ()=>{
         api.get("/runfullscan" )
         .then((res)=>{
@@ -12,12 +13,20 @@ export default function AdminPage(){
         })
         .catch((e)=> toast.error("Error:" + e.message))
     }
-    const addRecommendationInDB = ()=>{
+    const addRecommendationInDB = async()=>{
         api.get("/recommends/add")
         .then((res)=>{
             setRecom(res.data)
         })
         .catch((err)=>toast.error("Error in Recommendation" + err.message));
+    }
+    const handleRecommendInDB = async()=>{
+        api.get("/recommends/handle")
+        .then((res)=>{
+            setRecommend(res.data)
+        })
+        .catch((err)=>toast.error("Error in Recommendation" + err.message));
+
     }
 
     return(
@@ -28,6 +37,10 @@ export default function AdminPage(){
             <button className={"cursor-pointer p-2 border m-2"} onClick={addRecommendationInDB}>
                 Add Recommendation</button>
                 {addRecom && <div> successfully added </div>}
+
+            <button className={"cursor-pointer p-2 border m-2"} onClick={handleRecommendInDB}>
+                Handle Recommendation</button>
+                {handleRecommend && <div> successfully added  handle Recommendation</div>}
         </div>
     )
 

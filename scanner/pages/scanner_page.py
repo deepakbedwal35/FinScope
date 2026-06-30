@@ -21,7 +21,7 @@ import numpy as np
 import yfinance as yf
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import matplotlib.pyplot as plt
+
 from datetime import datetime
 import time
 from scanner.data.nse_symbols              import CATEGORIES, get_symbols, INDEX_SYMBOLS, INDEX_GROUPS, FO_INDICES, get_index_yf_symbol, get_index_nse_symbol, search_symbols
@@ -159,9 +159,12 @@ def fetch_price(symbols: list[str]):
 
 def analyze(symbol: str):
     data = redis_client.get("curr_stock")
-    if data :
+    res = json.loads(data)
+    
+    if data and res.get("symbol") == symbol :
         print("Using cached Stock Details from Redis")
         return json.loads(data)
+    
   
     
     df = fetch(symbol)

@@ -8,8 +8,8 @@ from scanner.data.indicators import get_indicator_summary_for_backtest
 import pandas as pd
 import yfinance as yf
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-import matplotlib.pyplot as plt
+
+
 
 from datetime import datetime
 

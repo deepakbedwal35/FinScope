@@ -1,43 +1,9 @@
-"""
-candlesticks_oscillators.py  —  Murphy Chapter 10 + 12
-=======================================================
-Candlestick Patterns (Chapter 12):
-  Single-bar:
-    1.  Doji              — indecision, potential reversal
-    2.  Hammer            — bullish reversal at bottom
-    3.  Hanging Man       — bearish reversal at top
-    4.  Shooting Star     — bearish reversal at top
-    5.  Inverted Hammer   — bullish reversal at bottom
-    6.  Marubozu          — strong momentum candle
 
-  Two-bar:
-    7.  Bullish Engulfing — strong bullish reversal
-    8.  Bearish Engulfing — strong bearish reversal
-    9.  Bullish Harami    — inside bar, potential reversal up
-    10. Bearish Harami    — inside bar, potential reversal down
-    11. Piercing Line     — bullish reversal
-    12. Dark Cloud Cover  — bearish reversal
-    13. Tweezer Top       — bearish reversal (equal highs)
-    14. Tweezer Bottom    — bullish reversal (equal lows)
-
-  Three-bar:
-    15. Morning Star      — bullish reversal (3 bars)
-    16. Evening Star      — bearish reversal (3 bars)
-    17. Three White Soldiers — strong bullish continuation
-    18. Three Black Crows    — strong bearish continuation
-
-Oscillators (Chapter 10):
-    19. Stochastic (%K and %D) — overbought/oversold + crossover signals
-"""
 
 import pandas as pd
 import numpy as np
 import ta
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# HELPERS
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _body(o, c):       return abs(c - o)
 def _upper_shadow(o, c, h): return h - max(o, c)
@@ -47,9 +13,6 @@ def _is_bearish(o, c): return c < o
 def _range(h, l):      return h - l
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# SINGLE-BAR PATTERNS
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _detect_single_bar(o, h, l, c) -> list:
     patterns = []

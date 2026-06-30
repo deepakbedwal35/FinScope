@@ -11,7 +11,7 @@ export default function Footer({stock}){
 
     
     return(
-        <div className="text-gray-400 flex justify-between items-end pt-3 text-sm font-light border-t border-white/20 mt-4">
+        <div className="text-gray-400 flex flex-row whitespace-nowrap justify-between items-end pt-3 text-sm font-light border-t border-white/20 mt-4">
             <div className="text-xs">
                 <div>Timeframe : 1D </div>
                 <div>Recommends  : {'Today'} </div>

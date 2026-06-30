@@ -1,25 +1,4 @@
-"""
-patterns.py
-===========
-Signal Generation from Murphy Chapter 6 — Continuation Patterns:
 
-TRIANGLE PATTERNS (require ≥ 4 reversal points — 2 peaks + 2 troughs):
-  1. Symmetrical Triangle  — descending upper trendline + ascending lower trendline
-  2. Ascending Triangle    — flat upper resistance + rising lower support (BULLISH)
-  3. Descending Triangle   — flat lower support + falling upper resistance (BEARISH)
-
-WEDGE PATTERNS (converging trendlines with a noticeable slant, 1–3 months):
-  4. Falling Wedge  — both lines slant DOWN against uptrend (BULLISH reversal)
-  5. Rising Wedge   — both lines slant UP  against downtrend (BEARISH reversal)
-
-Algorithm approach:
-  - Find swing highs and swing lows using a small window
-  - Fit linear regression lines through the last N swing highs (upper TL)
-    and last N swing lows (lower TL)
-  - Classify pattern by slopes of upper and lower trendlines
-  - Confirm volume (should diminish inside triangle/wedge)
-  - Detect breakout: price closing outside the converging trendlines
-"""
 
 import pandas as pd
 import numpy as np
