@@ -161,11 +161,13 @@ def fetch_price(symbols: list[str]):
 
 def analyze(symbol: str):
     data = redis_client.get("curr_stock")
-    res = json.loads(data)
     
-    if data and res.get("symbol") == symbol :
-        print("Using cached Stock Details from Redis")
-        return json.loads(data)
+    
+    if data :
+        result = json.loads(data)
+        if result.get("symbol") == symbol :
+            print("Using cached Stock Details from Redis")
+            return json.loads(data)
     
   
     
