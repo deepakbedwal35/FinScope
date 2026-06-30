@@ -29,7 +29,7 @@ export default function Login(){
             
             setIsAuthenticated(true);
             
-            toast.success("Welcome Trader"  );
+            toast.success("Welcome Trader" );
             navigate("/home" , {replace: true});
         })
         .catch((e)=> {

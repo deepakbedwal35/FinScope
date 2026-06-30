@@ -43,8 +43,7 @@ function App() {
         <Route path="/login" element = {<Login />}/>
         <Route path="/signup" element = {<Signup/>}/>
         <Route path = "/admin/page" element ={<AdminPage/>}/>
-        {/* </Route> */}
-        {/* Private Routes */}
+        
          <Route path="/" element={<LandingRoute isLoggedIn={isAuthenticated} />} />
 
         <Route element = {<ProtectRoute isAuthenticated={isAuthenticated} loading={loading}  />}>
@@ -52,7 +51,7 @@ function App() {
           <Route path="/backtest" element = {<Backtesting/>}/>
           <Route path="/home" element = {<Home/>}/>
           <Route path="/watchlist" element = {<Watchlist/>}/>
-         
+           
           <Route path="/analyse/:symbol" element = {<StockDetails/>}/>
           
           <Route path="/fullscan" element = {<FullScan/>}/>
@@ -61,8 +60,8 @@ function App() {
           <Route path= "/all/patterns" element={<PatternsStock/>}/>
 
        
-         </Route>
-        {/* </Route> */}
+         {/* </Route> */}
+        </Route>
         
 
         {/* <Route path "*" element = {<Navigate to/>}/> */}
