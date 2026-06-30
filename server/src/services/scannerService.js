@@ -13,7 +13,7 @@ const pythonApi = axios.create({
   timeout: 20000, // Render free-tier Python service can be slow to wake from sleep
 });
 
-module.exports = { pythonApi, BASE_URL };
+
 
 
 // ✅ Get all signals

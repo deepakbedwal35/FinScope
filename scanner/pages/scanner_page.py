@@ -53,8 +53,10 @@ from scanner.utils.extras import get_sector
 import numpy as _np_algo  # for algo signals
 import redis
 import json
-redis_client = redis.Redis(host="localhost", port=6379, decode_responses=True)
+import os
 
+REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")
+redis_client = redis.from_url(REDIS_URL, decode_responses=True)
 def fetch(symbol: str, period: str = "2y") -> pd.DataFrame | None:
     bare = symbol.replace(".NS", "").replace(".BO", "")
 
