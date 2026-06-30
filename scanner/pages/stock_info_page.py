@@ -4,8 +4,9 @@ from scanner.utils.sanitize_json import sanitize_for_json
 import yfinance as yf
 import redis
 import json
-redis_client = redis.Redis(host="localhost", port=6379, decode_responses=True)
-
+import os
+REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")
+redis_client = redis.from_url(REDIS_URL, decode_responses=True)
 
 def get_all_indices_data():
     data = redis_client.get("indices_data")

@@ -41,7 +41,9 @@ MODEL_WIN_MFE_PCT: float = 3.0
 
 import redis
 import json
-redis_client = redis.Redis(host="localhost", port=6379, decode_responses=True)
+import os
+REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")
+redis_client = redis.from_url(REDIS_URL, decode_responses=True)
 
 
 def run_backtest(
