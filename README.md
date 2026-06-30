@@ -76,8 +76,8 @@ cd finScope
 
 ### 1. Initialize Python Analytics Service
 ```bash
-cd backend-python
-python -m venv venv
+cd scanner
+
 
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
@@ -85,14 +85,14 @@ uvicorn main:app --reload --port 8000
 
 ### 2. Launch Node.js Middleware Proxy
 ```bash
-cd backend-node
+cd server
 npm install
 npm run dev
 ```
 
 ### 3. Fire Up React Terminal Instance
 ```bash
-cd frontend-react
+cd client
 npm install
 npm start
 ```
