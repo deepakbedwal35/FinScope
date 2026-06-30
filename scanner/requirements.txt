@@ -13,5 +13,7 @@ uvicorn
 redis
 groq
 matplotlib
+python-dotenv
+requests
 
 
