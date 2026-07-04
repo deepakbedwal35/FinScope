@@ -74,64 +74,70 @@ const handleRecommendations = async (req, res) => {
     // if(!decodedUser) return res.status(401).json("Access Denied please log in");
     
     try {
-        // 1. Fetch only open active trades from the database to save memory
+      
         const allRecommedStocks = await Recommendations.find({ isOpen: { $ne: false } });
         
-        // 2. Extract just the symbols to send to your price scanner
+   
         const symbols = allRecommedStocks.map((r) => r.symbol);
-        
-        // Guard clause: If no open stocks exist, return early
+     
         if (symbols.length === 0) {
             return res.json({ success: true, message: "No active recommendations to update." });
         }
 
-        // 3. Fetch live current prices for all extracted symbols
+    
         const allStocksPrice = await scanner.fetchCurrPrice(symbols);
         
-        // 4. Initialize an array to collect our batch database update operations
+   
         const bulkOperations = [];
 
-        // 5. Use a regular loop (or forEach) to prepare update operations
+     
         allRecommedStocks.forEach((stock) => {
             const stockPriceData = allStocksPrice[stock.symbol];
             
-            // Safety check: Skip if the scanner didn't return price data for this symbol
+           
             if (!stockPriceData || typeof stockPriceData.price === 'undefined') return;
 
             const currentPrice = stockPriceData.price;
-            
-            // Create an object to collect changes for this specific document
+       
             const updateFields = {};
 
-            // CONDITION A: Current price drops to or below Stop Loss
             if (currentPrice <= stock.stopLoss) {
                 updateFields.stopLossHit = true;
-                updateFields.isOpen = false; // Trade is now dead/closed
+                updateFields.isOpen = false;
+                updateFields.exitPrice =stock.stopLoss ;
             } 
             
-            // CONDITION B: Current price rises to or hits Target 1
+            
             if (currentPrice >= stock.target1 && !stock.target1Hit) {
                 updateFields.target1Hit = true;
+                
             }
+            // close trade when target1 hit but then price goes down to less than 1% fron taerget 1
+            if(stock.isOpen && stock.target1Hit && currentPrice <= stock.target1 ){
+                updateFields.isOpen = false; 
+                updateFields.exitPrice =stock.target1;
+                
 
-            // CONDITION C: Current price rises to or hits Target 2
+            }
+           
             if (currentPrice >= stock.target2 && !stock.target2Hit) {
                 updateFields.target2Hit = true;
-                updateFields.isOpen = false; // Max target reached, close trade
+                updateFields.isOpen = false; 
+                updateFields.exitPrice =stock.target2Hit ;
             }
 
-            // 6. If any targets or stop loss conditions matched, queue up a Mongoose update instruction
+          
             if (Object.keys(updateFields).length > 0) {
                 bulkOperations.push({
                     updateOne: {
-                        filter: { _id: stock._id }, // Find by unique document ID
-                        update: { $set: updateFields } // Apply changes
+                        filter: { _id: stock._id },
+                        update: { $set: updateFields }
                     }
                 });
             }
         });
 
-        // 7. Execute all database updates concurrently in one single roundtrip
+      
         if (bulkOperations.length > 0) {
             await Recommendations.bulkWrite(bulkOperations);
         }

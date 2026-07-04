@@ -57,6 +57,7 @@ import os
 
 REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")
 redis_client = redis.from_url(REDIS_URL, decode_responses=True)
+
 def fetch(symbol: str, period: str = "2y") -> pd.DataFrame | None:
     bare = symbol.replace(".NS", "").replace(".BO", "")
 
@@ -124,40 +125,65 @@ def fetch(symbol: str, period: str = "2y") -> pd.DataFrame | None:
 
 
 
+PRICE_CACHE_TTL = 180  
+
 def fetch_price(symbols: list[str]):
-
-    # yfinance supports multi-ticker fetch in a single request
-    tickers_str = " ".join(f"{s}.NS" for s in symbols)
-    data = yf.Tickers(tickers_str)
-
     results = {}
+    symbols_to_fetch = []
+
+   
     for symbol in symbols:
-        try:
-            ticker = data.tickers.get(f"{symbol}.NS")
-            if not ticker:
+        cached = redis_client.get(f"price:{symbol}")
+        if cached:
+            results[symbol] = json.loads(cached) 
+        else:
+            symbols_to_fetch.append(symbol)    
+
+    
+    if not symbols_to_fetch:
+        return results
+
+    
+    try:
+        tickers_str = " ".join(f"{s}.NS" for s in symbols_to_fetch)
+        data = yf.Tickers(tickers_str)
+
+        for symbol in symbols_to_fetch:
+            try:
+                ticker = data.tickers.get(f"{symbol}.NS")
+                if not ticker:
+                    results[symbol] = None
+                    continue
+
+                hist = ticker.history(period="2d")
+                if len(hist) < 1:
+                    results[symbol] = None
+                    continue
+
+                price      = float(hist["Close"].iloc[-1])
+                prev_close = float(hist["Close"].iloc[-2]) if len(hist) >= 2 else price
+                change     = price - prev_close
+                change_pct = round((change / prev_close) * 100, 2) if prev_close else 0
+
+                price_data = {
+                    "price":          round(price, 2),
+                    "change":         round(change, 2),
+                    "change_percent": change_pct,
+                }
+
+            
+                redis_client.setex(f"price:{symbol}", PRICE_CACHE_TTL, json.dumps(price_data))
+                results[symbol] = price_data
+
+            except Exception:
                 results[symbol] = None
-                continue
 
-            hist = ticker.history(period="2d")
-            if len(hist) < 1:
-                results[symbol] = None
-                continue
-
-            price = float(hist["Close"].iloc[-1])
-            prev_close = float(hist["Close"].iloc[-2]) if len(hist) >= 2 else price
-            change = price - prev_close
-            change_pct = round((change / prev_close) * 100, 2) if prev_close else 0
-
-            results[symbol] = {
-                "price": round(price, 2),
-                "change": round(change, 2),
-                "change_percent": change_pct,
-            }
-        except Exception:
+    except Exception:
+    
+        for symbol in symbols_to_fetch:
             results[symbol] = None
 
     return results
-
 
 def analyze(symbol: str):
     data = redis_client.get("curr_stock")

@@ -10,9 +10,9 @@ const  recommendationSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-//   exitPrice: {
-//     type: Number
-//   },
+  exitPrice: {
+    type: Number
+  },
   
   stopLoss: {
     type: Number

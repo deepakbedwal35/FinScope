@@ -106,3 +106,6 @@ https://finscope-client.onrender.com
 on all env variable
 render url also
 NODE_ENV === "production";
+
+
+The asterisk (*) is a wildcard. By typing /*, you are telling Render: "Catch absolutely any sub-path the user types in, whether it is /home, /watchlist, /backtest, or /analyse/NMDC."Pointing the destination to /index.html ensures your main React application is always delivered as the foundational code wrapper to boot up your system.Click the blue Save Changes button. The rule takes effect immediately without rebuilding your project. Try refreshing your browser on the /home or /watchlist tabs now—they will load perfectly!

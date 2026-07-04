@@ -6,7 +6,7 @@ import Action from "./Action"
 import { toast } from "react-hot-toast";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useNavigate } from "react-router-dom";
-export default function Recommends({isHome = false}){
+export default function Recommends({isHome = false , isOpen =true}){
     const navigate = useNavigate();
    const [recommendations, setRecommendations] = useState([]);
    const [loading , setLoading] = useState(true);
@@ -33,14 +33,12 @@ export default function Recommends({isHome = false}){
     }, [recommendations]);
 
 
-
     return(
         <div className="bg-neutral-900 m-4  tracking-wider pt-8 pl-8  p-6 rounded-xl text-gray-200">
             <div className="flex justify-between mb-3">
                  <div className="font-medium text-normal  tracking-wider text-neutral-200 ">Fin Recommendations</div>
                  {isHome &&  <div onClick={()=>navigate("/fin/recommendations")} className="text-blue-500 mr-2 py-1 px-2 rounded-lg cursor-pointer font-medium hover:bg-indigo-800/20"> 
-                    VIEW ALL <span className="mb-1"><ArrowForwardIosIcon sx={{fontSize:"18px" , pb :"2px"}}/></span> 
-                    
+                    VIEW ALL <span className="mb-1"><ArrowForwardIosIcon sx={{fontSize:"18px" , pb :"2px"}}/></span>     
                 </div>}
             </div>
            
@@ -48,14 +46,16 @@ export default function Recommends({isHome = false}){
 
             {!loading && !recommendations && <div>No current recommendation</div>}
             {recommendations.length > 0 && <div className="  gap-2"> 
-                <div  className={isHome ? sliderStyle : "grid grid-cols-3 gap-4"}>
+                <div  className={isHome ? sliderStyle : "grid grid-cols-2 gap-4"}>
                 {!loading && recommendations?.map((stock)=>(
-                    <div className={`border  border-white/20 p-4 rounded-lg ${isHome ? "min-w-[460px]": ""}`}>
-                        <CurrPriceBlock symbol= {stock?.symbol}  priceData={stockPrices[stock.symbol]}/>
-                         <div className="border-b-1 mb-2 border-white/20 pb-3 border-dashed "></div>
-                        <Action stock={stock} currPrice={stockPrices[stock.symbol]?.price} />  
-                        <Footer stock = {stock?.symbol} />
-                    </div>
+                    <>
+                        {stock?.isOpen == isOpen && <div className={`border  border-white/20 p-4 rounded-lg ${isHome ? "min-w-115": ""}`}>
+                            <CurrPriceBlock symbol= {stock?.symbol}  priceData={stockPrices[stock.symbol]}/>
+                            <div className="border-b mb-2 border-white/20 pb-3 border-dashed "></div>
+                            <Action stock={stock} currPrice={stockPrices[stock.symbol]?.price} />  
+                            <Footer stock = {stock?.symbol} />
+                        </div>}
+                    </>
                 ))}
                 </div>           
             </div>}

@@ -14,10 +14,7 @@ def get_all_indices_data():
     if data:
         print("Indices data Using cache")
         return json.loads(data)
-    
-    
 
-    
     result_dict = {}
     yfinance_ticker_map = {
         "NIFTY 50": "^NSEI",
@@ -40,21 +37,31 @@ def get_all_indices_data():
                 open_price = live_history['Open'].iloc[-1]
                 high_price = live_history['High'].iloc[-1]
                 low_price = live_history['Low'].iloc[-1]
-                volume = live_history['Volume'].iloc[-1] if 'Volume' in live_history.columns else 0
-                
+               
+                volume = int(live_history['Volume'].iloc[-1]) if 'Volume' in live_history.columns and not live_history['Volume'].empty else 0
+
                 computed_change = ((current_price - open_price) / open_price) * 100
-                
+
                 w52h = ticker_info.get('fiftyTwoWeekHigh', None)
                 w52l = ticker_info.get('fiftyTwoWeekLow', None)
-                
+
                 if w52h:
                     dist_52w = round(((w52h - current_price) * 100) / w52h, 2)
                 else:
                     dist_52w = None
+
+               
+                avg_volume = ticker_info.get('averageVolume', None) or ticker_info.get('averageVolume10Days', None)
+
+                if avg_volume and volume > 0:
                 
+                    vol_ratio = round(volume / avg_volume, 2)
+                else:
+                    vol_ratio = 0.00  
+
                 result_dict[human_name] = {
-                    "Price": round(current_price, 2),        # Live trading price
-                    "Close": round(current_price, 2),        # Explicit close price column
+                    "Price": round(current_price, 2),        
+                    "Close": round(current_price, 2),        
                     "change_percent": round(computed_change, 2),
                     "Open": round(open_price, 2),
                     "High": round(high_price, 2),
@@ -62,9 +69,11 @@ def get_all_indices_data():
                     "w52l": round(w52l, 2) if w52l else None,
                     "w52h": round(w52h, 2) if w52h else None,
                     "dist_52w": dist_52w,
-                    "Volume": volume,
-                    "Vol_ratio" : "N/A",
+                    "Volume": volume,                        
+                    "Vol_ratio" : vol_ratio,                 
                     "source": "yfinance"
+
+
                 }
         except Exception as yf_err:
             print(f"Failed parsing fallback data for ticker {ticker_symbol}: {yf_err}")
@@ -75,7 +84,7 @@ def get_all_indices_data():
         
     try:
         print("Add indices data in cache")
-        redis_client.setex("indices_data", 3600 , json.dumps(result_dict))
+        redis_client.setex("indices_data", 180 , json.dumps(result_dict))
     
     except Exception as e:
         print("Cannot add inidces data in cache  because" , e)
