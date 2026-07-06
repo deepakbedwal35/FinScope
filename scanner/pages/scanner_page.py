@@ -1,18 +1,4 @@
-"""
-pages/scanner_page.py — NSE Pro Scanner v18
-"""
 
-"""
-app.py — NSE Pro Scanner
-========================
-Full technical analysis scanner combining:
-  1. Dow Theory   (Primary / Secondary / Minor trend)
-  2. Indicators   (RSI, MACD, Bollinger Bands, MAs, ATR)
-  3. Patterns     (Triangles & Wedges — Murphy Chapter 6)
-  4. Breakout     (52W High + Volume + Trend filter)
-
-
-"""
 
 
 import pandas as pd

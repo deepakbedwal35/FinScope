@@ -17,7 +17,7 @@ NIFTY50 = [
     "SUNPHARMA","TCS","TATACONSUM","TATAMOTORS","TATASTEEL",
     "TECHM","TITAN","ULTRACEMCO","UPL","WIPRO"
 ]
-
+# remove these : ltim , MM , TATAMOTORS.BO , 
 # ── NIFTY NEXT 50 ─────────────────────────────────────────────────────────────
 NIFTY_NEXT50 = [
     "ABB","ADANIENSOL","ADANIGREEN","ADANIPOWER","ATGL",

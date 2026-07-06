@@ -460,7 +460,7 @@ def get_news_sentiment(symbol: str, company_name: str = "") -> dict:
     1. Fetch news from Yahoo Finance, Google News, ET, Moneycontrol
     2. Analyse each with VADER + financial keyword booster
     3. Classify into POSITIVE / NEGATIVE / NEUTRAL
-    4. Return structured result for Streamlit UI
+  
 
     Returns:
         {

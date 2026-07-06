@@ -19,14 +19,6 @@ DEFAULT_RISK_PCT = float(os.getenv("DEFAULT_RISK_PCT", "1.0"))
 
 
 def get_key() -> str:
-    """Returns the Groq API key — checks session state first, then env variables."""
-    try:
-        import streamlit as st
-        session_key = st.session_state.get("groq_api_key", "")
-        if session_key and session_key.strip():
-            return session_key.strip()
-    except Exception:
-        pass
     return GROQ_API_KEY
 
 

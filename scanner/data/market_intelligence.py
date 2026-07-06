@@ -1,20 +1,4 @@
-"""
-market_intelligence.py
-======================
-All missing market intelligence features in one module:
 
-  1. EARNINGS CALENDAR     — NSE result dates, auto-flag near results
-  2. SECTOR ROTATION       — RS rating vs NIFTY, sector rank 1-12
-  3. DELIVERY %            — NSE daily delivery data, accumulation signal
-  4. BREAKOUT QUALITY      — Score 0-10 for breakout strength
-  5. SUPPORT/RESISTANCE    — Swing-based SR zones from price history
-  6. PROMOTER / PLEDGE     — BSE shareholding pattern data
-  7. BULK / BLOCK DEALS    — NSE bulk deal alerts
-  8. RELATIVE STRENGTH     — IBD-style RS Rating 1-99
-
-All free — NSE/BSE public APIs, no key needed.
-Falls back gracefully when data unavailable.
-"""
 
 import math
 import time
@@ -60,9 +44,6 @@ def _sym(symbol):
     return symbol.replace(".NS","").replace(".BO","").upper().strip()
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
-# 1. EARNINGS CALENDAR
-# ═══════════════════════════════════════════════════════════════════════════════
 
 def get_earnings_calendar(symbol: str) -> dict:
     """
