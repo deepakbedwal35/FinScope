@@ -4,3 +4,4 @@ dump.rdb
 Notes.md
 **/backtest_for_ml.py
 notebook
+finscope_ml_training_data.csv
