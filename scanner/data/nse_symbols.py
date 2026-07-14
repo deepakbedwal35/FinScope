@@ -63,19 +63,23 @@ NIFTY_MIDCAP = [
     "NUVOCO","OFSS","OLECTRA","ORIENTELEC","PAGEIND",
     "PATELENG","PGHH","PHOENIXLTD","POLYMED","POONAWALLA",
     "POWERMECH","PRESTIGE","PRINCEPIPE","PRIVISCL","QUESS",
-    "RADICO","RAILTEL","RAJRATAN","RAMCOCEM","RAYMOND",
+    "RADICO","RAILTEL",
+    "RAJRATAN","RAMCOCEM","RAYMOND",
     "RBLBANK","REDINGTON","RITES","ROSSARI","ROUTE",
     "SAFARI","SANOFI","SAPPHIRE","SCHAEFFLER","SHYAMMETL",
-    "SIGNATURE","SJVN","SKFINDIA","SOBHA","SOLARA",
+    "SIGNATURE","SJVN",
+    "SKFINDIA","SOBHA","SOLARA",
     "SONACOMS","STARHEALTH","STLTECH","SUDARSCHEM","SUMICHEM",
     "SUNTV","SUPRAJIT","SUPREMEIND","SURYAROSNI","SUZLON",
     "SYNGENE","TANLA","TASTYBITE","TATACHEM","TATACOMM",
     "TATAELXSI","TATATECH","TCNSBRANDS","TEAMLEASE","THYROCARE",
-    "TIINDIA","TIMKEN","TIMETECHNO","TRIDENT","TRITURBINE",
+    "TIINDIA","TIMKEN",
+    "TIMETECHNO","TRIDENT","TRITURBINE",
     "UCOBANK","UJJIVANSFB","UNIONBANK","UNOMINDA","USHA",
     "UTIAMC","VAIBHAVGBL","VARDHACRLC","VGUARD","VINATIORGA",
     "VOLTAMP","VRLLOG","VSTIND","WABCOINDIA","WELCORP",
-    "WELSPUNLIV","WHIRLPOOL","WINDLAS","YESBANK","ZFCVINDIA"
+    "WELSPUNLIV","WHIRLPOOL",
+    "WINDLAS","YESBANK","ZFCVINDIA"
 ]
 
 # ── NIFTY SMALLCAP 250 ────────────────────────────────────────────────────────
@@ -331,9 +335,7 @@ def get_all_symbols():
 #         print(f"  {cat}: {len(stocks)} stocks")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# INDIAN INDICES — yfinance tickers + metadata
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 INDEX_SYMBOLS = {
     # ── Broad Market ──────────────────────────────────────────────────────────

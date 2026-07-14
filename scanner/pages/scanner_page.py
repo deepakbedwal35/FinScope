@@ -30,10 +30,8 @@ from scanner.utils.sanitize_json import sanitize_for_json
 from concurrent.futures import ThreadPoolExecutor
 
 from scanner.data.market_intelligence import   get_sector_rotation
-  
+# from .ml_model import ml_win_confidence
    
-    
-
 from scanner.utils.extras import get_sector
 
 import numpy as _np_algo  # for algo signals
@@ -173,16 +171,11 @@ def fetch_price(symbols: list[str]):
 
 def analyze(symbol: str):
     data = redis_client.get("curr_stock")
-    
-    
     if data :
         result = json.loads(data)
         if result.get("symbol") == symbol :
             print("Using cached Stock Details from Redis")
             return json.loads(data)
-    
-  
-    
     df = fetch(symbol)
     if df is None:
         return None
@@ -200,11 +193,11 @@ def analyze(symbol: str):
         candles  = get_candle_oscillator_summary(df2)
         entry = get_full_entry_analysis(df2 , dow , ind , pat , cont , reversal , candles)
         print(type(entry))
-        # ── Basic metrics — v19 FIX: NaN guards ──
+     
         lat = df2.iloc[-1]
         prv = df2.iloc[-2]
         p   = float(lat["Close"])
-        if p != p or p <= 0:  # isnan check
+        if p != p or p <= 0:  
             return None
         _w52h_raw = df2["High"].rolling(252, min_periods=30).max().iloc[-1]
         w52h = float(_w52h_raw) if (_w52h_raw == _w52h_raw and _w52h_raw > 0) else p
@@ -222,7 +215,6 @@ def analyze(symbol: str):
         chg_percent = ((p - _prev_c) / _prev_c) * 100
         chg = (p - _prev_c)
         dist_52w = ((p - w52h) / w52h) * 100 if w52h > 0 else 0.0
-        
 
      
         atr = ind["atr"]["value"] or (p * 0.02)
@@ -233,7 +225,6 @@ def analyze(symbol: str):
      
         score, strength, _grade, _gc = compute_score(
             ind, dow, pat, cont, candles, reversal, dist_52w, vr)
-        # fundamentals = get
         
         company_name = get_company_name(symbol)
         fundamentals = get_fundamentals(symbol)
@@ -250,11 +241,9 @@ def analyze(symbol: str):
             "company_name" : company_name,
             "price":     float(p),
             "change":    float(round(chg, 2)),
-            "change_percent" : float(round(chg_percent, 2)),
-            
+            "change_percent" : float(round(chg_percent, 2)),  
             "w52h":      float(round(w52h, 2)),
             "w52l" :     float(round(w52l, 2)),
-           
             "dist_52w":  float(round(dist_52w, 2)),
             "vol_ratio": float(round(vr, 2)),
             "rsi":       float(rsi),
@@ -276,7 +265,14 @@ def analyze(symbol: str):
              "df2": df2.iloc[-1].to_dict()   
         }
         
+        # ml_conf = ml_win_confidence(summary)
+        # print("ml confidence :")
+        # print(ml_conf)
+        # summary['ml_conf'] = ml_conf
+
         summary =  sanitize_for_json(summary)
+        
+        
         
         try :
             redis_client.setex("curr_stock", 18000, json.dumps(summary))
@@ -289,6 +285,7 @@ def analyze(symbol: str):
     return None 
 
 
+# print(analyze("BEL"))
 
 # CHART
 def build_chart_demo(symbol)->go.Figure:
@@ -377,7 +374,7 @@ def build_chart(symbol , timeframe)->go.Figure:
             mode="markers", marker=dict(symbol="triangle-up", size=10, color="#3dd68c"),
             name="Swing Low"), row=1, col=1)
 
-    # ── Volume ──
+   
     colors = ["#3dd68c" if c >= o else "#f75f5f" for c, o in zip(df["Close"], df["Open"])]
     fig.add_trace(go.Bar(x=df.index, y=df["Volume"], marker_color=colors,
                          opacity=0.8, name="Volume"), row=2, col=1)

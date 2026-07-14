@@ -4,8 +4,12 @@ dump.rdb
 Notes.md
 **/backtest_for_ml.py
 notebook
-finscope_ml_training_data.csv
+
 .DS_Store
 **/__pycache__/
 *.pyc
+ml_model.py
+model_loader.py
+ml
+
 

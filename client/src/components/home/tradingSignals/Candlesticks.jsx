@@ -37,8 +37,8 @@ export default function Candlesticks({limit = 10 , isHome =true}){
 
 
     return (
-        <div className="p-4">
-            {!candleStocks?.success && <div className="h-[100px] text-center  flex text-sm  items-center justify-center text-gray-400 ">There are no signals available at the moment</div>}
+        <div className="p-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4  rounded-xl text-gray-200">
+            {!candleStocks?.success && <div className="h-25 text-center  flex text-sm  items-center justify-center text-gray-400 ">There are no signals available at the moment</div>}
             
              {candleStocks?.total >  0 &&  <div  className={isHome ? "flex flex-row  gap-4  min-w-[500px]  overflow-x-auto  scroll-smooth sm:scroll-auto scrollbar-hide transition duration-150 ease-in-out" : "flex gap-4  flex-wrap"}>
                 {candleStocks?.results?.map((details)=>(

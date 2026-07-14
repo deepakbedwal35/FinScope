@@ -1,35 +1,27 @@
 // server/routes/scan.js
-
 const User = require("../models/User")
 const { setUser } = require("../services/auth");
-
-
 
 const handleUserSignup = async (req, res)=>{
     try{
     const {email , password} = req.body;
-    // await is important to ensure that the database operation completes before proceeding
     const existingUser = await User.findOne({email});
     if(existingUser){
       return res.status(400).json({
         message: "User Already Exist"
       })
     }
-    
-    const newUser = await  User.create({
-      
+    const newUser = await  User.create({ 
       email ,
       password
     })
    
     const token = setUser(newUser);
-   
-
     res.cookie("token" , token ,{
       httpOnly: true ,
       secure:true ,
       sameSite: "none" ,
-      maxAge: 24*60*60*1000 , // 1 day
+      maxAge: 24*60*60*1000*10 , 
 
     })
     res.json({
@@ -47,7 +39,6 @@ const handleUserSignup = async (req, res)=>{
   }
 
 }
-
 const handleUserLogin = async (req , res)=>{
     try{
     const {email , password} = req.body;
@@ -68,13 +59,12 @@ const handleUserLogin = async (req , res)=>{
       httpOnly: true ,
       secure:true ,
       sameSite: "none" ,
-      maxAge: 24*60*60*1000 , // 1 day
+      maxAge: 24*60*60*1000*10 , 
 
     })
 
     res.json({
       success: true,
-      // user_id : user._id ,
       user ,
       token
     })
@@ -86,8 +76,6 @@ const handleUserLogin = async (req , res)=>{
   }
 
 }
-
-
 
 module.exports = {
     handleUserSignup ,

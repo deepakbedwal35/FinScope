@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import Recommends from "../components/home/recommendations/Recommends";
 
 export default function Recommendation(){
-     const tabs = [ "Active Signals" , "Closed Trades" , "Target2 Hit" , "SL Hit"];
+     const tabs = [ "Active Signals" , "Closed Trades" ];
      const [activeTab , setActiveTab] = useState(tabs[0])
 
     return (
