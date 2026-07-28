@@ -681,10 +681,6 @@ def build_grade_comparison(results_by_signal: dict) -> list:
     return rows
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# MULTI-SIGNAL BACKTEST  (single stock)
-# ─────────────────────────────────────────────────────────────────────────────
-
 def run_full_backtest(symbol: str,
                       selected_signals: list = None,
                       period: str = "2y",
@@ -827,8 +823,6 @@ def compute_score(ind: dict, dow: dict, pat: dict,
     # Strength label
     strength = "STRONG" if score >= 18 else "MEDIUM" if score >= 10 else "WEAK"
 
-    # Grade (aligned with entry_engine confidence thresholds)
-    # Normalise score 0-30 → 0-100 confidence proxy
     conf = int(score / 30 * 100)
     if   score >= 24: grade = "A+"; gc = "#00ff88"
     elif score >= 20: grade = "A";  gc = "#3dd68c"

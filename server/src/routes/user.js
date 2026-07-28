@@ -2,12 +2,13 @@
 
 const User = require("../models/User")
 const {restrictToLoggedIn} = require("../middleware/auth")
-
+const validate = require("../middleware/validate");
+const {registerSchema} = require("../validators/authValidator")
 const express = require("express");
 const router = express.Router();
 const  {handleUserSignup, handleUserLogin} = require("../controller/user")
 
-router.post("/signup", handleUserSignup)
+router.post("/signup",validate(registerSchema), handleUserSignup)
 
 router.post("/login" , handleUserLogin)
 router.get("/check-auth" , restrictToLoggedIn , (req , res)=>{

@@ -9,18 +9,12 @@ import numpy as np
 import yfinance as yf
 from datetime import datetime, date
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# HELPERS
-# ─────────────────────────────────────────────────────────────────────────────
-
 def _r(v, d=2):
     try:
         f = float(v)
         return round(f, d) if not (isinstance(f, float) and np.isnan(f)) else None
     except Exception:
         return None
-
 
 def _crore(v):
     try:
@@ -32,7 +26,6 @@ def _crore(v):
     except Exception:
         return "—"
 
-
 def _pct_change(new, old):
     try:
         if old and old != 0:
@@ -41,18 +34,15 @@ def _pct_change(new, old):
         pass
     return None
 
-
 def _color(v, positive_good=True):
     if v is None: return "#aaaaaa"
     if positive_good:
         return "#3dd68c" if v > 0 else "#f75f5f" if v < 0 else "#aaaaaa"
     return "#f75f5f" if v > 0 else "#3dd68c" if v < 0 else "#aaaaaa"
 
-
 def _arrow(v):
     if v is None: return "—"
     return f"▲ +{v}%" if v > 0 else f"▼ {v}%" if v < 0 else f"→ {v}%"
-
 
 def calculate_dividend_yield(dividends, current_price):
     if not dividends or not current_price:
@@ -69,9 +59,6 @@ def calculate_dividend_yield(dividends, current_price):
     if current_price > 0:
         return round((total / current_price) * 100, 2)
     return None
-
-
-
 
 def _quality_check(ratios: dict) -> dict:
     """
@@ -147,12 +134,7 @@ def _quality_check(ratios: dict) -> dict:
         "flags":   flags,
     }
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# MAIN FETCH
-# ─────────────────────────────────────────────────────────────────────────────
-
-def get_fundamentals(symbol: str) -> dict:
+def get_fundamentals(symbol: str, info={}) -> dict:
     """
     Fetch all fundamental data for a stock.
     symbol: NSE symbol without .NS (e.g. 'RELIANCE')
@@ -168,19 +150,18 @@ def get_fundamentals(symbol: str) -> dict:
         "quality":   {},
         "error":     None,
     }
-
     try:
-        ticker = yf.Ticker(symbol + ".NS")
-        info   = ticker.info or {}
+        if len(info) == 0: 
+            ticker = yf.Ticker(symbol + ".NS")
+            info   = ticker.info or {}
 
-        # ── Company Info ──────────────────────────────────────────────────
         result["info"] = {
             "name":        info.get("longName", symbol),
             "sector":      info.get("sector", "—"),
             "industry":    info.get("industry", "—"),
             "employees":   info.get("fullTimeEmployees"),
             "website":     info.get("website", ""),
-            "description": (info.get("longBusinessSummary", "")[:400] + "...")
+            "description": (info.get("longBusinessSummary", "")[:600] + "...")
                             if info.get("longBusinessSummary", "") else "—",
             "exchange":    info.get("exchange", "NSE"),
             "currency":    info.get("currency", "INR"),
@@ -188,7 +169,6 @@ def get_fundamentals(symbol: str) -> dict:
 
         price = info.get("currentPrice") or info.get("regularMarketPrice")
 
-        # ── Dividends FIRST — fixed: must be fetched before dividend yield ──
         try:
             div = ticker.dividends
             if div is not None and len(div) > 0:
@@ -212,7 +192,7 @@ def get_fundamentals(symbol: str) -> dict:
         # Now dividend yield can be computed correctly
         calculated_yield = calculate_dividend_yield(result["dividends"], price)
 
-        # ── Key Ratios ────────────────────────────────────────────────────
+        #  Key Ratios 
         mcap = info.get("marketCap")
         result["ratios"] = {
             "market_cap":       _crore(mcap) if mcap else "—",
@@ -240,11 +220,8 @@ def get_fundamentals(symbol: str) -> dict:
             "free_cash_flow":   _crore(info.get("freeCashflow")),
             "enterprise_value": _crore(info.get("enterpriseValue")),
         }
-
-        # ── Quality check — flat fields for React ────────────────────────
         result["quality"] = _quality_check(result["ratios"])
 
-        # ── Quarterly Results ─────────────────────────────────────────────
         try:
             qf = ticker.quarterly_income_stmt
             if qf is not None and not qf.empty:
@@ -299,7 +276,7 @@ def get_fundamentals(symbol: str) -> dict:
         except Exception:
             result["quarterly"] = []
 
-        # ── Annual Results ────────────────────────────────────────────────
+        #  Annual Results 
         try:
             af = ticker.financials
             if af is not None and not af.empty:
@@ -358,7 +335,6 @@ def get_fundamentals(symbol: str) -> dict:
 
     return result
 
-
 def get_summary(symbol: str) -> dict:
     raw = get_fundamentals(symbol)
     return {
@@ -371,10 +347,8 @@ def get_summary(symbol: str) -> dict:
         "error":        raw["error"],
     }
 
-
 def render_quarterly_table(symbol):
     return get_summary(symbol)["quarterly"]
-
 
 def render_annual_table(symbol):
     return get_summary(symbol)["annual"]

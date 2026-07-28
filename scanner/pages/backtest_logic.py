@@ -3,14 +3,11 @@ import numpy as np
 import yfinance as yf
 from datetime import date, timedelta
 from .scanner_page  import fetch ,  analyze_full_scan
-from scanner.data.fundamentals import get_summary
+
 from scanner.data.indicators import get_indicator_summary_for_backtest
 import pandas as pd
 import yfinance as yf
 import plotly.graph_objects as go
-
-
-
 from datetime import datetime
 
 import time
@@ -28,9 +25,6 @@ from scanner.strategy.entry_engine              import get_full_entry_analysis
 from scanner.strategy.backtest                 import ( run_full_backtest,
                                         grade_signal, build_grade_comparison,
                                         compute_score)
-
-from scanner.data.fundamentals              import get_fundamentals , get_summary
-
 
 import numpy as _np_algo  # for algo signals
 
@@ -90,21 +84,8 @@ def run_backtest(
     if df_full.index.tz is not None:
         df_full.index = df_full.index.tz_localize(None)
 
-    try:
-        fund_data   = get_summary(symbol)
-        ratios      = fund_data.get("key_ratios", {})
-        fundamentals = {
-            "pe":             ratios.get("pe_ratio"),
-            "pb":             ratios.get("pb_ratio"),
-            "roe":            ratios.get("roe"),
-            "profit_margin":  ratios.get("profit_margin"),
-            "debt_equity":    ratios.get("debt_to_equity"),
-            "eps":            ratios.get("eps_ttm"),
-            "market_cap":     ratios.get("market_cap"),
-            "dividend_yield": ratios.get("dividend_yield"),
-        }
-    except Exception:
-        fundamentals = {}
+   
+    fundamentals = {}
 
 
     # Precompute raw arrrays

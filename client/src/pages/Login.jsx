@@ -20,15 +20,11 @@ export default function Login(){
     };
    
     const handleSubmit = async (e)=>{
-    
         e.preventDefault();
         userApi.post("/user/login" , formData , {withCredentials:true})
         .then((res)=>{
             if(!res) toast.error("Login Failed! No response from server.");
-            
-            
             setIsAuthenticated(true);
-            
             toast.success("Welcome Trader" );
             navigate("/home" , {replace: true});
         })
@@ -37,6 +33,27 @@ export default function Login(){
             toast.error("Login Failed! " + e.message);
            
         })
+    }
+    const handleDemoAccount = async(e)=>{
+      e.preventDefault()
+      setFormData({
+        email: "demo1@gmail.com",
+        password: "demo123",
+       });
+       userApi.post("/user/login" , formData , {withCredentials:true})
+        .then((res)=>{
+            if(!res) toast.error("Login Failed! No response from server.");
+            setIsAuthenticated(true);
+            toast.success("Welcome Trader" );
+            navigate("/home" , {replace: true});
+        })
+        .catch((e)=> {
+            setIsAuthenticated(false);
+            toast.error("Login Failed! " + e.message);
+           
+        })
+
+
     }
     
 
@@ -91,10 +108,15 @@ export default function Login(){
             />
           </div>
 
-          <button onClick={handleSubmit} className="w-1/2  bg-emerald-500 cursor-pointer hover:bg-emerald-400 
+          <button onClick={handleSubmit} className="w-full bg-emerald-500 cursor-pointer hover:bg-emerald-400 
                              text-white font-medium py-3 rounded-lg 
                              transition-colors text-sm mt-2">
             Sign In
+          </button>
+          <button onClick={handleDemoAccount} className="w-full cursor-pointer border-white/10 border bg-blue-600/40 hover:bg-blue-600/60 
+                             text-white font-medium py-3 rounded-lg 
+                             transition-colors text-sm mt-2">
+            Demo Account
           </button>
         </div>
 
@@ -107,7 +129,9 @@ export default function Login(){
         </p>
         </Link>
 
+
       </div>
+
     </div>
 
   </div>

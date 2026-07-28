@@ -87,16 +87,11 @@ def _extract_json(text: str) -> dict:
     return {}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# 1. LIVE NEWS ANALYSIS
-#    Signature kept identical to the Gemini version — app.py unchanged.
-# ─────────────────────────────────────────────────────────────────────────────
-
-def analyse_news_with_gemini(
+def analyse_news_with_groq(
     symbol: str,
     company_name: str,
     api_key: str,
-    model_name: str        = "llama3-70b-8192",   # was gemini-2.0-flash
+    model_name: str        = "llama3-70b-8192",   # was groq-2.0-flash
     existing_headlines: list = None,
 ) -> dict:
     """
@@ -106,7 +101,7 @@ def analyse_news_with_gemini(
                          (passed as context so the LLM can supplement them)
 
     Returns a structured dict with news_items, sentiment scores, summary.
-    NOTE: Function name kept as 'analyse_news_with_gemini' for app.py compatibility.
+    NOTE: Function name kept as 'analyse_news_with_groq' for app.py compatibility.
     """
     today = datetime.now().strftime("%d %B %Y")
 
@@ -213,14 +208,14 @@ Only include real events you know about. Sort news_items by impact (highest firs
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 2. UNIFIED AI DECISION
-#    Signature kept identical to the Gemini version — app.py unchanged.
+#    Signature kept identical to the groq version — app.py unchanged.
 # ─────────────────────────────────────────────────────────────────────────────
 
 def get_ai_decision(
     symbol: str,
     company_name: str,
     api_key: str,
-    model_name: str = "llama3-70b-8192",   # was gemini-2.0-flash
+    model_name: str = "llama3-70b-8192",   # was groq-2.0-flash
     # Technical data
     score: int        = None,
     grade: str        = None,
@@ -250,8 +245,8 @@ def get_ai_decision(
     # News data
     vader_score: float       = None,
     vader_sentiment: str     = None,
-    gemini_news_score: float = None,
-    gemini_news_sentiment: str = None,
+    groq_news_score: float = None,
+    groq_news_sentiment: str = None,
     top_positive_news: list  = None,
     top_negative_news: list  = None,
     news_summary: str        = None,
@@ -264,7 +259,7 @@ def get_ai_decision(
 ) -> dict:
     """
     Master AI decision engine — powered by Groq LLM.
-    All parameters identical to the original Gemini version.
+    All parameters identical to the original groq version.
     NOTE: Function name kept as 'get_ai_decision' — app.py unchanged.
     """
     today   = datetime.now().strftime("%d %B %Y")
@@ -327,7 +322,7 @@ Last Quarter:       {last_quarter_profit or 'N/A'} ({last_quarter_trend or 'N/A'
 NEWS & SENTIMENT
 ═══════════════════════════════════════════
 VADER Score:        {vader_score or 'N/A'}/10 ({vader_sentiment or 'N/A'})
-AI News Score:      {gemini_news_score or 'N/A'}/10 ({gemini_news_sentiment or 'N/A'})
+AI News Score:      {groq_news_score or 'N/A'}/10 ({groq_news_sentiment or 'N/A'})
 News Summary:       {news_summary or 'N/A'}
 Positive News:
 {pos_news or '  None'}

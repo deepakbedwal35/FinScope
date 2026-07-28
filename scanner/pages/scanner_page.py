@@ -23,8 +23,8 @@ from scanner.strategy.entry_engine              import get_full_entry_analysis
 from scanner.strategy.risk_analysis             import get_full_risk_report
 
 from scanner.data.fundamentals              import get_fundamentals, get_summary
-from scanner.ai.gemini_analyst import analyse_news_with_gemini, get_ai_decision,  GROQ_AVAILABLE as GENAI_AVAILABLE
-from scanner.utils.config         import is_gemini_ready, get_key, GROQ_MODEL , GROQ_TEMPERATURE 
+from scanner.ai.groq_analyst import analyse_news_with_groq, get_ai_decision,  GROQ_AVAILABLE as GENAI_AVAILABLE
+from scanner.utils.config         import is_groq_ready, get_key, GROQ_MODEL , GROQ_TEMPERATURE 
 
 from scanner.utils.sanitize_json import sanitize_for_json
 from concurrent.futures import ThreadPoolExecutor
@@ -55,43 +55,30 @@ def fetch(symbol: str, period: str = "2y") -> pd.DataFrame | None:
     periods = [period, "1y"] if period == "2y" else [period]
     required_cols = ["Open", "High", "Low", "Close", "Volume"]
 
-    print("symbol", symbol)
+    print(f"fetching ${symbol} stock info from yfinance ")
     print(candidates)
 
     for sym in candidates:
         for per in periods:
             try:
                 df = yf.Ticker(sym).history(period=per, auto_adjust=True)
-
-                # ── Guard 1: empty or missing columns ──
                 if df is None or df.empty:
                     continue
                 if not all(c in df.columns for c in required_cols):
                     continue
 
-                # ── Guard 2: drop ANY row where OHLCV has NaN ──
                 df = df.dropna(subset=required_cols)
 
-                # ── Guard 3: drop rows where Close/Volume is 0 or negative ──
                 df = df[(df["Close"] > 0) & (df["Volume"] > 0)]
 
-                # ── Guard 4: drop rows where High < Low (corrupted candle) ──
                 df = df[df["High"] >= df["Low"]]
-
-                # ── Guard 5: minimum viable rows for indicators ──
                 if len(df) < 60:
                     continue
-
-                # ── Guard 6: clean datetime index ──
                 df.index = pd.to_datetime(df.index)
-                df = df.sort_index()                    # ensure chronological order
-                df = df[~df.index.duplicated(keep="last")]  # drop duplicate dates
-
-                # ── Guard 7: forward-fill tiny gaps (1-2 missing days max) ──
-                df = df[required_cols].copy()           # keep only what you need
-                
+                df = df.sort_index()                   
+                df = df[~df.index.duplicated(keep="last")] 
+                df = df[required_cols].copy()                    
                 return df
-
             except Exception as e:
                 print(f"  ✗ {sym} / {per}: {e}")
                 continue
@@ -99,6 +86,7 @@ def fetch(symbol: str, period: str = "2y") -> pd.DataFrame | None:
     return None
 
 
+# print(fetch("DIVISLAB"))
 
 # Redis :
 
@@ -179,14 +167,9 @@ def analyze(symbol: str):
     df = fetch(symbol)
     if df is None:
         return None
-
     try:
-        # ── Indicators ──
         ind , df2 = get_indicator_summary(df)
-        # ── Dow Theory ──
         dow = full_dow_analysis(df2)
-        
-        # ── All Pattern Modules ──
         pat     = get_pattern_summary(df2)        
         reversal = get_reversal_summary(df2)        
         cont    = get_continuation_summary(df2)     
@@ -221,8 +204,6 @@ def analyze(symbol: str):
         sl  = round(p - 1.5 * atr, 2)
         t1  = round(p + 2.0 * atr, 2)
         t2  = round(p + 3.5 * atr, 2)
-
-     
         score, strength, _grade, _gc = compute_score(
             ind, dow, pat, cont, candles, reversal, dist_52w, vr)
         
@@ -231,11 +212,7 @@ def analyze(symbol: str):
         news_data = get_news_sentiment(symbol =symbol ,company_name = company_name)
         risk_data = get_full_risk_report(df = df, ind_result = ind, pat_result = pat, cont_result = cont,
                                 rev_result = reversal, candle_result = candles, dow_result = dow,
-                                news_sentiment = news_data)
-        
-   
-       
-        
+                                news_sentiment = news_data)    
         summary =   {
             "symbol":    symbol.replace(".NS",""),
             "company_name" : company_name,
@@ -426,8 +403,6 @@ def analyze_full_scan(symbol: str ):
         # ── Indicators ──
         ind , df2 = get_indicator_summary(df)
         # df2 = ind["df"]   # df with all indicators added
-
-        # ── Dow Theory ──
         dow = full_dow_analysis(df2)
         
         # All Pattern Modules 
@@ -462,23 +437,16 @@ def analyze_full_scan(symbol: str ):
         sl  = round(p - 1.5 * atr, 2)
         t1  = round(p + 2.0 * atr, 2)
         t2  = round(p + 3.5 * atr, 2)
-
-        # ── Composite score — unified function (same as search + time machine) ──
         score, strength, _grade, _gc = compute_score(
             ind, dow, pat, cont, candles, reversal, dist_52w, vr)
-        
         trend = "DOWNTREND" 
         if dow["primary"]["trend"] == trend and dow["secondary"]["trend"] == trend and dow["minor"]["trend"] == trend :
             return None
-        
         if score < 10:
             return None
         if(vr < 0.4): 
             return None
-   
         clean_symbol = symbol.replace(".NS", "").replace(".BO", "")
-
-         
         results = {
             "symbol":    clean_symbol,
             # "sector": get_sector(),   
@@ -500,22 +468,14 @@ def analyze_full_scan(symbol: str ):
             "patterns":  pat,
             "reversal":  reversal,
              "cont":      cont,
-             "candles":   candles,
-           
+             "candles":   candles,   
         }    
         
         return sanitize_for_json(results) 
-   
-
-    except Exception as e:
-      
+    except Exception as e:   
         print(f" ERROR in analyze: {e}")
-   
     return None 
-
-
-
-             
+        
 def run_full_scan(sel_cats = ["Pharma" ],  use_cache = True):
     
     data = redis_client.get("market_scan")
@@ -762,9 +722,9 @@ def run_ai_analysis(symbol: str) -> dict:
     nd = news_data or {}
     existing_articles = nd.get("articles", [])
     
-    gemini_news = analyse_news_with_gemini( symbol=symbol, company_name=company_name, api_key=api_key, model_name=model_name, existing_headlines= existing_articles)
-    pos_headlines = [n.get("title", "") for n in gemini_news.get("positive", [])[:6]]
-    neg_headlines = [n.get("title", "") for n in gemini_news.get("negative", [])[:6]]
+    groq_news = analyse_news_with_groq( symbol=symbol, company_name=company_name, api_key=api_key, model_name=model_name, existing_headlines= existing_articles)
+    pos_headlines = [n.get("title", "") for n in groq_news.get("positive", [])[:6]]
+    neg_headlines = [n.get("title", "") for n in groq_news.get("negative", [])[:6]]
     
     decision = get_ai_decision(
         symbol=symbol,
@@ -803,11 +763,11 @@ def run_ai_analysis(symbol: str) -> dict:
         # News
         vader_score           = nd.get("overall_score"),
         vader_sentiment       = nd.get("overall_sentiment"),
-        gemini_news_score     = gemini_news.get("overall_news_score"),
-        gemini_news_sentiment = gemini_news.get("overall_news_sentiment"),
+        groq_news_score     = groq_news.get("overall_news_score"),
+        groq_news_sentiment = groq_news.get("overall_news_sentiment"),
         top_positive_news     = pos_headlines,
         top_negative_news     = neg_headlines,
-        news_summary          = gemini_news.get("news_summary", ""),
+        news_summary          = groq_news.get("news_summary", ""),
 
         # Risk
         risk_level  = rv_d.get("overall")    if rv_d else None,
@@ -822,7 +782,7 @@ def run_ai_analysis(symbol: str) -> dict:
         "symbol":       symbol,
         "company_name": company_name,
         "timestamp":    datetime.now().strftime("%d %b %Y %H:%M"),
-        "news":         gemini_news,
+        "news":         groq_news,
         "decision":     decision,
     }
     

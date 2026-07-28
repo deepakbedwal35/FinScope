@@ -22,7 +22,7 @@ def get_key() -> str:
     return GROQ_API_KEY
 
 
-def is_gemini_ready() -> bool:
+def is_groq_ready() -> bool:
     try:
         return bool(get_key())
     except Exception:
