@@ -1,4 +1,4 @@
-import {Routes , Route , BrowserRouter} from "react-router-dom";
+import {Routes , Route , BrowserRouter, Navigate} from "react-router-dom";
 import {useEffect , useState} from 'react';
 import {userApi} from "./services/api";
 import tailwind from "tailwindcss";
@@ -42,10 +42,12 @@ function App() {
         <Route path="/login" element = {<Login />}/>
         <Route path="/signup" element = {<Signup/>}/>
         <Route path = "/admin/page" element ={<AdminPage/>}/>
+         <Route path="/fin/recommendations" element = {<Recommendation/>}/>
+         <Route path="/analyse/SUNPHARMA" element = {<StockDetails/>}/>
         
          <Route path="/" element={<LandingRoute isLoggedIn={isAuthenticated} />} />
 
-        <Route element = {<ProtectRoute isAuthenticated={isAuthenticated} loading={loading}  />}>
+        {/* <Route element = {<ProtectRoute isAuthenticated={isAuthenticated} loading={loading}  />}> */}
           {/* <Route  element = {<Rootlayout/>}> */}
           <Route path="/backtest" element = {<Backtesting/>}/>
           <Route path="/home" element = {<Home/>}/>
@@ -54,16 +56,16 @@ function App() {
           <Route path="/analyse/:symbol" element = {<StockDetails/>}/>
           
           <Route path="/fullscan" element = {<FullScan/>}/>
-          <Route path="/fin/recommendations" element = {<Recommendation/>}/>
+         
           <Route path= "/buy/:symbol" element={<BuyButton/>}/>
           <Route path= "/all/patterns" element={<PatternsStock/>}/>
 
        
          {/* </Route> */}
-        </Route>
+        {/* </Route> */}
         
 
-        {/* <Route path "*" element = {<Navigate to/>}/> */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
    
     </>

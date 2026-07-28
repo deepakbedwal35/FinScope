@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Landing from "../pages/Landing"; // the file completed earlier
-import ScanPreview from "../features/ScanPreview";
+
 
 /**
  * LandingRoute
@@ -19,8 +19,6 @@ import ScanPreview from "../features/ScanPreview";
 
 export default function LandingRoute({ isLoggedIn = false }) {
   const navigate = useNavigate();
-  const [showPreview, setShowPreview] = useState(false);
-
   function handleLaunch() {
     if (isLoggedIn) {
       navigate("/home");
@@ -34,9 +32,9 @@ export default function LandingRoute({ isLoggedIn = false }) {
     <>
     
       <Landing onLaunch={handleLaunch} />
-      {showPreview && (
+      {/* {showPreview && (
         <ScanPreview onClose={() => setShowPreview(false)} />
-      )}
+      )} */}
     </>
   );
 }

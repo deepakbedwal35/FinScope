@@ -144,10 +144,7 @@ export default function StockFilters(){
                         </select>   
                     </div>
 
-                    <div className="tracking-wider  text-orange-200">
-                        <div  className="flex items-center"><span onClick={()=>setCheckbox(!checkbox)} className="cursor-pointer mb-1">{!checkbox ?<CheckBoxOutlineBlankIcon sx={sx}/>:<CheckBoxIcon sx={sx}/>} </span><span className="pl-1">  Add More Indicators</span></div>
-                        <div></div>
-                    </div>
+            
 
                     <div>
                     

@@ -32,7 +32,7 @@ export default function StockDetails(){
     return (
         <div className="bg-neutral-800 min-h-screen">    
             <Header/>
-            {loading && <div className="text-center text-gray-300 text-lg font-md "> Stock Details Loading.. </div>}
+            {loading && <div className="text-center text-gray-300 animate-pulse text-lg font-md "> Stock Details Loading.. </div>}
             {!loading && !stockData && <div className="text-center text-gray-300 text-lg font-md"> No  Info found for this stock </div> }
              {!loading && stockData && 
                 <div className=" grid grid-cols-1 ">

@@ -6,14 +6,7 @@ export default function  KeyRatio({key_ratios , quality}){
         <div>
             <div className="flex items-center justify-between">
                  <div className="m-5 text-lg font-medium text-amber-200">KEY RATIOS</div>
-                 <div className="inline-block text-sm mr-5  px-2 py-1 font-semibold rounded-sm" style={{ 
-                                backgroundColor: `${quality?.color}20`, 
-                                color:quality?.color
-                            }}>{quality?.verdict}</div>
-
             </div>
-           
-            
             <div className="pb-2 text-center gap-2 grid grid-cols-5 ">
                 <Tooltip title="Total value of a company's shares. It shows company size." className="p-2">
                     <div className=" text-gray-300 pb-2 text-sm font-light">Market Cap</div>

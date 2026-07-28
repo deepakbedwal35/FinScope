@@ -36,11 +36,11 @@ export default function StockOverview({stockData }){
                 </div> 
             </div>
 
-            <div className="my-3 gap-2 grid grid-cols-2">
+            <div className="my-3 gap-2 grid grid-cols-1 md:grid-cols-2">
                 <div className="bg-neutral-900 p-2 rounded-lg"><Regime regime={stockData?.trade_action?.regime}/></div>
                 <div className="bg-neutral-900 p-2 rounded-lg"><KeyRatio key_ratios = {fundamentals?.ratios} quality={fundamentals?.quality}/></div>
             </div>
-            <div className=" grid gap-2 grid-cols-2">
+            <div className=" grid gap-2 grid-cols-1 md:grid-cols-2">
                 <div className="bg-neutral-900 rounded-lg p-2"><Technicals stockData={stockData}/></div>
                 <div className="bg-neutral-900 rounded-lg p-2"><Dow stockData={stockData}/></div>
 

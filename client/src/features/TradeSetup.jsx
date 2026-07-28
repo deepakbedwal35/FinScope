@@ -7,7 +7,7 @@ import OverallRisk from "../components/risks/OverallRisk"
 export default function TradeSetup({stockData}){
 
      return(
-        <div className="grid grid-cols-2  gap-2">
+        <div className=" grid grid-cols-1 md:grid-cols-2 gap-2">
 
             <div className="bg-neutral-900 rounded-xl text-lg">  <Action entry = {stockData?.trade_action} currPrice={stockData?.price}/> </div>
             <div className="bg-neutral-900 rounded-xl text-lg">  <Regime regime ={stockData?.trade_action?.regime} /> </div>

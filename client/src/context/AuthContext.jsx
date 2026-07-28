@@ -16,7 +16,9 @@ export const AuthProvider = ({children})=>{
         })
         .catch((err)=>{
             setIsAuthenticated(false);
+            toast.error("Register for visiting ");
             toast.dismiss(toastId);
+            
         })
         .finally(()=>{
             setLoading(false);
