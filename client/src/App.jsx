@@ -47,7 +47,7 @@ function App() {
         
          <Route path="/" element={<LandingRoute isLoggedIn={isAuthenticated} />} />
 
-        {/* <Route element = {<ProtectRoute isAuthenticated={isAuthenticated} loading={loading}  />}> */}
+        <Route element = {<ProtectRoute isAuthenticated={isAuthenticated} loading={loading}  />}>
           {/* <Route  element = {<Rootlayout/>}> */}
           <Route path="/backtest" element = {<Backtesting/>}/>
           <Route path="/home" element = {<Home/>}/>
@@ -61,7 +61,7 @@ function App() {
           <Route path= "/all/patterns" element={<PatternsStock/>}/>
 
        
-         {/* </Route> */}
+         </Route>
         {/* </Route> */}
         
 

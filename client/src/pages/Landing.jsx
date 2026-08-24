@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Header from "../components/Header/Header";
 import {useNavigate} from "react-router-dom"
 
 
@@ -70,7 +69,7 @@ export default function Landing({ onLaunch }) {
 
       
 
-       
+  
 
       {/* CORE FROZEN SCOPE 3-COLUMN HIGHLIGHT PILLARS */}
       <section className="max-w-6xl mx-auto px-6 py-12">

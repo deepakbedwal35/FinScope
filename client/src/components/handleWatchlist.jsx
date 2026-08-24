@@ -13,7 +13,7 @@ export default function HandleWatchlist({ symbol, onDone }){
                 setStock(res.data.data);
                 toast.success("Successfully Added in watchlist")
             })
-            .catch((err)=>toast.error("Stock Already in watchlist " + err.message ))
+            .catch((err)=>toast.error(  err.message ))
             .finally(()=> onDone?.())
     }, [symbol])
 

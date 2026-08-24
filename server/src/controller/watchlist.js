@@ -16,7 +16,7 @@ const addInWatchlist = async (req, res , next) => {
         if (!userExists)   return res.status(404).json({ message: "User account not found" });
         const existSymbol = await Watchlist.findOne({ symbol: symbol, user: decodedUser._id });
         if (existSymbol) {
-            return res.status(400).json({ message: `${symbol} is already in your watchlist.` });
+            return res.status(400).json({ message: ` ` });
         } 
         const currPrice = await scanner.fetchCurrPrice([symbol]);
         const price = currPrice?.price;
