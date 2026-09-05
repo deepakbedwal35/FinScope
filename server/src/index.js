@@ -1,58 +1,61 @@
-// Only load .env file in local development — on Render, env vars are
-// injected directly by the platform and dotenv should not run at all.
+// Only load .env file in local development
 if (process.env.NODE_ENV !== 'production') {
   require("dotenv").config();
 }
+
 const express = require('express');
-const connectDB = require("./config/db")
-const handleRedisCaching = require("./config/redis")
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const {restrictToLoggedIn} = require("./middleware/auth")
+
+const connectDB = require("./config/db");
+const handleRedisCaching = require("./config/redis");
+const errorHandler = require("./middleware/errorHandler"); // 🟢 Imported missing handler
+
 const PORT = process.env.PORT || 8080;
 const app = express();
-const scanRouter = require("./routes/signals");
-const userRouter = require("./routes/user")
-const watchRouter = require("./routes/watchlist")
-const tradeRouter = require("./routes/trades")
-const recommendsRouter = require("./routes/recommendations")
-// alow react to call Node
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://finscope-client.onrender.com', 
-];
 
+// Route Imports
+const scanRouter = require("./routes/signals");
+const userRouter = require("./routes/user");
+const watchRouter = require("./routes/watchlist");
+const tradeRouter = require("./routes/trades");
+const recommendsRouter = require("./routes/recommendations");
+
+// Allowed Cross-Origin Origins
+// 🟢 Dynamic CORS Policy: Allows ALL origins while keeping credentials/cookies completely operational
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin (like curl, mobile apps, or server-to-server)
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
+    // Dynamically approves whatever origin sent the request, allowing all domains
+    callback(null, true);
   },
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
 }));
+
+
+// Essential for handling cross-domain secure cookie transfers on Render
 app.set('trust proxy', 1);
 
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-app.use(cookieParser());
-// Routes
-app.use("/user" , userRouter);
-app.use("/watchlist" , watchRouter);
-app.use("/api/signals" ,  scanRouter);
-app.use("/trades" , tradeRouter)
-app.use("/api/signals/recommends" , recommendsRouter)
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+
+app.use("/user", userRouter);
+app.use("/watchlist", watchRouter);
+app.use("/trades", tradeRouter);
+
+
+app.use("/api/signals/recommends", recommendsRouter); 
+app.use("/api/signals", scanRouter);
 
 app.get('/', (req, res) => {
   res.json({ status: 'FinScope API is running' });
 });
 
-
-
-// mongodb connection
+app.use(errorHandler);
 
 handleRedisCaching();
 
@@ -60,17 +63,6 @@ connectDB().then(() => {
   app.listen(PORT, () => {
     console.log(" Server running → http://localhost:" + PORT);
   });
+}).catch((err) => {
+  console.error("Database failed to boot:", err.message);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
