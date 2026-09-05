@@ -1,38 +1,33 @@
-import {createContext , useContext ,useState , useEffect } from "react";
-import {userApi} from "../services/api"
-const AuthContext = createContext(null);
-import {toast} from "react-hot-toast"
-export const AuthProvider = ({children})=>{
-    const [isAuthenticated , setIsAuthenticated] = useState(false);
-    const [loading , setLoading] = useState(true);
-    useEffect(()=>{
-        const toastId = toast.loading("Checking authentication...");
-        userApi.get("/user/check-auth" , {withCredentials: true})
-        .then((res)=>{
-            if(res.data.isAuthenticated){
-                 setIsAuthenticated(true);
-                 toast.success("Authenticated successfully" , {id: toastId});
-            }
-        })
-        .catch((err)=>{
-            setIsAuthenticated(false);
-            toast.error("Register for visiting ");
-            toast.dismiss(toastId);
-            
-        })
-        .finally(()=>{
-            setLoading(false);
-            toast.dismiss(toastId);
-        });
-        
-    }, [])
+import React, { createContext, useState, useEffect } from "react";
+import { userApi } from "../services/api";
 
-    return (
-        <AuthContext.Provider value = {{isAuthenticated , setIsAuthenticated , loading}}>
-            {children}
-        </AuthContext.Provider>
-    )
-    
-}
+// 🟢 Export the raw context so our isolated hook can read it
+export const AuthContext = createContext(null);
 
-export const useAuth = () => useContext(AuthContext);
+export const AuthProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    userApi.get("/user/check-auth", { withCredentials: true })
+      .then((res) => {
+        setIsAuthenticated(!!res.data?.isAuthenticated);
+      })
+      .catch(() => {
+        setIsAuthenticated(false);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, loading }}>
+      {!loading ? children : (
+        <div className="min-h-screen bg-neutral-950 flex items-center justify-center font-mono text-xs tracking-widest text-zinc-400">
+          INITIALIZING WORKSPACE...
+        </div>
+      )}
+    </AuthContext.Provider>
+  );
+};

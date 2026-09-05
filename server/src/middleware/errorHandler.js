@@ -6,7 +6,8 @@ const errorHandler = (err, req, res, next) => {
   
   console.error(" [SERVER ERROR]:", {
     message: err.message,
-    stack: process.env.NODE_ENV === "production" ? "🥞 Hidden in Production" : err.stack,
+    // stack: process.env.NODE_ENV === "production" ? "🥞 Hidden in Production" : err.stack,
+    stack: err.stack,
     path: req.originalUrl,
     method: req.method,
   });

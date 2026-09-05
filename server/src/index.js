@@ -21,11 +21,10 @@ const watchRouter = require("./routes/watchlist");
 const tradeRouter = require("./routes/trades");
 const recommendsRouter = require("./routes/recommendations");
 
-// Allowed Cross-Origin Origins
-// 🟢 Dynamic CORS Policy: Allows ALL origins while keeping credentials/cookies completely operational
+
 app.use(cors({
   origin: function (origin, callback) {
-    // Dynamically approves whatever origin sent the request, allowing all domains
+
     callback(null, true);
   },
   credentials: true,
@@ -34,7 +33,6 @@ app.use(cors({
 }));
 
 
-// Essential for handling cross-domain secure cookie transfers on Render
 app.set('trust proxy', 1);
 
 
@@ -56,6 +54,7 @@ app.get('/', (req, res) => {
 });
 
 app.use(errorHandler);
+
 
 handleRedisCaching();
 

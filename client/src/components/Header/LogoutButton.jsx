@@ -1,46 +1,47 @@
-import { Logout } from "@mui/icons-material";
+import React from "react";
 import { userApi } from "../../services/api";
 import toast from "react-hot-toast";
 import LogoutIcon from '@mui/icons-material/Logout';
-import {useNavigate , useOutletContext} from "react-router-dom";
-import { use } from "react";
-import {useAuth} from "../../context/AuthContext"
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
+export default function LogoutButton() {
+  const navigate = useNavigate();
+  const { setIsAuthenticated } = useAuth();
 
-export default function LogoutButton(){
-    const navigate = useNavigate();
-//    const context = useOutletContext();
-    // it helps to get the setIsAuthenticated function from the parent 
-    // component which is App.jsx in this case. 
-    // because we need to set the isAuthenticated state variable to false when 
-    // the user logs out.
-    // otherwise we pass the setIsAuthenticated function as a prop to 
-    // the Header component and then from Header component we pass it to
-    //  LogoutButton component but it is a bit messy and also we need to pass it 
-    // through multiple components if we want to use it in other components as well. 
-    // so using useOutletContext is a better way to do this.
-//    const setIsAuthenticated = context?.setIsAuthenticated || (()=>{}); // default value is an empty function to avoid error if context is not provided.
-   const {isAuthenticated, setIsAuthenticated} = useAuth() ;
-const handleLogout = ()=>{
-        userApi.post("/user/logout" , {} , {withCredentials: true})
-        .then((res)=>{
-            if(res.data.success){
-                setIsAuthenticated(false);
-                toast.success("Logged out successfully!");
-                navigate("/");
-            }
-        })
-        .catch((err)=>{
-            toast.error("Logout Failed: " + err.message);
-        })
+  const handleLogout = async () => {
+    try {
+      const res = await userApi.post("/user/logout", {}, { withCredentials: true });
+      
+      if (res.data && res.data.success) {
+        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
+        setIsAuthenticated(false);
+        toast.success("Logged out successfully!");
+        navigate("/login", { replace: true });
+      }
+    } catch (err) {
+      const errMsg = err.response?.data?.message || err.message;
+      toast.error("Logout Failed: " + errMsg);
     }
+  };
 
+  return (
+    <div className="relative group/tooltip inline-block w-full flex justify-center py-1">
+      {/* 🟢 Enlarged Icon Button Wrapper */}
+      <button 
+        onClick={handleLogout} 
+        aria-label="Log Out"
+        className="flex items-center justify-center p-3 rounded-xl cursor-pointer text-gray-400 hover:text-red-400 hover:bg-red-500/10 active:scale-95 transition-all duration-200 outline-none"
+      >
+        {/* 🟢 Enlarged Material UI Vector Icon */}
+        <LogoutIcon sx={{ fontSize: 22 }} />
+      </button>
 
-    return(
-        
-         <button onClick={handleLogout} className=" block px-2 w-full text-start cursor-pointer hover:bg-white/5 hover:text-white py-2 font-bold text-sm text-gray-300 data-focus:bg-white/5 data-focus:text-white "><LogoutIcon /> Logout</button> 
-       
-    )
-
-
+      {/* 🟢 Pure CSS Snappy Tooltip Anchor */}
+      <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 pointer-events-none opacity-0 scale-95 group-hover/tooltip:opacity-100 group-hover/tooltip:scale-100 transition-all duration-150 ease-out bg-neutral-900 border border-neutral-800 text-[10px] font-mono font-bold tracking-widest text-zinc-300 uppercase px-2.5 py-1.5 rounded-md shadow-xl z-50 whitespace-nowrap">
+        End Session
+      </span>
+    </div>
+  );
 }

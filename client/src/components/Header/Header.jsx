@@ -1,7 +1,7 @@
 import { Link , NavLink } from "react-router-dom"
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 import Person2Icon from '@mui/icons-material/Person2';
-import Profilebutton from "./Profilebutton"
+import Logoutbutton from "./LogoutButton"
 import ToolsDropdown from "./ToolsDropDownButton";
 import HomeFilledIcon from '@mui/icons-material/HomeFilled';
 import {useState , useEffect} from "react"
@@ -25,7 +25,7 @@ function Header(){
                 <NavLink to="/watchlist" className= {({isActive}) => `block  hover:text-blue-500 rounded-lg hover:bg-neutral-700  p-2 ${isActive ? 'text-blue-500' : 'text-gray-300'}`}>Watchlist</NavLink>
                 {/* <NavLink to="/list/trades" className= {({isActive}) => `block  hover:text-blue-500 rounded-lg hover:bg-neutral-700 font-medium p-2 ${isActive ? 'text-blue-500' : 'text-gray-300'}`}>Portfolio</NavLink> */}
                 <div className="ml-2 "><ToolsDropdown/></div>
-                <div className="ml-2"><Profilebutton/></div>
+                <div className="ml-2"><Logoutbutton/></div>
             
             </div>     
         </div>
