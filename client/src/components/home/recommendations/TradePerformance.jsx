@@ -1,19 +1,40 @@
-export default function TradePerformance({tradeDetail}){
-    if(tradeDetail?.isOpen) return <></>;
+export default function TradePerformance({ tradeDetail }) {
+    if (tradeDetail?.isOpen) return <></>;
 
+    const entryPrice = tradeDetail?.entryPrice;
+    const exitPrice = tradeDetail?.exitPrice;
+    const pct =
+        entryPrice && exitPrice != null
+            ? (((exitPrice - entryPrice) * 100) / entryPrice).toFixed(2)
+            : null;
+
+  
+    let outcome;
+    if (tradeDetail?.target2Hit) {
+        outcome = { label: "Target 2 Hit", tone: "win" };
+    } else if (tradeDetail?.stopLossHit) {
+        outcome = { label: "Stop Loss Hit", tone: "loss" };
+    } else if (tradeDetail?.target1Hit) {
+        outcome = { label: "Target 1 Hit", tone: "win" };
+    } else {
+        outcome = { label: "Closed", tone: pct != null && pct >= 0 ? "win" : "loss" };
+    }
+
+    const toneClasses =
+        outcome.tone === "win"
+            ? "bg-green-800/20 font-medium text-green-500"
+            : "bg-red-800/20 font-medium text-red-500";
 
     return (
-       <div className="grid grid-cols-2 mt-6 text-xs gap-4">
-                {!tradeDetail?.stopLossHit &&  <div className={`border-white/10 border text-center p-1 rounded-sm bg-green-800/20 font-medium text-green-500  `}>ACHIEVED {((tradeDetail?.exitPrice- tradeDetail?.entryPrice) *100/tradeDetail?.entryPrice).toFixed(2)}%</div>}
-                 {tradeDetail?.target1Hit  && !tradeDetail?.target2Hit &&  <div className={`border-white/10 border text-center p-1 rounded-sm bg-green-800/20 font-medium text-green-500  `}>Target1 Hit </div>}
-                  {tradeDetail?.target2Hit &&  <div className={`border-white/10 border text-center p-1 rounded-sm bg-green-800/20 font-medium text-green-500  `}>Target2 Hit </div>}
-                {tradeDetail?.stopLossHit &&  <div className={`border-white/10 border text-center rounded-sm bg-red-800/20 font-medium text-red-500  `}>Exited At {((tradeDetail?.exitPrice- tradeDetail?.entryPrice) *100/tradeDetail?.entryPrice).toFixed(2)}%</div>}
-                 {tradeDetail?.stopLossHit &&  <div className={`border-white/10 border text-center rounded-sm bg-red-800/20 font-medium text-red-500  `}>Stop Loss Hit </div>}
-              
-               {/* <div className=" border-white/10 border text-center rounded-sm bg-amber-800/10 text-amber-500">{((stock?.target1 - currPrice) *100/stock?.entryPrice).toFixed(2)}%  POTENTIAL LEFT</div> */}
+        <div className="grid grid-cols-2 mt-6 text-xs gap-4">
+            <div className={`border-white/10 border text-center p-1 rounded-sm ${toneClasses}`}>
+                {pct != null ? `${pct >= 0 ? "+" : ""}${pct}%` : "\u2014"}
+            </div>
+            <div className={`border-white/10 border text-center p-1 rounded-sm ${toneClasses}`}>
+                {outcome.label}
+            </div>
+
+            
         </div>
-
-    )
-    
-
+    );
 }

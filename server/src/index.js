@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser");
 
 const connectDB = require("./config/db");
 const handleRedisCaching = require("./config/redis");
-const errorHandler = require("./middleware/errorHandler"); // 🟢 Imported missing handler
+const errorHandler = require("./middleware/errorHandler"); 
 
 const PORT = process.env.PORT || 8080;
 const app = express();

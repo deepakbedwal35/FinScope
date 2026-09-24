@@ -25,6 +25,7 @@ from scanner.utils.sanitize_json import sanitize_for_json
 from scanner.data.market_intelligence import get_sector_rotation
 from scanner.utils.cache import cache, TTL
 
+
 # NOTE: every function below that touches Redis is now `async def`.
 # Callers (route handlers in main.py, and any function in this file that
 # calls another) must be `async def` too and `await` the call. Route
@@ -658,3 +659,36 @@ async def fin_recommendation(filters: dict | None = None, top_n: int = 10) -> di
         "filters_applied": filters,
         "scanned_at": scan_result.get("scanned_at"),
     }
+    
+
+# import asyncio
+# import redis.asyncio as redis
+
+# async def get_live_price(symbol: str, r: redis.Redis):
+#     cache_key = f"stock:{symbol}:price"
+#     lock_key = f"lock:{symbol}:price"
+
+#     cached = await r.get(cache_key)
+#     if cached:
+#         return json.loads(cached)  # cache hit, done
+
+#     # Cache miss — try to acquire the lock. NX = only set if not already set.
+#     got_lock = await r.set(lock_key, "1", nx=True, ex=10)  # lock expires in 10s as a safety net
+
+#     if got_lock:
+#         try:
+#             # We're the one who gets to actually call the API
+#             price_data = fetch_live_price_from_yfinance(symbol)
+#             await r.set(cache_key, json.dumps(price_data), ex=300)  # 5 min TTL, same as before
+#             return price_data
+#         finally:
+#             await r.delete(lock_key)  # release lock so next expiry cycle can acquire it
+#     else:
+#         # Someone else is already fetching — wait briefly, then read what they wrote
+#         for _ in range(10):  # poll up to ~1 second
+#             await asyncio.sleep(0.1)
+#             cached = await r.get(cache_key)
+#             if cached:
+#                 return json.loads(cached)
+#         # Fallback: if the lock-holder is taking too long, fetch anyway rather than hang forever
+#         return fetch_live_price_from_yfinance(symbol)
