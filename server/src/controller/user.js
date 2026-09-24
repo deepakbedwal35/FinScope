@@ -31,10 +31,12 @@ const handleUserSignup = async (req, res, next) => {
     const token = setUser(userPayload);
 
     res.cookie("token", token, COOKIE_OPTIONS);
+    res.cookie("accessToken", token, COOKIE_OPTIONS);
     return res.json({
       success: true,
       user: userPayload,
       token,
+      accessToken: token,
     });
   } catch (err) {
     // 🟢 This will now forward the error to your global errorHandler middleware safely
@@ -69,10 +71,12 @@ const handleUserLogin = async (req, res, next) => {
     const token = setUser(userPayload);
 
     res.cookie("token", token, COOKIE_OPTIONS);
+    res.cookie("accessToken", token, COOKIE_OPTIONS);
     return res.json({
       success: true,
       user: userPayload,
       token,
+      accessToken: token,
     });
   } catch (err) {
     next(err); 

@@ -17,6 +17,12 @@ router.post("/logout", (req, res) => {
     sameSite: "None", 
     path: "/",
   });
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    secure: true, 
+    sameSite: "None", 
+    path: "/",
+  });
   res.status(200).json({ success: true, message: "Logged out successfully" });
 });
 

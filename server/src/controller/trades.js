@@ -4,9 +4,9 @@ const {getUser} = require("../services/auth");
 
 
 const handleOpenTrades = async(req ,res, next)=>{
-    const token = req?.cookies?.token ; 
-     const decodedUser = getUser(token);
-    if(!decodedUser) return res.status(401).json("Access Denied please log in");
+    const token = req.headers.authorization || req.headers["x-access-token"] || req?.cookies?.accessToken || req?.cookies?.token; 
+    const decodedUser = req.user || getUser(token);
+    if(!decodedUser) return res.status(401).json({ success: false, message: "Access Denied please log in" });
      
     try{
 
@@ -43,9 +43,9 @@ const handleOpenTrades = async(req ,res, next)=>{
 }
 
 const handleAllTrades = async (req ,res)=>{
-    const token = req?.cookies?.token ;
-    const decodedUser = getUser(token);
-    if(!decodedUser) return res.status(401).json("Access Denied please log in");
+    const token = req.headers.authorization || req.headers["x-access-token"] || req?.cookies?.accessToken || req?.cookies?.token;
+    const decodedUser = req.user || getUser(token);
+    if(!decodedUser) return res.status(401).json({ success: false, message: "Access Denied please log in" });
      
     const trades = await TradeJournal.find({user:decodedUser._id});
 
@@ -59,9 +59,9 @@ const handleAllTrades = async (req ,res)=>{
 }
 
 const handleExitTrades = async  (req , res)=>{
-    const token = req?.cookies?.token;
-    const decodedUser = getUser(token);
-    if(!decodedUser) return res.status(401).json("Access Denied please log in");
+    const token = req.headers.authorization || req.headers["x-access-token"] || req?.cookies?.accessToken || req?.cookies?.token;
+    const decodedUser = req.user || getUser(token);
+    if(!decodedUser) return res.status(401).json({ success: false, message: "Access Denied please log in" });
     
     try{
         const _id = req.params;

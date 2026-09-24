@@ -1,9 +1,10 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
+const { restrictToLoggedIn } = require("../middleware/auth");
+const { addInWatchlist, getWatchlist } = require("../controller/watchlist");
 
-const {addInWatchlist , getWatchlist} = require("../controller/watchlist")
-router.post("/add" ,addInWatchlist )
-// router.post("/:id/watchlist/remove" , )
-router.get("/all" , getWatchlist)
+router.post("/add", restrictToLoggedIn, addInWatchlist);
+// router.post("/:id/watchlist/remove", restrictToLoggedIn, ...);
+router.get("/all", restrictToLoggedIn, getWatchlist);
 
-module.exports = router
+module.exports = router;

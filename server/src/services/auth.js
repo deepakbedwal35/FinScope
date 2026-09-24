@@ -1,19 +1,22 @@
 const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET_KEY || "fallback_temporary_secret_key";
+const expiresIn = process.env.ACCESS_TOKEN_EXPIRES_IN || process.env.JWT_EXPIRES_IN || "10d";
 
-function setUser(user) {
+function generateAccessToken(user) {
     const payload = {
         _id: user._id,
         email: user.email,
     };
     
-    // Generates a secure token that expires in 10 days
+    // Generates a secure access token
     return jwt.sign(payload, secret, {
-        expiresIn: "10d"
+        expiresIn
     }); 
 }
 
-const getUser = (token) => {
+const setUser = generateAccessToken;
+
+const verifyAccessToken = (token) => {
     if (!token) return null;
 
     try {
@@ -24,9 +27,12 @@ const getUser = (token) => {
             actualToken = token[1] || token[0];
         }
 
-        // Robust handling if the token is passed as a single string with the Bearer prefix
-        if (typeof actualToken === 'string' && actualToken.startsWith('Bearer ')) {
-            actualToken = actualToken.slice(7).trim();
+        // Robust handling if the token is passed as a string with the Bearer prefix
+        if (typeof actualToken === 'string') {
+            actualToken = actualToken.trim();
+            if (actualToken.toLowerCase().startsWith('bearer ')) {
+                actualToken = actualToken.slice(7).trim();
+            }
         }
 
         return jwt.verify(actualToken, secret);
@@ -36,7 +42,11 @@ const getUser = (token) => {
     }
 };
 
+const getUser = verifyAccessToken;
+
 module.exports = {
     setUser,
-    getUser
+    getUser,
+    generateAccessToken,
+    verifyAccessToken
 };

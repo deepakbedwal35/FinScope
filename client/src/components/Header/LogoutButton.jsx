@@ -1,5 +1,5 @@
 import React from "react";
-import { userApi } from "../../services/api";
+import { userApi, removeAccessToken } from "../../services/api";
 import toast from "react-hot-toast";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
@@ -7,22 +7,25 @@ import { useAuth } from "../../hooks/useAuth";
 
 export default function LogoutButton() {
   const navigate = useNavigate();
-  const { setIsAuthenticated } = useAuth();
+  const { setIsAuthenticated, logoutUser } = useAuth();
 
   const handleLogout = async () => {
     try {
-      const res = await userApi.post("/user/logout", {}, { withCredentials: true });
-      
-      if (res.data && res.data.success) {
-        localStorage.removeItem("token");
-        sessionStorage.removeItem("token");
+      if (logoutUser) {
+        await logoutUser();
+      } else {
+        await userApi.post("/user/logout", {}, { withCredentials: true });
+        removeAccessToken();
         setIsAuthenticated(false);
-        toast.success("Logged out successfully!");
-        navigate("/login", { replace: true });
       }
+      toast.success("Logged out successfully!");
+      navigate("/login", { replace: true });
     } catch (err) {
+      removeAccessToken();
+      setIsAuthenticated(false);
       const errMsg = err.response?.data?.message || err.message;
-      toast.error("Logout Failed: " + errMsg);
+      toast.error("Logout Notice: " + errMsg);
+      navigate("/login", { replace: true });
     }
   };
 

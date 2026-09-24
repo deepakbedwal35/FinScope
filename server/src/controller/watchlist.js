@@ -3,9 +3,9 @@ const Watchlist = require("../models/Watchlist");
 const {getUser} = require("../services/auth")
 const scanner = require("../services/scannerService");
 const addInWatchlist = async (req, res , next) => {
-    const token = req.cookies?.token;
-    const decodedUser = getUser(token);
-    if(!decodedUser) return res.status(401).json({ message: "Access denied. Please log in." });
+    const token = req.headers.authorization || req.headers["x-access-token"] || req.cookies?.accessToken || req.cookies?.token;
+    const decodedUser = req.user || getUser(token);
+    if(!decodedUser) return res.status(401).json({ success: false, message: "Access denied. Please log in." });
    
     try {
         const { symbol } = req.body;
@@ -45,9 +45,9 @@ const addInWatchlist = async (req, res , next) => {
 };
 
 const getWatchlist = async (req , res , next)=>{
-    const token = req.cookies?.token;
-    const decodedUser = getUser(token);
-    if(!decodedUser) return res.status(401).json({ message: "Access denied. Please log in." });
+    const token = req.headers.authorization || req.headers["x-access-token"] || req.cookies?.accessToken || req.cookies?.token;
+    const decodedUser = req.user || getUser(token);
+    if(!decodedUser) return res.status(401).json({ success: false, message: "Access denied. Please log in." });
    
 
     try{

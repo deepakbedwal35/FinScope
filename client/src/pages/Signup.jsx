@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { userApi } from "../services/api";
+import { userApi, setAccessToken } from "../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import ChartBackground from "../components/ui/ChartBackground";
@@ -13,7 +13,7 @@ export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const { setIsAuthenticated } = useAuth();
+  const { setIsAuthenticated, loginUser } = useAuth();
 
   const handleChange = (e) => {
     setFormData({
@@ -37,7 +37,17 @@ export default function Signup() {
         throw new Error("No data returned from authentication gateway.");
       }
 
-      setIsAuthenticated(true);
+      const token = res.data.accessToken || res.data.token;
+      if (token) {
+        setAccessToken(token);
+      }
+
+      if (loginUser) {
+        loginUser(res.data);
+      } else {
+        setIsAuthenticated(true);
+      }
+
       toast.success("Welcome to Finscope!");
       navigate("/home", { replace: true });
     } catch (err) {
