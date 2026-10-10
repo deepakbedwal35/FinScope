@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import BackTestCard from "../components/backtest/BackTestCard";
+import BacktestCard from "../components/backtest/BacktestCard";
 import BacktestGrade from "../components/backtest/BacktestGrade";
 import BacktestOutcomeCard from "../components/backtest/BacktestOutcomeCard";
 import BacktestTradelog from "../components/backtest/BacktestTradelog";
@@ -43,42 +43,42 @@ export default function StockBacktestTab({ stockSymbol = "SUNPHARMA", stockGrade
         <div className="flex flex-wrap justify-between gap-2 mt-2">
           <Tooltip title="Model win if rally was achieved historically">
             <div>
-              <BackTestCard title="MODEL ACCURACY" value={tradelog?.model_win_rate} desc="Directional wins" sign="%" />
+              <BacktestCard title="MODEL ACCURACY" value={tradelog?.model_win_rate} desc="Directional wins" sign="%" />
             </div>
           </Tooltip>
           <Tooltip title="Strict Trade Win Rate achieved historically">
             <div>
-              <BackTestCard title="TRADE WIN RATE" value={tradelog?.win_rate} desc="Strict P&L wins" sign="%" />
+              <BacktestCard title="TRADE WIN RATE" value={tradelog?.win_rate} desc="Strict P&L wins" sign="%" />
             </div>
           </Tooltip>
           <Tooltip title="Average historical return per trade">
             <div>
-              <BackTestCard title="AVG RETURN" value={tradelog?.avg_return} desc="Per trade" sign="%" />
+              <BacktestCard title="AVG RETURN" value={tradelog?.avg_return} desc="Per trade" sign="%" />
             </div>
           </Tooltip>
           <Tooltip title="Gross win/loss ratio">
             <div>
-              <BackTestCard title="PROFIT FACTOR" value={tradelog?.profit_factor} desc="Gross win/loss" />
+              <BacktestCard title="PROFIT FACTOR" value={tradelog?.profit_factor} desc="Gross win/loss" />
             </div>
           </Tooltip>
           <Tooltip title="Expected value per trade">
             <div>
-              <BackTestCard title="EXPECTANCY" value={tradelog?.expectancy} desc="Per trade EV" />
+              <BacktestCard title="EXPECTANCY" value={tradelog?.expectancy} desc="Per trade EV" />
             </div>
           </Tooltip>
           <Tooltip title="Average loss when stop-loss triggered">
             <div>
-              <BackTestCard title="AVG LOSS" value={tradelog?.avg_loss} color="text-red-500" desc="Avg losing trade" sign="%" />
+              <BacktestCard title="AVG LOSS" value={tradelog?.avg_loss} color="text-red-500" desc="Avg losing trade" sign="%" />
             </div>
           </Tooltip>
           <Tooltip title="Average holding period in trading days">
             <div>
-              <BackTestCard title="AVG HOLD" value={tradelog?.avg_hold} color="text-zinc-300" desc="Avg holding days" sign=" days" />
+              <BacktestCard title="AVG HOLD" value={tradelog?.avg_hold} color="text-zinc-300" desc="Avg holding days" sign=" days" />
             </div>
           </Tooltip>
           <Tooltip title="Sharpe ratio">
             <div>
-              <BackTestCard title="SHARPE" value={tradelog?.sharpe} desc="Risk-Adjusted Return" />
+              <BacktestCard title="SHARPE" value={tradelog?.sharpe} desc="Risk-Adjusted Return" />
             </div>
           </Tooltip>
         </div>
