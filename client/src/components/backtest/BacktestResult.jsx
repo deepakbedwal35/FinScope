@@ -69,7 +69,7 @@ export default function BacktestResult({tradelog}){
           <div className="bg-neutral-900 m-4 p-4 rounded-xl">
                   <div className="flex justify-between">
                      <div className=" tracking-wider ml-4 text-lg">Trade log</div>
-                     {!tradelog?.backtest_years && <div> c cd</div>}
+                     {!tradelog?.backtest_years && <div> </div>}
                      <div className="flex items-center gap-2 mr-4">
                         <select
                             name="category"

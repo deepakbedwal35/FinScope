@@ -1,8 +1,8 @@
 import Slider from "@mui/material/Slider";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {api} from "../../services/api.js"
-import {toast} from "react-hot-toast"
+import {notify} from "../../services/notify.js"
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
 import Checkbox from "@mui/material/Checkbox";
@@ -16,7 +16,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import FullScanResult from "./FullScanResult.jsx";
-export default function StockFilters(){
+import demoScanData from "../../demo/demoScan.json";
+
+export default function StockFilters({ isDemo = false }){
     const [getStocks , setStocks] = useState(null);
     const [checkbox , setCheckbox] = useState(false);
     // const [valueVolume , setVolume] = useState(1.20);
@@ -52,12 +54,43 @@ export default function StockFilters(){
         }));
     };
 
+    useEffect(() => {
+        if (isDemo) {
+            get_top_stocks();
+        }
+    }, [isDemo]);
+
     async function get_top_stocks(){
         setIsLoading(true);
         setStocks(null);
+
+        if (isDemo) {
+            // Simulated 1.2s scanning progress animation for demo snapshot
+            setTimeout(() => {
+                const results = demoScanData.results || [];
+                const gradeRank = { "A+": 5, "A": 4, "B": 3, "C": 2, "D": 1 };
+                const filtered = results.filter((s) => {
+                    const volOk = (s.vol_ratio || 0) >= (filters.min_vol || 0.2);
+                    const rsiOk = (s.rsi || 50) >= filters.rsi_min && (s.rsi || 50) <= filters.rsi_max;
+                    const gradeOk = (gradeRank[s.grade] || 1) >= (gradeRank[filters.min_grade] || 1);
+                    return volOk && rsiOk && gradeOk;
+                });
+
+                setStocks({
+                    isDemo: true,
+                    demoAsOf: demoScanData.demoAsOf,
+                    results: filtered.length > 0 ? filtered : results,
+                    total_scanned: demoScanData.total_scanned || results.length,
+                    scanned_at: demoScanData.scanned_at,
+                });
+                setIsLoading(false);
+            }, 1200);
+            return;
+        }
+
         await api.post("/fullscan" , filters )
         .then(res => setStocks(res.data))
-        .catch(e => {toast.error(e.message)})
+        .catch(e => {notify.error(e.message || "Failed to run scan")})
         .finally(()=> setIsLoading(false));
     }
     

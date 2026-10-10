@@ -70,5 +70,18 @@ const handleAuthError = (error) => {
   return Promise.reject(error);
 };
 
-api.interceptors.response.use((res) => res, handleAuthError);
+const handleDemoStatus = (res) => {
+  if (res?.data && typeof res.data === 'object' && 'isDemo' in res.data) {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(
+        new CustomEvent('finscope:demo_status', {
+          detail: { isDemo: Boolean(res.data.isDemo), demoAsOf: res.data.demoAsOf || null }
+        })
+      );
+    }
+  }
+  return res;
+};
+
+api.interceptors.response.use(handleDemoStatus, handleAuthError);
 userApi.interceptors.response.use((res) => res, handleAuthError);

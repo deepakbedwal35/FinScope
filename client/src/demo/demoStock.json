@@ -1,0 +1,729 @@
+{
+  "isDemo": true,
+  "demoAsOf": "2026-10-09",
+  "symbol": "SUNPHARMA",
+  "price": 1759.800048828125,
+  "change": -21.2,
+  "change_percent": -1.19,
+  "w52h": 2046.9,
+  "dist_52w": -14.03,
+  "vol_ratio": 0.99,
+  "rsi": 33.6,
+  "score": 11,
+  "strength": "MEDIUM",
+  "grade": "C",
+  "grade_color": "#f5a623",
+  "sl": 1709.54,
+  "t1": 1826.82,
+  "t2": 1877.09,
+  "fundamentals": {
+    "info": {
+      "name": "Sun Pharmaceutical Industries Ltd.",
+      "sector": "Healthcare",
+      "industry": "Pharmaceuticals",
+      "marketCap": 4220000000000,
+      "pe": 34.2,
+      "forwardPE": 28.5,
+      "pb": 6.8,
+      "roe": 18.5,
+      "debtToEquity": 0.05,
+      "dividendYield": 0.75
+    },
+    "financials": {
+      "revenueGrowth": 10.4,
+      "profitMargin": 23.2,
+      "operatingMargin": 27.8
+    }
+  },
+  "indicators": {
+    "rsi": {
+      "value": 33.6,
+      "signal": "BEARISH",
+      "divergence": "BULLISH_DIVERGENCE"
+    },
+    "macd": {
+      "signal": "BEARISH",
+      "color": "#f75f5f",
+      "description": "MACD below zero and signal \u2014 downward momentum",
+      "macd": -30.505,
+      "signal_line": -23.863,
+      "histogram": -6.642,
+      "cross": "NONE"
+    },
+    "bb": {
+      "signal": "BREAKDOWN",
+      "color": "#f75f5f",
+      "description": "Price below lower band \u2014 bearish breakdown / oversold",
+      "upper": 1898.61,
+      "lower": 1770.05,
+      "mid": 1834.33,
+      "pct_b": -8,
+      "squeeze": false
+    },
+    "ma": {
+      "sma_20": 1834.33,
+      "sma_50": 1891.87,
+      "sma_200": 1803.33,
+      "dist_200ma": -2.41
+    },
+    "atr": {
+      "value": 33.51,
+      "pct": 1.9
+    },
+    "volume": {
+      "ratio": 0.99
+    }
+  },
+  "patterns": {
+    "found": true,
+    "patterns": [
+      {
+        "type": "FALLING_WEDGE",
+        "emoji": "\ud83d\udcc9\ud83d\udd3a",
+        "direction": "BULLISH",
+        "confidence": 60,
+        "description": "Falling Wedge: both trendlines slant DOWN (against prevailing uptrend). BULLISH continuation/reversal signal. \u26a1 BREAKOUT UP!",
+        "trade_note": "Buy on close above upper falling trendline. Forms over 1\u20133 months (Murphy). Volume should contract, then explode on breakout.",
+        "reversal_count": 7,
+        "volume_ok": false,
+        "breakout": true,
+        "breakout_dir": "UP",
+        "apex_bars": 0,
+        "bars_formed": 90,
+        "upper_slope": -4.242,
+        "lower_slope": -25.779,
+        "trendline_upper_y": [
+          1967.1390325990724,
+          1959.1508844902066,
+          1951.1627363813407,
+          1943.174588272475
+        ],
+        "trendline_lower_y": [
+          1922.3499959309895,
+          1873.8000081380208,
+          1825.250020345052
+        ],
+        "sh_prices": [
+          {
+            "index": 15,
+            "price": 1897.4271685009069
+          },
+          {
+            "index": 42,
+            "price": 2046.9000244140625
+          },
+          {
+            "index": 63,
+            "price": 1984.800048828125
+          },
+          {
+            "index": 77,
+            "price": 1891.5
+          }
+        ],
+        "sl_prices": [
+          {
+            "index": 47,
+            "price": 1925.0999755859375
+          },
+          {
+            "index": 54,
+            "price": 1868.300048828125
+          },
+          {
+            "index": 73,
+            "price": 1828
+          }
+        ]
+      }
+    ],
+    "best": {
+      "type": "FALLING_WEDGE",
+      "emoji": "\ud83d\udcc9\ud83d\udd3a",
+      "direction": "BULLISH",
+      "confidence": 60,
+      "description": "Falling Wedge: both trendlines slant DOWN (against prevailing uptrend). BULLISH continuation/reversal signal. \u26a1 BREAKOUT UP!",
+      "trade_note": "Buy on close above upper falling trendline. Forms over 1\u20133 months (Murphy). Volume should contract, then explode on breakout.",
+      "reversal_count": 7,
+      "volume_ok": false,
+      "breakout": true,
+      "breakout_dir": "UP",
+      "apex_bars": 0,
+      "bars_formed": 90,
+      "upper_slope": -4.242,
+      "lower_slope": -25.779,
+      "trendline_upper_y": [
+        1967.1390325990724,
+        1959.1508844902066,
+        1951.1627363813407,
+        1943.174588272475
+      ],
+      "trendline_lower_y": [
+        1922.3499959309895,
+        1873.8000081380208,
+        1825.250020345052
+      ],
+      "sh_prices": [
+        {
+          "index": 15,
+          "price": 1897.4271685009069
+        },
+        {
+          "index": 42,
+          "price": 2046.9000244140625
+        },
+        {
+          "index": 63,
+          "price": 1984.800048828125
+        },
+        {
+          "index": 77,
+          "price": 1891.5
+        }
+      ],
+      "sl_prices": [
+        {
+          "index": 47,
+          "price": 1925.0999755859375
+        },
+        {
+          "index": 54,
+          "price": 1868.300048828125
+        },
+        {
+          "index": 73,
+          "price": 1828
+        }
+      ]
+    },
+    "signal": "FALLING_WEDGE (BULLISH)",
+    "color": "#3dd68c"
+  },
+  "reversal": {
+    "patterns": [
+      {
+        "name": "DOUBLE_TOP",
+        "emoji": "\u24c2\ufe0f",
+        "direction": "BEARISH",
+        "confirmed": false,
+        "confidence": 65,
+        "desc": "Double Top (M): Peak1=\u20b91911.6 | Peak2=\u20b91897.4 | Valley=\u20b91752.2\nWatch for break below \u20b91752.2",
+        "trade_note": "Sell below \u20b91752.2. Target: \u20b91599.9",
+        "neckline": 1752.21,
+        "price_target": 1599.91,
+        "peak1": 1911.59,
+        "peak2": 1897.43,
+        "vol_ok": true,
+        "bars_formed": 24
+      },
+      {
+        "name": "TRIPLE_BOTTOM",
+        "emoji": "\ud83c\udfd4\ufe0f\ud83c\udfd4\ufe0f\ud83c\udfd4\ufe0f",
+        "direction": "BULLISH",
+        "confirmed": false,
+        "confidence": 45,
+        "desc": "Triple Bottom at \u2248\u20b91710.0 | Resistance \u20b91838.2 | Watching",
+        "trade_note": "Buy above \u20b91838.2. Target \u20b91966.4",
+        "neckline": 1838.18,
+        "price_target": 1966.41,
+        "vol_ok": true,
+        "bars_formed": 22
+      }
+    ],
+    "gaps": [],
+    "recent_gaps": [],
+    "found": true,
+    "best": {
+      "name": "DOUBLE_TOP",
+      "emoji": "\u24c2\ufe0f",
+      "direction": "BEARISH",
+      "confirmed": false,
+      "confidence": 65,
+      "desc": "Double Top (M): Peak1=\u20b91911.6 | Peak2=\u20b91897.4 | Valley=\u20b91752.2\nWatch for break below \u20b91752.2",
+      "trade_note": "Sell below \u20b91752.2. Target: \u20b91599.9",
+      "neckline": 1752.21,
+      "price_target": 1599.91,
+      "peak1": 1911.59,
+      "peak2": 1897.43,
+      "vol_ok": true,
+      "bars_formed": 24
+    }
+  },
+  "cont": {
+    "patterns": [
+      {
+        "name": "CUP_AND_HANDLE",
+        "emoji": "\u2615",
+        "direction": "BULLISH",
+        "confirmed": false,
+        "confidence": 75,
+        "desc": "Cup & Handle: Rim \u2248\u20b91838.2 | Bottom \u2248\u20b91574.9 | Depth 14.0%\nHandle forming \u2014 buy on break above \u20b91838.2",
+        "trade_note": "Buy on close above \u20b91838.2. Target \u20b92095.5. SL: below handle low.",
+        "neckline": 1838.18,
+        "price_target": 2095.53,
+        "cup_depth": 14.05,
+        "vol_ok": true,
+        "bars_formed": 68
+      },
+      {
+        "name": "CUP_AND_HANDLE",
+        "emoji": "\u2615",
+        "direction": "BULLISH",
+        "confirmed": false,
+        "confidence": 75,
+        "desc": "Cup & Handle: Rim \u2248\u20b91838.2 | Bottom \u2248\u20b91574.9 | Depth 12.0%\nHandle forming \u2014 buy on break above \u20b91838.2",
+        "trade_note": "Buy on close above \u20b91838.2. Target \u20b92053.5. SL: below handle low.",
+        "neckline": 1838.18,
+        "price_target": 2053.52,
+        "cup_depth": 12.03,
+        "vol_ok": true,
+        "bars_formed": 42
+      }
+    ],
+    "found": true,
+    "best": {
+      "name": "CUP_AND_HANDLE",
+      "emoji": "\u2615",
+      "direction": "BULLISH",
+      "confirmed": false,
+      "confidence": 75,
+      "desc": "Cup & Handle: Rim \u2248\u20b91838.2 | Bottom \u2248\u20b91574.9 | Depth 14.0%\nHandle forming \u2014 buy on break above \u20b91838.2",
+      "trade_note": "Buy on close above \u20b91838.2. Target \u20b92095.5. SL: below handle low.",
+      "neckline": 1838.18,
+      "price_target": 2095.53,
+      "cup_depth": 14.05,
+      "vol_ok": true,
+      "bars_formed": 68
+    },
+    "sr": {
+      "resistance": [
+        {
+          "price": 1790.25,
+          "touches": 1,
+          "strength": "WEAK",
+          "dist_pct": 1.7
+        },
+        {
+          "price": 1832.82,
+          "touches": 3,
+          "strength": "STRONG",
+          "dist_pct": 4.1
+        },
+        {
+          "price": 1868.3,
+          "touches": 1,
+          "strength": "WEAK",
+          "dist_pct": 6.2
+        },
+        {
+          "price": 1911.59,
+          "touches": 1,
+          "strength": "WEAK",
+          "dist_pct": 8.6
+        },
+        {
+          "price": 1984.8,
+          "touches": 1,
+          "strength": "WEAK",
+          "dist_pct": 12.8
+        }
+      ],
+      "support": [
+        {
+          "price": 1691.55,
+          "touches": 1,
+          "strength": "WEAK",
+          "dist_pct": -3.9
+        },
+        {
+          "price": 1651.91,
+          "touches": 1,
+          "strength": "WEAK",
+          "dist_pct": -6.1
+        },
+        {
+          "price": 1612.57,
+          "touches": 2,
+          "strength": "MODERATE",
+          "dist_pct": -8.4
+        },
+        {
+          "price": 1569.37,
+          "touches": 1,
+          "strength": "WEAK",
+          "dist_pct": -10.8
+        }
+      ],
+      "nearest_resistance": {
+        "price": 1790.25,
+        "touches": 1,
+        "strength": "WEAK",
+        "dist_pct": 1.7
+      },
+      "nearest_support": {
+        "price": 1691.55,
+        "touches": 1,
+        "strength": "WEAK",
+        "dist_pct": -3.9
+      },
+      "current_price": 1759.8
+    },
+    "trendlines": {
+      "uptrend_line": {
+        "slope": -2.1211,
+        "value_now": 1794.06,
+        "touches": 24,
+        "broken": true,
+        "ascending": false
+      },
+      "downtrend_line": {
+        "slope": -6.6643,
+        "value_now": 1811.53,
+        "touches": 2,
+        "broken": false,
+        "descending": true
+      },
+      "uptrend_broken": false,
+      "downtrend_broken": false,
+      "signal": "DOWNTREND INTACT",
+      "description": "Falling trendline resistance at \u20b91811.53"
+    },
+    "ma_crosses": {
+      "golden_cross": false,
+      "death_cross": false,
+      "golden_cross_date": null,
+      "death_cross_date": null,
+      "ma50_above_ma200": true,
+      "ma20_above_ma50": false,
+      "signal": "BULLISH ALIGNMENT",
+      "color": "#7c6af7",
+      "description": "SMA50 above SMA200 \u2014 long-term bullish trend in place.",
+      "medium_term_cross": "BEARISH CROSS (MA20 < MA50)"
+    }
+  },
+  "dow": {
+    "primary": {
+      "trend": "UPTREND",
+      "description": "Primary Uptrend (Bullish Tide) \u2014 Trade LONG only",
+      "color": "#3dd68c",
+      "emoji": "\ud83c\udf0a\u2b06\ufe0f"
+    },
+    "secondary": {
+      "trend": "SIDEWAYS",
+      "description": "Secondary Consolidation",
+      "color": "#f5a623",
+      "emoji": "\ud83c\udf0a\u27a1\ufe0f",
+      "retracement_pct": 87.8,
+      "retracement_label": " Retracement 87.8% (outside classic zone)"
+    },
+    "minor": {
+      "trend": "SIDEWAYS",
+      "description": "Minor Sideways (Ripple \u2014 no clear short-term direction)",
+      "color": "#aaaaaa",
+      "emoji": "\u3030\ufe0f\u27a1\ufe0f"
+    },
+    "signal": "NEUTRAL",
+    "signal_color": "#aaaaaa",
+    "signal_desc": "Mixed signals \u2014 observe and wait"
+  },
+  "entry": {
+    "found": true,
+    "n_signals": 4,
+    "t_high_conf_signals": 2,
+    "entry": 1828.9,
+    "entry_range": {
+      "low": 1828.9,
+      "high": 1865.84,
+      "median": 1847.37,
+      "spread_pct": 5.02,
+      "clamped": true
+    },
+    "sl": 1754.44,
+    "sl_range": {
+      "tightest": 1754.44,
+      "widest": 1841.6,
+      "median": 1799.26,
+      "used": 1799.26,
+      "method": "Conservative median of high-confidence signals"
+    },
+    "t1": 1979.41,
+    "t2": 2015.75,
+    "t3": 2087.92,
+    "rr_t1": 2.74,
+    "rr_t2": 3.5,
+    "entry_type": "BREAKOUT",
+    "confidence": 70.8,
+    "grade": "D",
+    "grade_color": "#f75f5f",
+    "grade_desc": "Weak setup \u2014 high uncertainty",
+    "risk_pct": 2.6,
+    "r1_pct": 7.15,
+    "r2_pct": 9.11,
+    "target_hits": {
+      "t1": {
+        "target": 1979.41,
+        "move_pct": 6.95,
+        "est_days": 14,
+        "est_weeks": 2.8,
+        "atr_days": 4,
+        "hist_median_days": 25,
+        "hist_min_days": 1,
+        "hist_max_days": 59,
+        "success_rate": 38.5,
+        "times_achieved": 190,
+        "verdict": "POSSIBLE",
+        "verdict_color": "#f5a623",
+        "verdict_note": "Achieved only 38.5% of the time historically"
+      },
+      "t2": {
+        "target": 2015.75,
+        "move_pct": 8.91,
+        "est_days": 18,
+        "est_weeks": 3.6,
+        "atr_days": 5,
+        "hist_median_days": 30,
+        "hist_min_days": 3,
+        "hist_max_days": 59,
+        "success_rate": 25.6,
+        "times_achieved": 126,
+        "verdict": "POSSIBLE",
+        "verdict_color": "#f5a623",
+        "verdict_note": "Achieved only 25.6% of the time historically",
+        "extra_days_from_t1": 4
+      },
+      "sl": {
+        "sl": 1799.26,
+        "sl_pct": 2.79,
+        "hit_rate_5d": 23.1,
+        "verdict": "MODERATE RISK",
+        "verdict_color": "#f5a623",
+        "verdict_note": "23.1% chance of hitting SL \u2014 set alerts"
+      },
+      "atr": {
+        "value": 33.51,
+        "pct": 1.9,
+        "note": "ATR \u20b933.51 (1.9% of price) \u2014 daily expected move"
+      }
+    },
+    "regime": {
+      "vol_ratio": 1.04,
+      "vol_note": "ATR 1.0x avg \u2014 Normal volatility. Full size OK.",
+      "vol_color": "#3dd68c",
+      "vol_penalty": 0,
+      "participation": 0.99,
+      "part_note": "Volume 1.0x avg \u2014 Normal.",
+      "part_color": "#f5a623",
+      "part_bonus": 0,
+      "trend_note": "MA200 flat 0.3% \u2014 Sideways. Lower confidence.",
+      "trend_color": "#f5a623",
+      "trend_bonus": -5,
+      "total_adjustment": -5,
+      "regime_ok": false,
+      "summary": "\u274c Unfavourable regime \u2014 skip (Halls-Moore)"
+    },
+    "entries": [
+      {
+        "name": "Golden Cross",
+        "emoji": "\ud83c\udf1f",
+        "entry": 1891.87,
+        "sl": 1841.6,
+        "sl_method": "ATR x1.5 (Bandy) + MA200 floor",
+        "t1": 1992.42,
+        "t2": 2067.83,
+        "t3": 2143.24,
+        "rr_t1": 2,
+        "rr_t2": 3.5,
+        "entry_type": "LIMIT",
+        "condition": "Limit buy at MA50 \u2248 \u20b91891.87",
+        "confidence": 73,
+        "reasoning": "Pullback to MA50 \u20b91891.87 in golden cross alignment. Murphy: 'MA50 is dynamic support in uptrend.' Halls-Moore: 'Pullback entries improve R:R.'",
+        "risk_pct": -2.66,
+        "r1_pct": 5.31,
+        "r2_pct": 9.3,
+        "rr_ok": true,
+        "bars_ago": 0,
+        "decay_note": ""
+      },
+      {
+        "name": "Resistance Break",
+        "emoji": "\ud83d\udccf\u2b06\ufe0f",
+        "entry": 1799.2,
+        "sl": 1754.44,
+        "sl_method": "Below broken resistance (Murphy)",
+        "t1": 1888.72,
+        "t2": 1955.86,
+        "t3": 2023,
+        "rr_t1": 2,
+        "rr_t2": 3.5,
+        "entry_type": "BREAKOUT",
+        "condition": "Buy stop \u20b91799.2 above resistance \u20b91790.25",
+        "confidence": 50,
+        "reasoning": "WEAK resistance \u20b91790.25 (1 touches). Murphy: 'Resistance broken becomes support.' Buy stop 0.5% above.",
+        "risk_pct": -2.79,
+        "r1_pct": 4.98,
+        "r2_pct": 8.71,
+        "rr_ok": true,
+        "bars_ago": 0,
+        "decay_note": ""
+      },
+      {
+        "name": "CUP AND HANDLE",
+        "emoji": "\u2615",
+        "entry": 1847.37,
+        "sl": 1797.1,
+        "sl_method": "ATR x1.5 (Bandy)",
+        "t1": 2095.53,
+        "t2": 2023.31,
+        "t3": 2098.72,
+        "rr_t1": 4.94,
+        "rr_t2": 3.5,
+        "entry_type": "BREAKOUT",
+        "condition": "Buy stop \u20b91847.37 above CUP AND HANDLE neckline \u20b91838.18",
+        "confidence": 75,
+        "reasoning": "CUP AND HANDLE forming (conf 75%). Murphy: 'Wait for close above neckline.' Halls-Moore: '0.5% buffer improves fill quality.'",
+        "risk_pct": -2.72,
+        "r1_pct": 13.43,
+        "r2_pct": 9.52,
+        "rr_ok": true,
+        "bars_ago": 0,
+        "decay_note": ""
+      },
+      {
+        "name": "TRIPLE BOTTOM",
+        "emoji": "\ud83c\udfd4\ufe0f",
+        "entry": 1847.37,
+        "sl": 1801.42,
+        "sl_method": "Below TRIPLE BOTTOM neckline",
+        "t1": 1966.41,
+        "t2": 2008.19,
+        "t3": 2077.12,
+        "rr_t1": 2.59,
+        "rr_t2": 3.5,
+        "entry_type": "BREAKOUT",
+        "condition": "Buy stop \u20b91847.37 above neckline \u20b91838.18",
+        "confidence": 45,
+        "reasoning": "TRIPLE BOTTOM forming. Murphy: 'Buy stop just above neckline for confirmation.' Target: \u20b91966.41.",
+        "risk_pct": -2.72,
+        "r1_pct": 6.44,
+        "r2_pct": 8.71,
+        "rr_ok": true,
+        "bars_ago": 0,
+        "decay_note": ""
+      }
+    ]
+  },
+  "candles": {
+    "candles": [
+      {
+        "name": "TWEEZER_TOP",
+        "emoji": "\ud83d\udd27\u2b07\ufe0f",
+        "signal": "BEARISH REVERSAL",
+        "direction": "BEARISH",
+        "strength": "MEDIUM",
+        "desc": "Tweezer Top: Two candles with equal highs \u2014 strong resistance, bearish reversal.",
+        "color": "#f75f5f",
+        "date": "2026-10-07 00:00",
+        "bars_ago": 1,
+        "timeframe": "1D"
+      },
+      {
+        "name": "BULLISH_ENGULFING",
+        "emoji": "\ud83d\udfe9\u2b06\ufe0f",
+        "signal": "BULLISH REVERSAL",
+        "direction": "BULLISH",
+        "strength": "STRONG",
+        "desc": "Bullish Engulfing: Large green candle engulfs previous red \u2014 strong reversal signal.",
+        "color": "#3dd68c",
+        "date": "2026-10-06 00:00",
+        "bars_ago": 2,
+        "timeframe": "1D"
+      },
+      {
+        "name": "THREE_BLACK_CROWS",
+        "emoji": "\ud83e\udd85\ud83e\udd85\ud83e\udd85",
+        "signal": "STRONG BEARISH CONTINUATION",
+        "direction": "BEARISH",
+        "strength": "STRONG",
+        "desc": "Three Black Crows: 3 strong red candles \u2014 powerful bearish momentum.",
+        "color": "#f75f5f",
+        "date": "2026-10-05 00:00",
+        "bars_ago": 3,
+        "timeframe": "1D"
+      }
+    ],
+    "bullish": [
+      {
+        "name": "BULLISH_ENGULFING",
+        "emoji": "\ud83d\udfe9\u2b06\ufe0f",
+        "signal": "BULLISH REVERSAL",
+        "direction": "BULLISH",
+        "strength": "STRONG",
+        "desc": "Bullish Engulfing: Large green candle engulfs previous red \u2014 strong reversal signal.",
+        "color": "#3dd68c",
+        "date": "2026-10-06 00:00",
+        "bars_ago": 2,
+        "timeframe": "1D"
+      }
+    ],
+    "bearish": [
+      {
+        "name": "TWEEZER_TOP",
+        "emoji": "\ud83d\udd27\u2b07\ufe0f",
+        "signal": "BEARISH REVERSAL",
+        "direction": "BEARISH",
+        "strength": "MEDIUM",
+        "desc": "Tweezer Top: Two candles with equal highs \u2014 strong resistance, bearish reversal.",
+        "color": "#f75f5f",
+        "date": "2026-10-07 00:00",
+        "bars_ago": 1,
+        "timeframe": "1D"
+      },
+      {
+        "name": "THREE_BLACK_CROWS",
+        "emoji": "\ud83e\udd85\ud83e\udd85\ud83e\udd85",
+        "signal": "STRONG BEARISH CONTINUATION",
+        "direction": "BEARISH",
+        "strength": "STRONG",
+        "desc": "Three Black Crows: 3 strong red candles \u2014 powerful bearish momentum.",
+        "color": "#f75f5f",
+        "date": "2026-10-05 00:00",
+        "bars_ago": 3,
+        "timeframe": "1D"
+      }
+    ],
+    "latest": {
+      "name": "TWEEZER_TOP",
+      "emoji": "\ud83d\udd27\u2b07\ufe0f",
+      "signal": "BEARISH REVERSAL",
+      "direction": "BEARISH",
+      "strength": "MEDIUM",
+      "desc": "Tweezer Top: Two candles with equal highs \u2014 strong resistance, bearish reversal.",
+      "color": "#f75f5f",
+      "date": "2026-10-07 00:00",
+      "bars_ago": 1,
+      "timeframe": "1D"
+    },
+    "stochastic": {
+      "signal": "OVERSOLD",
+      "color": "#3dd68c",
+      "description": "Stochastic 10 \u2014 Oversold zone. Watch for %K crossing above %D to buy.",
+      "k": 10.1,
+      "d": 16.6,
+      "cross": "NONE"
+    }
+  },
+  "ai": {
+    "decision": "HOLD / ACCUMULATE ON PULLBACK",
+    "confidence": 78,
+    "summary": "Primary uptrend intact despite short-term consolidation. Strong institutional participation, low debt, and healthy operating margins.",
+    "key_positives": [
+      "SMA50 is above SMA200 (Long-term bullish trend intact)",
+      "Support at \u20b91691 with 3 strong touches",
+      "Institutional volume healthy at 0.99x 20-day average"
+    ],
+    "risks": [
+      "RSI is currently oversold (33.6) indicating near-term downward pressure",
+      "Resistance cluster at \u20b91790-\u20b91832"
+    ]
+  }
+}

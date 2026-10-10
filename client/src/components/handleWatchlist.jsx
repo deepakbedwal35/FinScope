@@ -1,4 +1,4 @@
-import { toast } from "react-hot-toast";
+import { notify } from "../services/notify";
 import { userApi } from "../services/api"
 import { useState, useEffect, useRef} from "react"
 
@@ -11,9 +11,9 @@ export default function HandleWatchlist({ symbol, onDone }){
         userApi.post("/watchlist/add", { symbol })
             .then((res)=>{
                 setStock(res.data.data);
-                toast.success("Successfully Added in watchlist")
+                notify.success("Successfully added to watchlist", "watchlist-action");
             })
-            .catch((err)=>toast.error(  err.message ))
+            .catch((err)=>notify.error(err.message, "watchlist-action"))
             .finally(()=> onDone?.())
     }, [symbol])
 

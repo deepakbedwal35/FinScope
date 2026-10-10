@@ -1,6 +1,7 @@
 import {api} from "../../services/api"
-import {useState , useEffect} from "react"
-import {toast} from "react-hot-toast"
+import {useState , useEffect, useCallback} from "react"
+import InlineErrorState from "../common/InlineErrorState"
+import { notify } from "../../services/notify"
 import RefreshIcon from '@mui/icons-material/Refresh';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -9,6 +10,7 @@ export default function SectorsFullScan(){
   const [getSectorData , setSectorData] = useState(null);
   const [isLoading , setLoading] = useState(false);
   const [showTable , setShowTable] = useState(false);
+  const [error , setError] = useState(false);
 
  
 
@@ -29,17 +31,23 @@ function heatBg(val, scale = 35) {
 }
   
 
-  function fetchSectorData() {
+  const fetchSectorData = useCallback(() => {
     setLoading(true);
+    setError(false);
     api
       .get("/analysis/sector-rotation")
       .then((res) => {
         setSectorData(res.data);
-        // toast.success("Sector rotation analysis fetched");
+        setError(false);
+        notify.clearPanelFailure("sectors");
       })
-      .catch((e) => toast.error("Error fetching sector data"))
+      .catch((e) => {
+        console.error("Error fetching sector data:", e);
+        setError(true);
+        notify.aggregatedError("sectors", fetchSectorData);
+      })
       .finally(() => setLoading(false));
-  }
+  }, []);
 
   useEffect(() => {
     fetchSectorData();
@@ -64,7 +72,15 @@ function heatBg(val, scale = 35) {
         <div className="text-center text-gray-300 py-10">Loading…</div>
       )}
 
-      {!isLoading && getSectorData && (
+      {error && !isLoading && (
+        <InlineErrorState 
+          title="Sector Heatmap Unavailable" 
+          message="Could not load sector performance rotation data." 
+          onRetry={fetchSectorData} 
+        />
+      )}
+
+      {!isLoading && !error && getSectorData && (
         <div>
           <div className="text-sm text-gray-400 pl-1 mb-3">
             {/* Tips to choose sectors to invest in */}

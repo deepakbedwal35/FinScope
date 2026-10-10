@@ -4,11 +4,14 @@ import BacktestResult from "./BacktestResult";
 import {api} from "../../services/api"
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
-import { toast } from "react-hot-toast";
-export default function BacktestFilters(){
+import { notify } from "../../services/notify";
+import demoBacktestData from "../../demo/demoBacktest.json";
+
+export default function BacktestFilters({ isDemo = false }){
     const [runBacktest , setRunBacktest] = useState(false);
     const [getBacktestRes , setBacktestRes] = useState("");
     const [isloading ,setloading] = useState(false);
+    const [activePreset, setActivePreset] = useState("conservative");
     const [filters , setfilters] = useState({
         symbol : "RELIANCE",
         years_back : 2,
@@ -17,44 +20,102 @@ export default function BacktestFilters(){
         t2_atr_mult:3.5,
         max_hold_days: 40,
         min_score: 10,    
-        min_grade: "C",     
-    })
+        min_grade: "B",     
+    });
+
+    useEffect(() => {
+        if (isDemo) {
+            const preset = demoBacktestData.presets?.[activePreset] || demoBacktestData.presets?.conservative;
+            if (preset) {
+                setfilters((prev) => ({ ...prev, ...(preset.filters || {}) }));
+                setBacktestRes(preset);
+            }
+        }
+    }, [isDemo, activePreset]);
+
+    const handlePresetChange = (presetId) => {
+        setActivePreset(presetId);
+        const preset = demoBacktestData.presets?.[presetId];
+        if (preset) {
+            setfilters((prev) => ({ ...prev, ...(preset.filters || {}) }));
+            setBacktestRes(preset);
+            notify.info(`Switched to preset: ${preset.name}`);
+        }
+    };
 
     const updateFiltersValue = (key , value)=>{
         setfilters(prev=>({
             ...prev,
             [key] : value
         }));
-
-
-    }
+    };
 
     const getBacktestResult = (e)=>{
         e.preventDefault();
         setRunBacktest(!runBacktest);
         setloading(true);
         setBacktestRes("");
+
+        if (isDemo) {
+            setTimeout(() => {
+                const preset = demoBacktestData.presets?.[activePreset] || demoBacktestData.presets?.conservative;
+                setBacktestRes(preset);
+                setloading(false);
+                notify.success("Sample backtest loaded successfully");
+            }, 800);
+            return;
+        }
+
         api.post(`/backtest` , filters )
         .then((res)=>{
-            
             setBacktestRes(res.data);
-            toast.success("Backtest run succesfully");
-
+            notify.success("Backtest run successfully");
         })
         .catch((err)=>{
-            toast.error("Error" + err);
+            notify.error("Error running backtest: " + (err.message || err));
         })
-        .finally(()=>setloading(false))
-
-    } 
+        .finally(()=>setloading(false));
+    };
    
 
     return(
         <div>
-            <div className="p-2 pl-4 bg-neutral-900 m-2 rounded-lg tracking-wider font-sans">
+            {isDemo && (
+                <div className="bg-neutral-900/90 border border-purple-500/30 m-2 p-3.5 rounded-lg flex flex-wrap items-center justify-between gap-3 text-xs">
+                    <div className="flex items-center gap-2">
+                        <span className="text-purple-400 font-bold uppercase tracking-wider">Presets:</span>
+                        <button
+                            type="button"
+                            onClick={() => handlePresetChange("conservative")}
+                            className={`px-3 py-1 rounded-md font-mono transition-all cursor-pointer ${
+                                activePreset === "conservative"
+                                    ? "bg-purple-600 text-white font-semibold shadow-[0_0_8px_rgba(168,85,247,0.4)]"
+                                    : "bg-neutral-800 text-zinc-400 hover:text-zinc-200"
+                            }`}
+                        >
+                            Conservative (RELIANCE)
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => handlePresetChange("momentum")}
+                            className={`px-3 py-1 rounded-md font-mono transition-all cursor-pointer ${
+                                activePreset === "momentum"
+                                    ? "bg-purple-600 text-white font-semibold shadow-[0_0_8px_rgba(168,85,247,0.4)]"
+                                    : "bg-neutral-800 text-zinc-400 hover:text-zinc-200"
+                            }`}
+                        >
+                            High Momentum (TATASTEEL)
+                        </button>
+                    </div>
+                    <span className="text-zinc-500 text-[11px]">
+                        Switch presets to view precomputed backtest metrics without running live calculations.
+                    </span>
+                </div>
+            )}
 
-                <div className="text-lg  font-medium">Filters</div>
-                <form onSubmit={getBacktestResult} className="p-2 gap-2 text-normal  grid grid-cols-3 font-normal">
+            <div className="p-2 pl-4 bg-neutral-900 m-2 rounded-lg tracking-wider font-sans">
+                <div className="text-lg font-medium">Filters</div>
+                <form onSubmit={getBacktestResult} className="p-2 gap-2 text-normal grid grid-cols-3 font-normal">
                     
                     <div className="flex gap-2 p-2 col-span-2 flex-col">
                         <label htmlFor="symbol">Name of stock</label>

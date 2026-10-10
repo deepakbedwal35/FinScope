@@ -1,30 +1,37 @@
 import {api} from "../../../services/api"
-import {useState , useEffect} from "react"
+import {useState , useEffect, useCallback} from "react"
 import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
 import InsertChartIcon from '@mui/icons-material/InsertChart';
 
 import CandlePatternIcon from "../../../utils/CandlePatternIcon";
 import { Tooltip } from "@mui/material";
-import getTooltipConfig from "../../../utils/Tooltip"
-import { toast } from "react-hot-toast";
+import getTooltipConfig from "../../../utils/Tooltip";
+import InlineErrorState from "../../common/InlineErrorState";
+import { notify } from "../../../services/notify";
 import Footer from "../recommendations/Footer";
 import CurrPriceBlock from "../recommendations/CurrPriceBlock";
 export default function Candlesticks({limit = 10 , isHome =true}){
     const [ candleStocks , setCandleStocks] = useState(null);
+    const [ error, setError ] = useState(false);
 
-    useEffect(()=>{
+    const fetchCandlesticks = useCallback(() => {
+        setError(false);
         api.get("/candlesticks/stocks")
         .then((res)=>{
-            // toast.success(res?.data?.success)
             setCandleStocks(res.data);
+            setError(false);
+            notify.clearPanelFailure("candlesticks");
         })
         .catch((e)=>{ 
-            toast.error(" Error occured in Candlestick " + e);
-        })
-        
+            console.error(" Error occured in Candlestick " + e);
+            setError(true);
+            notify.aggregatedError("candlesticks", fetchCandlesticks);
+        });
+    }, []);
 
-
-    }, [])
+    useEffect(()=>{
+        fetchCandlesticks();
+    }, [fetchCandlesticks]);
 
     const formatName = (candleName)=>{
         const name = candleName
@@ -38,9 +45,16 @@ export default function Candlesticks({limit = 10 , isHome =true}){
 
     return (
         <div className="p-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4  rounded-xl text-gray-200">
-            {!candleStocks?.success && <div className="h-25 text-center  flex text-sm  items-center justify-center text-gray-400 ">There are no signals available at the moment</div>}
+            {error && (
+                <InlineErrorState 
+                    title="Candlestick Signals Unavailable" 
+                    message="Could not load candlestick pattern signals." 
+                    onRetry={fetchCandlesticks} 
+                />
+            )}
+            {!error && !candleStocks?.success && <div className="h-25 text-center  flex text-sm  items-center justify-center text-gray-400 ">There are no signals available at the moment</div>}
             
-             {candleStocks?.total >  0 &&  <div  className={isHome ? "flex flex-row  gap-4  min-w-[500px]  overflow-x-auto  scroll-smooth sm:scroll-auto scrollbar-hide transition duration-150 ease-in-out" : "flex gap-4  flex-wrap"}>
+             {!error && candleStocks?.total >  0 &&  <div  className={isHome ? "flex flex-row  gap-4  min-w-[500px]  overflow-x-auto  scroll-smooth sm:scroll-auto scrollbar-hide transition duration-150 ease-in-out" : "flex gap-4  flex-wrap"}>
                 {candleStocks?.results?.map((details)=>(
                         <div className="text-gray-100 flex flex-row    border border-white/20 rounded-lg ">
                             <Tooltip title = {details?.candle?.desc}  {...getTooltipConfig('top', details?.candle?.color)}>

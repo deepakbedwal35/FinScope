@@ -34,7 +34,19 @@ export default function App() {
 
   return (
     <>
-      <Toaster position="top-center" />
+      <Toaster 
+        position="top-center" 
+        gutter={8} 
+        toastOptions={{ 
+          duration: 3500,
+          style: {
+            background: '#171717',
+            color: '#f5f5f5',
+            border: '1px solid #262626',
+            fontSize: '13px',
+          }
+        }} 
+      />
       
       <Routes>
         {/* 🟢 PUBLIC OPEN ROUTES */}
@@ -45,7 +57,14 @@ export default function App() {
         <Route path="/login" element={isAuthenticated ? <Navigate to="/home" replace /> : <Login />} />
         <Route path="/signup" element={isAuthenticated ? <Navigate to="/home" replace /> : <Signup />} />
         
+        {/* 🚀 PUBLIC DEMO ROUTES (Zero network calls to scanner/Redis/Mongo) */}
+        <Route path="/demo/scan" element={<FullScan isDemo={true} />} />
+        <Route path="/demo/backtest" element={<Backtesting isDemo={true} />} />
+        <Route path="/demo/stock" element={<StockDetails isDemo={true} />} />
+        <Route path="/demo/recommendations" element={<Recommendation isDemo={true} />} />
+
         {/* Public Analysis Sandbox Routes */}
+        <Route path="/recommendations" element={<Recommendation />} />
         <Route path="/fin/recommendations" element={<Recommendation />} />
         <Route path="/admin/page" element={<AdminPage />} />
 

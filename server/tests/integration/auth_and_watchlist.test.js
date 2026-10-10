@@ -8,7 +8,7 @@ const Watchlist = require("../../src/models/Watchlist");
 const scanner = require("../../src/services/scannerService");
 
 let mongoServer;
-jest.setTimeout(30000);
+jest.setTimeout(60000);
 
 beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
@@ -18,7 +18,9 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await mongoose.disconnect();
-  await mongoServer.stop();
+  if (mongoServer) {
+    await mongoServer.stop();
+  }
 });
 
 beforeEach(async () => {

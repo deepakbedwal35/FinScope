@@ -21,6 +21,7 @@ const watchRouter      = require("./routes/watchlist");
 const tradeRouter      = require("./routes/trades");
 const recommendsRouter = require("./routes/recommendations");
 const dashboardRouter  = require("./routes/dashboard");
+const demoRouter       = require("./routes/demo");
 
 // ── CORS ─────────────────────────────────────────────────────────────────────
 app.use(
@@ -57,6 +58,7 @@ app.use("/api/signals/recommends", dashboardLimiter, recommendsRouter);
 app.use("/api/signals",            dashboardLimiter, scanRouter);
 app.use("/watchlist", globalLimiter, watchRouter);
 app.use("/trades",    globalLimiter, tradeRouter);
+app.use("/api/demo",  demoRouter);
 
 // ── Global Error Handler (must be last) ──────────────────────────────────────
 app.use(errorHandler);

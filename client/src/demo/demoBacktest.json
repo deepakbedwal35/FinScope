@@ -1,0 +1,152 @@
+{
+  "isDemo": true,
+  "demoAsOf": "2026-10-09",
+  "presets": {
+    "conservative": {
+      "id": "conservative",
+      "name": "NIFTY 50 Turtle Breakout (Conservative)",
+      "description": "Turtle 10-day low stop loss, MA200 primary trend filter (Grade A/B setups, 2-Year window).",
+      "filters": {
+        "symbol": "RELIANCE",
+        "years_back": 2,
+        "sl_atr_mult": 1.5,
+        "t1_atr_mult": 2.0,
+        "t2_atr_mult": 3.5,
+        "max_hold_days": 40,
+        "min_score": 10,
+        "min_grade": "B"
+      },
+      "outcomes": {
+        "T2_HIT": 44,
+        "T1_HIT": 31,
+        "PARTIAL_RALLY": 16,
+        "SL_HIT": 22
+      },
+      "metrics": {
+        "win_rate": 68.2,
+        "total_trades": 113,
+        "profit_factor": 2.45,
+        "avg_gain": 8.4,
+        "avg_loss": 3.2,
+        "max_drawdown": 6.8
+      },
+      "grade": {
+        "A": {
+          "trades": 45,
+          "win_rate": 77.8,
+          "profit_factor": 2.8
+        },
+        "B": {
+          "trades": 68,
+          "win_rate": 61.8,
+          "profit_factor": 2.1
+        }
+      },
+      "trades": [
+        {
+          "symbol": "RELIANCE",
+          "entry_date": "2026-03-12",
+          "exit_date": "2026-04-02",
+          "entry_price": 2850.0,
+          "exit_price": 3045.0,
+          "pnl_pct": 6.84,
+          "outcome": "T2_HIT",
+          "grade": "A",
+          "holding_days": 15
+        },
+        {
+          "symbol": "RELIANCE",
+          "entry_date": "2026-05-18",
+          "exit_date": "2026-06-08",
+          "entry_price": 2920.0,
+          "exit_price": 3066.0,
+          "pnl_pct": 5.0,
+          "outcome": "T1_HIT",
+          "grade": "B",
+          "holding_days": 14
+        },
+        {
+          "symbol": "RELIANCE",
+          "entry_date": "2026-07-02",
+          "exit_date": "2026-07-16",
+          "entry_price": 3110.0,
+          "exit_price": 3016.7,
+          "pnl_pct": -3.0,
+          "outcome": "SL_HIT",
+          "grade": "B",
+          "holding_days": 10
+        }
+      ]
+    },
+    "momentum": {
+      "id": "momentum",
+      "name": "High Momentum 52W Breakouts (Aggressive)",
+      "description": "Explosive 52-week breakout filter with volume expansion (Grade A/B/C setups, 2-Year window).",
+      "filters": {
+        "symbol": "TATASTEEL",
+        "years_back": 2,
+        "sl_atr_mult": 1.2,
+        "t1_atr_mult": 2.5,
+        "t2_atr_mult": 4.0,
+        "max_hold_days": 30,
+        "min_score": 8,
+        "min_grade": "C"
+      },
+      "outcomes": {
+        "T2_HIT": 58,
+        "T1_HIT": 24,
+        "PARTIAL_RALLY": 14,
+        "SL_HIT": 38
+      },
+      "metrics": {
+        "win_rate": 61.2,
+        "total_trades": 134,
+        "profit_factor": 1.98,
+        "avg_gain": 11.2,
+        "avg_loss": 4.1,
+        "max_drawdown": 9.4
+      },
+      "grade": {
+        "A": {
+          "trades": 52,
+          "win_rate": 73.1,
+          "profit_factor": 2.5
+        },
+        "B": {
+          "trades": 50,
+          "win_rate": 58.0,
+          "profit_factor": 1.8
+        },
+        "C": {
+          "trades": 32,
+          "win_rate": 46.9,
+          "profit_factor": 1.4
+        }
+      },
+      "trades": [
+        {
+          "symbol": "TATASTEEL",
+          "entry_date": "2026-02-10",
+          "exit_date": "2026-03-05",
+          "entry_price": 142.0,
+          "exit_price": 160.4,
+          "pnl_pct": 12.96,
+          "outcome": "T2_HIT",
+          "grade": "A",
+          "holding_days": 17
+        },
+        {
+          "symbol": "TATASTEEL",
+          "entry_date": "2026-04-14",
+          "exit_date": "2026-04-28",
+          "entry_price": 158.0,
+          "exit_price": 151.7,
+          "pnl_pct": -4.0,
+          "outcome": "SL_HIT",
+          "grade": "C",
+          "holding_days": 10
+        }
+      ]
+    }
+  }
+}

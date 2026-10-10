@@ -4,16 +4,14 @@ import {api} from "../services/api";
 
 import Header from "../components/Header/Header";
 import BacktestFilters from "../components/backtest/BacktestFilters";
-export default function Backtesting(){
-   
+import DemoPageBadge from "../components/common/DemoPageBadge";
 
-
+export default function Backtesting({ isDemo = false }){
     return(
-        <div className="text-white min-h-screen  bg-neutral-800">
+        <div className="text-white min-h-screen bg-neutral-800">
             <Header/>
-            <BacktestFilters />
-           
-               
+            {isDemo && <DemoPageBadge title="Backtest Simulation" date="09 Oct 2026" />}
+            <BacktestFilters isDemo={isDemo} />
         </div>
     )
 }

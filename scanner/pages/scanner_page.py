@@ -24,6 +24,7 @@ from scanner.utils.config import get_key, GROQ_MODEL
 from scanner.utils.sanitize_json import sanitize_for_json
 from scanner.data.market_intelligence import get_sector_rotation
 from scanner.utils.cache import cache, TTL
+from scanner.utils.demo_loader import load_demo_full_scan
 
 
 # NOTE: every function below that touches Redis is now `async def`.
@@ -328,7 +329,30 @@ async def run_full_scan(sel_cats=None, use_cache: bool = True) -> dict:
             "scanned_at": datetime.now().strftime("%d %b %Y  %I:%M %p"),
         }
 
-    return await cache.get_or_set("market_scan", TTL.resolve(TTL.MARKET_SCAN), _compute)
+    scan_data = await cache.get_or_set("market_scan", TTL.resolve(TTL.MARKET_SCAN), _compute)
+    # Save snapshot for persistent fallback before short-lived cache expires
+    if scan_data and scan_data.get("results"):
+        await cache.set_json("market_scan_snapshot", scan_data)
+    return scan_data
+
+
+async def get_or_fallback_market_scan() -> tuple[dict, bool]:
+    """
+    Resolves full-scan data following fallback order:
+      1) live full-scan cache in Redis ('market_scan')
+      2) snapshot cache ('market_scan_snapshot')
+      3) demo fixture file
+    Returns: (data, is_demo)
+    """
+    cached = await cache.get_json("market_scan")
+    if cached and cached.get("results"):
+        return cached, False
+
+    snapshot = await cache.get_json("market_scan_snapshot")
+    if snapshot and snapshot.get("results"):
+        return snapshot, False
+
+    return load_demo_full_scan(), True
 
 
 async def get_market_scan_cache(filters: dict | None = None) -> dict:
@@ -343,9 +367,7 @@ async def get_market_scan_cache(filters: dict | None = None) -> dict:
 
     grade_rank = {"A+": 5, "A": 4, "B": 3, "C": 2, "D": 1}
 
-    cached = await cache.get_json("market_scan")
-    if not cached:
-        return {"success": False, "msg": "Scan not ready. Please trigger a scan first.", "results": []}
+    cached, is_demo = await get_or_fallback_market_scan()
 
     results = cached.get("results", [])
     filtered = [s for s in results if s.get("vol_ratio", 0) >= min_vol]
@@ -380,6 +402,8 @@ async def get_market_scan_cache(filters: dict | None = None) -> dict:
 
     return {
         "success": True,
+        "isDemo": is_demo,
+        "demoAsOf": cached.get("demoAsOf") if is_demo else None,
         "results": filtered,
         "total_found": len(filtered),
         "total_scanned": cached.get("total_scanned"),
@@ -389,10 +413,11 @@ async def get_market_scan_cache(filters: dict | None = None) -> dict:
 
 
 async def get_all_cache_stocks() -> dict:
-    cached = await cache.get_json("market_scan")
-    if not cached:
-        return {"success": False, "msg": "Scan not ready. Please trigger a scan first.", "results": []}
-    return sanitize_for_json(cached)
+    cached, is_demo = await get_or_fallback_market_scan()
+    out = dict(cached)
+    out["isDemo"] = is_demo
+    return sanitize_for_json(out)
+
 
 
 def search_symbols_detail(query: str, limit: int = 15) -> list[dict]:
@@ -535,9 +560,7 @@ def _base_stock_fields(stock: dict) -> dict:
 
 
 async def get_candlesticks_stocks(filters: dict | None = None, limit: int = 20) -> dict:
-    cached = await cache.get_json("market_scan")
-    if not cached:
-        return {"success": False, "msg": "Scan not ready", "results": []}
+    cached, is_demo = await get_or_fallback_market_scan()
     results = cached.get("results", [])
 
     found = []
@@ -560,6 +583,8 @@ async def get_candlesticks_stocks(filters: dict | None = None, limit: int = 20) 
     found = heapq.nlargest(limit, found, key=lambda x: x.get("score", 0))
     r = {
         "success": True,
+        "isDemo": is_demo,
+        "demoAsOf": cached.get("demoAsOf") if is_demo else None,
         "total": len(found),
         "results": found,
         "bullish": [s for s in found if s["candle"]["direction"] == "BULLISH"],
@@ -571,9 +596,7 @@ async def get_candlesticks_stocks(filters: dict | None = None, limit: int = 20) 
 
 
 async def get_reversal_pattern_Stocks(filters: dict | None = None, limit: int = 20) -> dict:
-    cached = await cache.get_json("market_scan")
-    if not cached:
-        return {"success": False, "msg": "Scan not ready", "results": []}
+    cached, is_demo = await get_or_fallback_market_scan()
     results = cached.get("results", [])
 
     found = []
@@ -588,14 +611,19 @@ async def get_reversal_pattern_Stocks(filters: dict | None = None, limit: int = 
         found.append(entry)
 
     found = heapq.nlargest(limit, found, key=lambda x: x.get("score", 0))
-    r = {"success": True, "total": len(found), "results": found, "scanned_at": cached.get("scanned_at")}
+    r = {
+        "success": True,
+        "isDemo": is_demo,
+        "demoAsOf": cached.get("demoAsOf") if is_demo else None,
+        "total": len(found),
+        "results": found,
+        "scanned_at": cached.get("scanned_at"),
+    }
     return sanitize_for_json(r)
 
 
 async def get_cont_pattern_Stocks(filters: dict | None = None, limit: int = 20) -> dict:
-    cached = await cache.get_json("market_scan")
-    if not cached:
-        return {"success": False, "msg": "Scan not ready", "results": []}
+    cached, is_demo = await get_or_fallback_market_scan()
     results = cached.get("results", [])
 
     found = []
@@ -612,7 +640,14 @@ async def get_cont_pattern_Stocks(filters: dict | None = None, limit: int = 20) 
         found.append(entry)
 
     found = heapq.nlargest(limit, found, key=lambda x: x.get("score", 0))
-    r = {"success": True, "total": len(found), "results": found, "scanned_at": cached.get("scanned_at")}
+    r = {
+        "success": True,
+        "isDemo": is_demo,
+        "demoAsOf": cached.get("demoAsOf") if is_demo else None,
+        "total": len(found),
+        "results": found,
+        "scanned_at": cached.get("scanned_at"),
+    }
     return sanitize_for_json(r)
 
 
@@ -628,7 +663,11 @@ async def fin_recommendation(filters: dict | None = None, top_n: int = 10) -> di
     stocks = scan_result.get("results", [])
     if not stocks:
         return {
-            "success": True, "msg": "No stocks matched filters", "recommendations": [],
+            "success": True,
+            "isDemo": scan_result.get("isDemo", False),
+            "demoAsOf": scan_result.get("demoAsOf"),
+            "msg": "No stocks matched filters",
+            "recommendations": [],
             "total_scanned": scan_result.get("total_scanned"),
         }
 
@@ -652,6 +691,8 @@ async def fin_recommendation(filters: dict | None = None, top_n: int = 10) -> di
 
     return {
         "success": True,
+        "isDemo": scan_result.get("isDemo", False),
+        "demoAsOf": scan_result.get("demoAsOf"),
         "total_scanned": scan_result.get("total_scanned"),
         "total_matched": len(stocks),
         "total_strong": len(strong_stocks),

@@ -6,8 +6,9 @@ import {api} from "../services/api.js"
 import SectorsFullScan from "../components/fullscan/SectorsFullScan.jsx"
 import StockFilters from "../components/fullscan/StockFilters.jsx"
 import Header from "../components/Header/Header.jsx";
+import DemoPageBadge from "../components/common/DemoPageBadge.jsx";
 
-export default function FullScan(){
+export default function FullScan({ isDemo = false }){
     // for creating tabs 
     const tabs = ["Overview","Trade Setup", "Dow Theory", "Indicators" ,"Continuation Patterns","Technical Analysis" , "Fundamental Analysis" , "Sentiment Analysis" , "Holdings" , "AI Analysis"];
     let [activeTab , setActiveTab] = useState(tabs[0]);
@@ -36,9 +37,10 @@ export default function FullScan(){
     return(
         <div className="min-h-screen bg-neutral-800">
             <Header/>
+            {isDemo && <DemoPageBadge title="NSE Market Scan" date="09 Oct 2026" />}
              <SectorsFullScan />
 
-            <StockFilters/>
+            <StockFilters isDemo={isDemo} />
             <div className="p-2"></div>
         </div>
        

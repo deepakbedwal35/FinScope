@@ -9,6 +9,15 @@ const scanner = require("../services/scannerService");
 const addRecommendations = async (req, res) => {
     try {
         const data = await scanner.finRecommends();
+        // Safety: demo data must NEVER be written to MongoDB
+        if (data?.isDemo) {
+            return res.status(200).json({
+                success: true,
+                count: 0,
+                isDemo: true,
+                message: "Demo mode active: recommendations are display-only and not stored in database",
+            });
+        }
         const recommendedStocks = data.recommendations || [];
 
         const promises = recommendedStocks.map(async (stock) => {

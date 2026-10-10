@@ -6,9 +6,11 @@ import {
   Zap,
   Search,
 } from "lucide-react";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Landing({ onLaunch }) {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   return (
     <div className="min-h-screen bg-neutral-950 text-zinc-100 font-sans tracking-wide antialiased selection:bg-purple-500/30 selection:text-purple-200 relative overflow-x-hidden">
@@ -79,7 +81,7 @@ export default function Landing({ onLaunch }) {
               </p>
             </div>
             <button 
-              onClick={() => navigate("/fullscan")} 
+              onClick={() => navigate(isAuthenticated ? "/fullscan" : "/demo/scan")} 
               className="w-full text-center bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-semibold font-mono tracking-wider text-xs py-3 rounded-xl transition-all duration-200 shadow-[0_4px_20px_rgba(124,58,237,0.25)] hover:shadow-[0_4px_25px_rgba(124,58,237,0.4)] cursor-pointer"
             >
               TRY A LIVE SCAN
@@ -102,7 +104,7 @@ export default function Landing({ onLaunch }) {
               </p>
             </div>
             <button 
-              onClick={() => navigate("/backtest")} 
+              onClick={() => navigate(isAuthenticated ? "/backtest" : "/demo/backtest")} 
               className="w-full text-center bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-semibold font-mono tracking-wider text-xs py-3 rounded-xl transition-all duration-200 shadow-[0_4px_20px_rgba(124,58,237,0.25)] hover:shadow-[0_4px_25px_rgba(124,58,237,0.4)] cursor-pointer"
             >
               RUN BACKTEST
@@ -124,7 +126,7 @@ export default function Landing({ onLaunch }) {
               </p>
             </div>
             <button 
-              onClick={() => navigate("/analyse/SUNPHARMA")}
+              onClick={() => navigate(isAuthenticated ? "/analyse/SUNPHARMA" : "/demo/stock")}
               className="w-full text-center bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-semibold font-mono tracking-wider text-xs py-3 rounded-xl transition-all duration-200 shadow-[0_4px_20px_rgba(124,58,237,0.25)] hover:shadow-[0_4px_25px_rgba(124,58,237,0.4)] cursor-pointer"
             >
               VIEW DEMO STOCK
@@ -146,10 +148,10 @@ export default function Landing({ onLaunch }) {
               </p>
             </div>
             <button 
-              onClick={() => navigate("/fin/recommendations")}
+              onClick={() => navigate(isAuthenticated ? "/recommendations" : "/demo/recommendations")}
               className="w-full text-center bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-semibold font-mono tracking-wider text-xs py-3 rounded-xl transition-all duration-200 shadow-[0_4px_20px_rgba(124,58,237,0.25)] hover:shadow-[0_4px_25px_rgba(124,58,237,0.4)] cursor-pointer"
             >
-              VIEW RADAR
+              RECOMMENDATIONS
             </button>
           </div>
 

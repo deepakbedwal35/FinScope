@@ -1,0 +1,66 @@
+{
+  "isDemo": true,
+  "demoAsOf": "2026-10-09",
+  "allRecommends": [
+    {
+      "symbol": "GLAND",
+      "entryPrice": 3079.1,
+      "stopLoss": 2935.76,
+      "target1": 3270.22,
+      "target2": 3413.56,
+      "confidence": 80.6,
+      "grade": "A",
+      "isOpen": true,
+      "target1Hit": false,
+      "target2Hit": false,
+      "stopLossHit": false,
+      "createdAt": "2026-10-08T09:30:00Z"
+    },
+    {
+      "symbol": "AUROPHARMA",
+      "entryPrice": 1693.0,
+      "stopLoss": 1630.68,
+      "target1": 1806.36,
+      "target2": 1883.32,
+      "confidence": 69.2,
+      "grade": "B",
+      "isOpen": true,
+      "target1Hit": false,
+      "target2Hit": false,
+      "stopLossHit": false,
+      "createdAt": "2026-10-07T09:30:00Z"
+    },
+    {
+      "symbol": "DIVISLAB",
+      "entryPrice": 9246.6,
+      "stopLoss": 8872.55,
+      "target1": 9766.1,
+      "target2": 10085.67,
+      "confidence": 84.0,
+      "grade": "B",
+      "isOpen": false,
+      "exitPrice": 9766.1,
+      "target1Hit": true,
+      "target2Hit": false,
+      "stopLossHit": false,
+      "createdAt": "2026-09-25T09:30:00Z"
+    }
+  ],
+  "prices": {
+    "GLAND": {
+      "price": 3079.1,
+      "change": -71.5,
+      "change_percent": -2.27
+    },
+    "AUROPHARMA": {
+      "price": 1693.0,
+      "change": 48.0,
+      "change_percent": 2.92
+    },
+    "DIVISLAB": {
+      "price": 9340.0,
+      "change": -21.0,
+      "change_percent": -0.22
+    }
+  }
+}

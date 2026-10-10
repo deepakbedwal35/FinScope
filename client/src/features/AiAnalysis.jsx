@@ -4,15 +4,15 @@ import AiDecision from "../components/aiAnalysis/AiDecision";
 import AiNewsAnalysis from "../components/aiAnalysis/AiNewsAnalysis";
 import { toast } from "react-hot-toast";
 
-export default function AiAnalysis({ symbol }) {
-  const [analysisData, setAnalysisData] = useState(null);
+export default function AiAnalysis({ symbol, demoData = null }) {
+  const [analysisData, setAnalysisData] = useState(demoData);
   const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState(null); 
+  const [activeTab, setActiveTab] = useState(demoData ? "decision" : null); 
 
   
   const fetchAiPayload = async (targetTab) => {
-
-    if (analysisData) {
+    if (analysisData || demoData) {
+      if (demoData && !analysisData) setAnalysisData(demoData);
       setActiveTab(targetTab);
       return;
     }
