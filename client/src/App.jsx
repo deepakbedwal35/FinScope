@@ -61,6 +61,9 @@ export default function App() {
         <Route path="/demo/scan" element={<FullScan isDemo={true} />} />
         <Route path="/demo/backtest" element={<Backtesting isDemo={true} />} />
         <Route path="/demo/stock" element={<StockDetails isDemo={true} />} />
+        <Route path="/demo/stocks" element={<StockDetails isDemo={true} />} />
+        <Route path="/demo/stock/:symbol" element={<StockDetails isDemo={true} />} />
+        <Route path="/demo/stocks/:symbol" element={<StockDetails isDemo={true} />} />
         <Route path="/demo/recommendations" element={<Recommendation isDemo={true} />} />
 
         {/* Public Analysis Sandbox Routes */}

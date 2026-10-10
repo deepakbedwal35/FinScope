@@ -6,13 +6,13 @@ import BacktestTradelog from "./BacktestTradelog";
 import Tooltip from "@mui/material/Tooltip"
 
 export default function BacktestResult({tradelog}){
-    
     const [getYear , setYear] = useState(2026);
+    if (!tradelog) return null;
 
     return (
         <div>
             <div className="m-4 p-4 rounded-2xl bg-neutral-900">
-                <div className="text-xl tracking-wider p-2">Results : {tradelog.total_trades} Signals </div>
+                <div className="text-xl tracking-wider p-2">Results : {tradelog?.total_trades || 0} Signals </div>
                 <div className="flex flex-wrap  justify-between m-4 ">
                     <Tooltip title={"Model is win if rally is above 3%"}>
                          <BackTestCard  title={"MODEL ACCURACY"} value = {tradelog?.model_win_rate} desc={"Directional wins"} sign="%"/>
@@ -49,7 +49,7 @@ export default function BacktestResult({tradelog}){
                         <div className="text-lg tracking-wider  p-2">Outcome Breakdown  </div>
                         <div className="flex flex-wrap justify-between m-4 ">
                             <BacktestOutcomeCard title="T2 Hit" value = {tradelog?.outcomes?.T2_HIT} desc={"Full Target"} />
-                            <BacktestOutcomeCard  title="T1 Hit" value = {tradelog?.outcomes?.T2_HIT} desc={"First Target"}/>
+                            <BacktestOutcomeCard  title="T1 Hit" value = {tradelog?.outcomes?.T1_HIT ?? tradelog?.outcomes?.T2_HIT} desc={"First Target"}/>
                             <BacktestOutcomeCard  title={"Part. Rally"} value = {tradelog?.outcomes?.PARTIAL_RALLY} desc={"Model win , no SL"}/>
                             <BacktestOutcomeCard title="SL Hit" value = {tradelog?.outcomes?.SL_HIT} desc={"Full Stop Loss"} />
                         </div>
@@ -59,7 +59,7 @@ export default function BacktestResult({tradelog}){
                         <div className="text-lg tracking-wider p-2">Grade Breakdown </div>
                         <div className="flex gap-2 flex-wrap mt-2 justify-between">
                             {Object.entries(tradelog?.by_grade || {}).map(([grade, metrics]) => (
-                                <BacktestGrade grade={grade} metrics = {metrics}/>
+                                <BacktestGrade key={grade} grade={grade} metrics = {metrics}/>
                             ))}
                         </div>
                     </div> 
@@ -77,7 +77,7 @@ export default function BacktestResult({tradelog}){
                             onChange={(e) => setYear(e.target.value)}
                             className="w-full bg-neutral-900/20 rounded-lg border border-gray-100/20 p-1"
                             >
-                            {tradelog?.backtest_years?.map((year) => (
+                            {(tradelog?.backtest_years && tradelog.backtest_years.length > 0 ? tradelog.backtest_years : [2026, 2025, 2024, 2023, 2022]).map((year) => (
                                 <option key={year} value={year}>{year}</option>
                             ))}
                         </select>   

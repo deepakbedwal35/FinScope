@@ -1,9 +1,14 @@
 import Tooltip from "@mui/material/Tooltip";
 import {useEffect} from "react";
-export default function BacktestTradelog({ tradelog, year = 2026  }) {
-  let filteredTradeLog = tradelog?.filter(
-    (details) => String(details?.year) === String(year)
-  ) || [];
+export default function BacktestTradelog({ tradelog, year = 2026 }) {
+  const getTradeYear = (details) => String(details?.year || (details?.date ? String(details.date).slice(0, 4) : ""));
+  let filteredTradeLog = (tradelog || []).filter(
+    (details) => getTradeYear(details) === String(year)
+  );
+  if (filteredTradeLog.length === 0 && tradelog && tradelog.length > 0) {
+    const firstYear = getTradeYear(tradelog[0]);
+    filteredTradeLog = tradelog.filter((details) => getTradeYear(details) === firstYear);
+  }
 
 
 

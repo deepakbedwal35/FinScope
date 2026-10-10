@@ -1,43 +1,407 @@
 {
-  "isDemo": true,
-  "demoAsOf": "2026-10-09",
   "symbol": "SUNPHARMA",
-  "price": 1759.800048828125,
-  "change": -21.2,
-  "change_percent": -1.19,
+  "company_name": "Sun Pharmaceutical",
+  "price": 1760.0,
+  "change": 0.2,
+  "change_percent": 0.01,
   "w52h": 2046.9,
-  "dist_52w": -14.03,
-  "vol_ratio": 0.99,
-  "rsi": 33.6,
+  "w52l": 1569.37,
+  "dist_52w": -14.02,
+  "vol_ratio": 0.83,
+  "rsi": 33.7,
   "score": 11,
   "strength": "MEDIUM",
   "grade": "C",
   "grade_color": "#f5a623",
-  "sl": 1709.54,
-  "t1": 1826.82,
-  "t2": 1877.09,
   "fundamentals": {
+    "symbol": "SUNPHARMA",
     "info": {
-      "name": "Sun Pharmaceutical Industries Ltd.",
+      "name": "Sun Pharmaceutical Industries Limited",
       "sector": "Healthcare",
-      "industry": "Pharmaceuticals",
-      "marketCap": 4220000000000,
-      "pe": 34.2,
-      "forwardPE": 28.5,
-      "pb": 6.8,
-      "roe": 18.5,
-      "debtToEquity": 0.05,
-      "dividendYield": 0.75
+      "industry": "Drug Manufacturers - Specialty & Generic",
+      "employees": 47000,
+      "website": "https://sunpharma.com",
+      "description": "Sun Pharmaceutical Industries Limited, a generic pharmaceutical company, develops, manufactures, and markets branded and generic formulations, and active pharmaceutical ingredients (APIs) in India, the United States, and internationally. The company offers formulations in various therapeutic areas, including neuropsychiatry, cardiology, diabetes, gastroenterology, pain/analgesics, gynecology, ophthalmology, urology, dermatology, respiratory, anti-infectives, oncology, psychiatry, neurology, orthopaedic, nephrology, dental, and nutritionals. It also provides generic medications, such as tablets...",
+      "exchange": "NSI",
+      "currency": "INR"
     },
-    "financials": {
-      "revenueGrowth": 10.4,
-      "profitMargin": 23.2,
-      "operatingMargin": 27.8
-    }
+    "quarterly": [],
+    "annual": [
+      {
+        "year": "2026",
+        "revenue": 582201100000.0,
+        "revenue_str": "\u20b9582 Cr",
+        "profit": 114794200000.0,
+        "profit_str": "\u20b9115 Cr",
+        "ebitda": 183956400000.0,
+        "ebitda_str": "\u20b9184 Cr",
+        "margin_pct": 19.7,
+        "rev_growth": 11.9,
+        "prof_growth": 5.0,
+        "profit_color": "#3dd68c",
+        "rev_g_color": "#3dd68c",
+        "pro_g_color": "#3dd68c",
+        "rev_arrow": "\u25b2 +11.9%",
+        "prof_arrow": "\u25b2 +5.0%",
+        "is_profit": true
+      },
+      {
+        "year": "2025",
+        "revenue": 520412500000.0,
+        "revenue_str": "\u20b9520 Cr",
+        "profit": 109290400000.0,
+        "profit_str": "\u20b9109 Cr",
+        "ebitda": 165588800000.0,
+        "ebitda_str": "\u20b9166 Cr",
+        "margin_pct": 21.0,
+        "rev_growth": 9.0,
+        "prof_growth": 14.1,
+        "profit_color": "#3dd68c",
+        "rev_g_color": "#3dd68c",
+        "pro_g_color": "#3dd68c",
+        "rev_arrow": "\u25b2 +9.0%",
+        "prof_arrow": "\u25b2 +14.1%",
+        "is_profit": true
+      },
+      {
+        "year": "2024",
+        "revenue": 477584500000.0,
+        "revenue_str": "\u20b9478 Cr",
+        "profit": 95763800000.0,
+        "profit_str": "\u20b996 Cr",
+        "ebitda": 138831500000.0,
+        "ebitda_str": "\u20b9139 Cr",
+        "margin_pct": 20.1,
+        "rev_growth": 10.4,
+        "prof_growth": 13.0,
+        "profit_color": "#3dd68c",
+        "rev_g_color": "#3dd68c",
+        "pro_g_color": "#3dd68c",
+        "rev_arrow": "\u25b2 +10.4%",
+        "prof_arrow": "\u25b2 +13.0%",
+        "is_profit": true
+      },
+      {
+        "year": "2023",
+        "revenue": 432788700000.0,
+        "revenue_str": "\u20b9433 Cr",
+        "profit": 84735800000.0,
+        "profit_str": "\u20b985 Cr",
+        "ebitda": 121108600000.0,
+        "ebitda_str": "\u20b9121 Cr",
+        "margin_pct": 19.6,
+        "rev_growth": null,
+        "prof_growth": null,
+        "profit_color": "#3dd68c",
+        "rev_g_color": "#aaaaaa",
+        "pro_g_color": "#aaaaaa",
+        "rev_arrow": "\u2014",
+        "prof_arrow": "\u2014",
+        "is_profit": true
+      }
+    ],
+    "dividends": [
+      {
+        "date": "07 Jul 2026",
+        "amount": 5.0,
+        "amount_str": "\u20b95.0/share",
+        "year": "2026"
+      },
+      {
+        "date": "05 Feb 2026",
+        "amount": 11.0,
+        "amount_str": "\u20b911.0/share",
+        "year": "2026"
+      },
+      {
+        "date": "07 Jul 2025",
+        "amount": 5.5,
+        "amount_str": "\u20b95.5/share",
+        "year": "2025"
+      },
+      {
+        "date": "06 Feb 2025",
+        "amount": 10.5,
+        "amount_str": "\u20b910.5/share",
+        "year": "2025"
+      },
+      {
+        "date": "12 Jul 2024",
+        "amount": 5.0,
+        "amount_str": "\u20b95.0/share",
+        "year": "2024"
+      },
+      {
+        "date": "09 Feb 2024",
+        "amount": 8.5,
+        "amount_str": "\u20b98.5/share",
+        "year": "2024"
+      },
+      {
+        "date": "28 Jul 2023",
+        "amount": 4.0,
+        "amount_str": "\u20b94.0/share",
+        "year": "2023"
+      },
+      {
+        "date": "08 Feb 2023",
+        "amount": 7.5,
+        "amount_str": "\u20b97.5/share",
+        "year": "2023"
+      }
+    ],
+    "ratios": {
+      "market_cap": "\u20b94.22L Cr",
+      "market_cap_raw": 4222829461504,
+      "pe_ratio": 34.93,
+      "forward_pe": 27.15,
+      "pb_ratio": 5.05,
+      "ps_ratio": 7.05,
+      "roe": 0.0,
+      "roa": 0.0,
+      "profit_margin": 20.2,
+      "operating_margin": 23.2,
+      "debt_to_equity": 5.52,
+      "current_ratio": null,
+      "quick_ratio": null,
+      "beta": 0.14,
+      "52w_high": 2046.9,
+      "52w_low": 1583.7,
+      "dividend_yield": 0.91,
+      "payout_ratio": 31.8,
+      "eps_ttm": 50.39,
+      "book_value": 348.31,
+      "revenue_ttm": "\u20b9599 Cr",
+      "net_income_ttm": "\u20b9121 Cr",
+      "free_cash_flow": "\u2014",
+      "enterprise_value": "\u20b93.94L Cr"
+    },
+    "quality": {
+      "score": 40,
+      "verdict": "AVOID",
+      "color": "#f75f5f",
+      "blocked": true,
+      "flags": [
+        "Very high debt/equity \u2014 leverage risk",
+        "Weak ROE \u2014 capital not productively used"
+      ]
+    },
+    "error": null
+  },
+  "trade_action": {
+    "found": true,
+    "n_signals": 4,
+    "t_high_conf_signals": 2,
+    "entry": 1828.9,
+    "entry_range": {
+      "low": 1828.9,
+      "high": 1865.84,
+      "median": 1847.37,
+      "spread_pct": 4.77,
+      "clamped": true
+    },
+    "sl": 1754.44,
+    "sl_range": {
+      "tightest": 1754.44,
+      "widest": 1837.83,
+      "median": 1799.68,
+      "used": 1799.68,
+      "method": "Conservative median of high-confidence signals"
+    },
+    "t1": 1976.29,
+    "t2": 2014.3,
+    "t3": 2085.85,
+    "rr_t1": 2.7,
+    "rr_t2": 3.5,
+    "entry_type": "BREAKOUT",
+    "confidence": 70.8,
+    "grade": "D",
+    "grade_color": "#f75f5f",
+    "grade_desc": "Weak setup \u2014 high uncertainty",
+    "risk_pct": 2.58,
+    "r1_pct": 6.98,
+    "r2_pct": 9.04,
+    "target_hits": {
+      "t1": {
+        "target": 1976.29,
+        "move_pct": 6.86,
+        "est_days": 14,
+        "est_weeks": 2.8,
+        "atr_days": 4,
+        "hist_median_days": 24,
+        "hist_min_days": 1,
+        "hist_max_days": 59,
+        "success_rate": 39.3,
+        "times_achieved": 194,
+        "verdict": "POSSIBLE",
+        "verdict_color": "#f5a623",
+        "verdict_note": "Achieved only 39.3% of the time historically"
+      },
+      "t2": {
+        "target": 2014.3,
+        "move_pct": 8.91,
+        "est_days": 18,
+        "est_weeks": 3.6,
+        "atr_days": 5,
+        "hist_median_days": 30,
+        "hist_min_days": 3,
+        "hist_max_days": 59,
+        "success_rate": 25.5,
+        "times_achieved": 126,
+        "verdict": "POSSIBLE",
+        "verdict_color": "#f5a623",
+        "verdict_note": "Achieved only 25.5% of the time historically",
+        "extra_days_from_t1": 4
+      },
+      "sl": {
+        "sl": 1799.68,
+        "sl_pct": 2.69,
+        "hit_rate_5d": 25.9,
+        "verdict": "MODERATE RISK",
+        "verdict_color": "#f5a623",
+        "verdict_note": "25.9% chance of hitting SL \u2014 set alerts"
+      },
+      "atr": {
+        "value": 32.96,
+        "pct": 1.87,
+        "note": "ATR \u20b932.96 (1.87% of price) \u2014 daily expected move"
+      }
+    },
+    "regime": {
+      "vol_ratio": 1.02,
+      "vol_note": "ATR 1.0x avg \u2014 Normal volatility. Full size OK.",
+      "vol_color": "#3dd68c",
+      "vol_penalty": 0,
+      "participation": 0.83,
+      "part_note": "Volume 0.8x avg \u2014 Normal.",
+      "part_color": "#f5a623",
+      "part_bonus": 0,
+      "trend_note": "MA200 flat 0.3% \u2014 Sideways. Lower confidence.",
+      "trend_color": "#f5a623",
+      "trend_bonus": -5,
+      "total_adjustment": -5,
+      "regime_ok": false,
+      "summary": "\u274c Unfavourable regime \u2014 skip (Halls-Moore)"
+    },
+    "entries": [
+      {
+        "name": "Golden Cross",
+        "emoji": "\ud83c\udf1f",
+        "entry": 1887.28,
+        "sl": 1837.83,
+        "sl_method": "ATR x1.5 (Bandy) + MA200 floor",
+        "t1": 1986.17,
+        "t2": 2060.34,
+        "t3": 2134.51,
+        "rr_t1": 2.0,
+        "rr_t2": 3.5,
+        "entry_type": "LIMIT",
+        "condition": "Limit buy at MA50 \u2248 \u20b91887.28",
+        "confidence": 73,
+        "reasoning": "Pullback to MA50 \u20b91887.28 in golden cross alignment. Murphy: 'MA50 is dynamic support in uptrend.' Halls-Moore: 'Pullback entries improve R:R.'",
+        "risk_pct": -2.62,
+        "r1_pct": 5.24,
+        "r2_pct": 9.17,
+        "rr_ok": true,
+        "bars_ago": 0,
+        "decay_note": ""
+      },
+      {
+        "name": "Resistance Break",
+        "emoji": "\ud83d\udccf\u2b06\ufe0f",
+        "entry": 1799.2,
+        "sl": 1754.44,
+        "sl_method": "Below broken resistance (Murphy)",
+        "t1": 1888.72,
+        "t2": 1955.86,
+        "t3": 2023.0,
+        "rr_t1": 2.0,
+        "rr_t2": 3.5,
+        "entry_type": "BREAKOUT",
+        "condition": "Buy stop \u20b91799.2 above resistance \u20b91790.25",
+        "confidence": 50,
+        "reasoning": "WEAK resistance \u20b91790.25 (1 touches). Murphy: 'Resistance broken becomes support.' Buy stop 0.5% above.",
+        "risk_pct": -2.75,
+        "r1_pct": 4.98,
+        "r2_pct": 8.71,
+        "rr_ok": true,
+        "bars_ago": 0,
+        "decay_note": ""
+      },
+      {
+        "name": "CUP AND HANDLE",
+        "emoji": "\u2615",
+        "entry": 1847.37,
+        "sl": 1797.93,
+        "sl_method": "ATR x1.5 (Bandy)",
+        "t1": 2095.53,
+        "t2": 2020.41,
+        "t3": 2094.57,
+        "rr_t1": 5.02,
+        "rr_t2": 3.5,
+        "entry_type": "BREAKOUT",
+        "condition": "Buy stop \u20b91847.37 above CUP AND HANDLE neckline \u20b91838.18",
+        "confidence": 75,
+        "reasoning": "CUP AND HANDLE forming (conf 75%). Murphy: 'Wait for close above neckline.' Halls-Moore: '0.5% buffer improves fill quality.'",
+        "risk_pct": -2.68,
+        "r1_pct": 13.43,
+        "r2_pct": 9.37,
+        "rr_ok": true,
+        "bars_ago": 0,
+        "decay_note": ""
+      },
+      {
+        "name": "TRIPLE BOTTOM",
+        "emoji": "\ud83c\udfd4\ufe0f",
+        "entry": 1847.37,
+        "sl": 1801.42,
+        "sl_method": "Below TRIPLE BOTTOM neckline",
+        "t1": 1966.41,
+        "t2": 2008.19,
+        "t3": 2077.12,
+        "rr_t1": 2.59,
+        "rr_t2": 3.5,
+        "entry_type": "BREAKOUT",
+        "condition": "Buy stop \u20b91847.37 above neckline \u20b91838.18",
+        "confidence": 45,
+        "reasoning": "TRIPLE BOTTOM forming. Murphy: 'Buy stop just above neckline for confirmation.' Target: \u20b91966.41.",
+        "risk_pct": -2.68,
+        "r1_pct": 6.44,
+        "r2_pct": 8.71,
+        "rr_ok": true,
+        "bars_ago": 0,
+        "decay_note": ""
+      }
+    ]
+  },
+  "dow": {
+    "primary": {
+      "trend": "UPTREND",
+      "description": "Primary Uptrend (Bullish Tide) \u2014 Trade LONG only",
+      "color": "#3dd68c",
+      "emoji": "\ud83c\udf0a\u2b06\ufe0f"
+    },
+    "secondary": {
+      "trend": "SIDEWAYS",
+      "description": "Secondary Consolidation",
+      "color": "#f5a623",
+      "emoji": "\ud83c\udf0a\u27a1\ufe0f",
+      "retracement_pct": 87.8,
+      "retracement_label": " Retracement 87.8% (outside classic zone)"
+    },
+    "minor": {
+      "trend": "SIDEWAYS",
+      "description": "Minor Sideways (Ripple \u2014 no clear short-term direction)",
+      "color": "#aaaaaa",
+      "emoji": "\u3030\ufe0f\u27a1\ufe0f"
+    },
+    "signal": "NEUTRAL",
+    "signal_color": "#aaaaaa",
+    "signal_desc": "Mixed signals \u2014 observe and wait"
   },
   "indicators": {
     "rsi": {
-      "value": 33.6,
+      "value": 33.7,
       "signal": "BEARISH",
       "divergence": "BULLISH_DIVERGENCE"
     },
@@ -45,33 +409,33 @@
       "signal": "BEARISH",
       "color": "#f75f5f",
       "description": "MACD below zero and signal \u2014 downward momentum",
-      "macd": -30.505,
-      "signal_line": -23.863,
-      "histogram": -6.642,
+      "macd": -32.454,
+      "signal_line": -25.581,
+      "histogram": -6.872,
       "cross": "NONE"
     },
     "bb": {
-      "signal": "BREAKDOWN",
-      "color": "#f75f5f",
-      "description": "Price below lower band \u2014 bearish breakdown / oversold",
-      "upper": 1898.61,
-      "lower": 1770.05,
-      "mid": 1834.33,
-      "pct_b": -8,
+      "signal": "OVERSOLD",
+      "color": "#7c6af7",
+      "description": "Price near lower band (0.9%B) \u2014 potential bounce",
+      "upper": 1899.37,
+      "lower": 1758.8,
+      "mid": 1829.09,
+      "pct_b": 0.9,
       "squeeze": false
     },
     "ma": {
-      "sma_20": 1834.33,
-      "sma_50": 1891.87,
-      "sma_200": 1803.33,
-      "dist_200ma": -2.41
+      "sma_20": 1829.09,
+      "sma_50": 1887.28,
+      "sma_200": 1803.31,
+      "dist_200ma": -2.4
     },
     "atr": {
-      "value": 33.51,
-      "pct": 1.9
+      "value": 32.96,
+      "pct": 1.87
     },
     "volume": {
-      "ratio": 0.99
+      "ratio": 0.83
     }
   },
   "patterns": {
@@ -91,7 +455,7 @@
         "apex_bars": 0,
         "bars_formed": 90,
         "upper_slope": -4.242,
-        "lower_slope": -25.779,
+        "lower_slope": -25.783,
         "trendline_upper_y": [
           1967.1390325990724,
           1959.1508844902066,
@@ -105,34 +469,34 @@
         ],
         "sh_prices": [
           {
-            "index": 15,
+            "index": 14,
             "price": 1897.4271685009069
           },
           {
-            "index": 42,
+            "index": 41,
             "price": 2046.9000244140625
           },
           {
-            "index": 63,
+            "index": 62,
             "price": 1984.800048828125
           },
           {
-            "index": 77,
+            "index": 76,
             "price": 1891.5
           }
         ],
         "sl_prices": [
           {
-            "index": 47,
+            "index": 46,
             "price": 1925.0999755859375
           },
           {
-            "index": 54,
+            "index": 53,
             "price": 1868.300048828125
           },
           {
-            "index": 73,
-            "price": 1828
+            "index": 72,
+            "price": 1828.0
           }
         ]
       }
@@ -151,7 +515,7 @@
       "apex_bars": 0,
       "bars_formed": 90,
       "upper_slope": -4.242,
-      "lower_slope": -25.779,
+      "lower_slope": -25.783,
       "trendline_upper_y": [
         1967.1390325990724,
         1959.1508844902066,
@@ -165,34 +529,34 @@
       ],
       "sh_prices": [
         {
-          "index": 15,
+          "index": 14,
           "price": 1897.4271685009069
         },
         {
-          "index": 42,
+          "index": 41,
           "price": 2046.9000244140625
         },
         {
-          "index": 63,
+          "index": 62,
           "price": 1984.800048828125
         },
         {
-          "index": 77,
+          "index": 76,
           "price": 1891.5
         }
       ],
       "sl_prices": [
         {
-          "index": 47,
+          "index": 46,
           "price": 1925.0999755859375
         },
         {
-          "index": 54,
+          "index": 53,
           "price": 1868.300048828125
         },
         {
-          "index": 73,
-          "price": 1828
+          "index": 72,
+          "price": 1828.0
         }
       ]
     },
@@ -366,19 +730,19 @@
         "strength": "WEAK",
         "dist_pct": -3.9
       },
-      "current_price": 1759.8
+      "current_price": 1760.0
     },
     "trendlines": {
       "uptrend_line": {
         "slope": -2.1211,
-        "value_now": 1794.06,
+        "value_now": 1791.94,
         "touches": 24,
         "broken": true,
         "ascending": false
       },
       "downtrend_line": {
         "slope": -6.6643,
-        "value_now": 1811.53,
+        "value_now": 1804.86,
         "touches": 2,
         "broken": false,
         "descending": true
@@ -386,7 +750,7 @@
       "uptrend_broken": false,
       "downtrend_broken": false,
       "signal": "DOWNTREND INTACT",
-      "description": "Falling trendline resistance at \u20b91811.53"
+      "description": "Falling trendline resistance at \u20b91804.86"
     },
     "ma_crosses": {
       "golden_cross": false,
@@ -401,217 +765,6 @@
       "medium_term_cross": "BEARISH CROSS (MA20 < MA50)"
     }
   },
-  "dow": {
-    "primary": {
-      "trend": "UPTREND",
-      "description": "Primary Uptrend (Bullish Tide) \u2014 Trade LONG only",
-      "color": "#3dd68c",
-      "emoji": "\ud83c\udf0a\u2b06\ufe0f"
-    },
-    "secondary": {
-      "trend": "SIDEWAYS",
-      "description": "Secondary Consolidation",
-      "color": "#f5a623",
-      "emoji": "\ud83c\udf0a\u27a1\ufe0f",
-      "retracement_pct": 87.8,
-      "retracement_label": " Retracement 87.8% (outside classic zone)"
-    },
-    "minor": {
-      "trend": "SIDEWAYS",
-      "description": "Minor Sideways (Ripple \u2014 no clear short-term direction)",
-      "color": "#aaaaaa",
-      "emoji": "\u3030\ufe0f\u27a1\ufe0f"
-    },
-    "signal": "NEUTRAL",
-    "signal_color": "#aaaaaa",
-    "signal_desc": "Mixed signals \u2014 observe and wait"
-  },
-  "entry": {
-    "found": true,
-    "n_signals": 4,
-    "t_high_conf_signals": 2,
-    "entry": 1828.9,
-    "entry_range": {
-      "low": 1828.9,
-      "high": 1865.84,
-      "median": 1847.37,
-      "spread_pct": 5.02,
-      "clamped": true
-    },
-    "sl": 1754.44,
-    "sl_range": {
-      "tightest": 1754.44,
-      "widest": 1841.6,
-      "median": 1799.26,
-      "used": 1799.26,
-      "method": "Conservative median of high-confidence signals"
-    },
-    "t1": 1979.41,
-    "t2": 2015.75,
-    "t3": 2087.92,
-    "rr_t1": 2.74,
-    "rr_t2": 3.5,
-    "entry_type": "BREAKOUT",
-    "confidence": 70.8,
-    "grade": "D",
-    "grade_color": "#f75f5f",
-    "grade_desc": "Weak setup \u2014 high uncertainty",
-    "risk_pct": 2.6,
-    "r1_pct": 7.15,
-    "r2_pct": 9.11,
-    "target_hits": {
-      "t1": {
-        "target": 1979.41,
-        "move_pct": 6.95,
-        "est_days": 14,
-        "est_weeks": 2.8,
-        "atr_days": 4,
-        "hist_median_days": 25,
-        "hist_min_days": 1,
-        "hist_max_days": 59,
-        "success_rate": 38.5,
-        "times_achieved": 190,
-        "verdict": "POSSIBLE",
-        "verdict_color": "#f5a623",
-        "verdict_note": "Achieved only 38.5% of the time historically"
-      },
-      "t2": {
-        "target": 2015.75,
-        "move_pct": 8.91,
-        "est_days": 18,
-        "est_weeks": 3.6,
-        "atr_days": 5,
-        "hist_median_days": 30,
-        "hist_min_days": 3,
-        "hist_max_days": 59,
-        "success_rate": 25.6,
-        "times_achieved": 126,
-        "verdict": "POSSIBLE",
-        "verdict_color": "#f5a623",
-        "verdict_note": "Achieved only 25.6% of the time historically",
-        "extra_days_from_t1": 4
-      },
-      "sl": {
-        "sl": 1799.26,
-        "sl_pct": 2.79,
-        "hit_rate_5d": 23.1,
-        "verdict": "MODERATE RISK",
-        "verdict_color": "#f5a623",
-        "verdict_note": "23.1% chance of hitting SL \u2014 set alerts"
-      },
-      "atr": {
-        "value": 33.51,
-        "pct": 1.9,
-        "note": "ATR \u20b933.51 (1.9% of price) \u2014 daily expected move"
-      }
-    },
-    "regime": {
-      "vol_ratio": 1.04,
-      "vol_note": "ATR 1.0x avg \u2014 Normal volatility. Full size OK.",
-      "vol_color": "#3dd68c",
-      "vol_penalty": 0,
-      "participation": 0.99,
-      "part_note": "Volume 1.0x avg \u2014 Normal.",
-      "part_color": "#f5a623",
-      "part_bonus": 0,
-      "trend_note": "MA200 flat 0.3% \u2014 Sideways. Lower confidence.",
-      "trend_color": "#f5a623",
-      "trend_bonus": -5,
-      "total_adjustment": -5,
-      "regime_ok": false,
-      "summary": "\u274c Unfavourable regime \u2014 skip (Halls-Moore)"
-    },
-    "entries": [
-      {
-        "name": "Golden Cross",
-        "emoji": "\ud83c\udf1f",
-        "entry": 1891.87,
-        "sl": 1841.6,
-        "sl_method": "ATR x1.5 (Bandy) + MA200 floor",
-        "t1": 1992.42,
-        "t2": 2067.83,
-        "t3": 2143.24,
-        "rr_t1": 2,
-        "rr_t2": 3.5,
-        "entry_type": "LIMIT",
-        "condition": "Limit buy at MA50 \u2248 \u20b91891.87",
-        "confidence": 73,
-        "reasoning": "Pullback to MA50 \u20b91891.87 in golden cross alignment. Murphy: 'MA50 is dynamic support in uptrend.' Halls-Moore: 'Pullback entries improve R:R.'",
-        "risk_pct": -2.66,
-        "r1_pct": 5.31,
-        "r2_pct": 9.3,
-        "rr_ok": true,
-        "bars_ago": 0,
-        "decay_note": ""
-      },
-      {
-        "name": "Resistance Break",
-        "emoji": "\ud83d\udccf\u2b06\ufe0f",
-        "entry": 1799.2,
-        "sl": 1754.44,
-        "sl_method": "Below broken resistance (Murphy)",
-        "t1": 1888.72,
-        "t2": 1955.86,
-        "t3": 2023,
-        "rr_t1": 2,
-        "rr_t2": 3.5,
-        "entry_type": "BREAKOUT",
-        "condition": "Buy stop \u20b91799.2 above resistance \u20b91790.25",
-        "confidence": 50,
-        "reasoning": "WEAK resistance \u20b91790.25 (1 touches). Murphy: 'Resistance broken becomes support.' Buy stop 0.5% above.",
-        "risk_pct": -2.79,
-        "r1_pct": 4.98,
-        "r2_pct": 8.71,
-        "rr_ok": true,
-        "bars_ago": 0,
-        "decay_note": ""
-      },
-      {
-        "name": "CUP AND HANDLE",
-        "emoji": "\u2615",
-        "entry": 1847.37,
-        "sl": 1797.1,
-        "sl_method": "ATR x1.5 (Bandy)",
-        "t1": 2095.53,
-        "t2": 2023.31,
-        "t3": 2098.72,
-        "rr_t1": 4.94,
-        "rr_t2": 3.5,
-        "entry_type": "BREAKOUT",
-        "condition": "Buy stop \u20b91847.37 above CUP AND HANDLE neckline \u20b91838.18",
-        "confidence": 75,
-        "reasoning": "CUP AND HANDLE forming (conf 75%). Murphy: 'Wait for close above neckline.' Halls-Moore: '0.5% buffer improves fill quality.'",
-        "risk_pct": -2.72,
-        "r1_pct": 13.43,
-        "r2_pct": 9.52,
-        "rr_ok": true,
-        "bars_ago": 0,
-        "decay_note": ""
-      },
-      {
-        "name": "TRIPLE BOTTOM",
-        "emoji": "\ud83c\udfd4\ufe0f",
-        "entry": 1847.37,
-        "sl": 1801.42,
-        "sl_method": "Below TRIPLE BOTTOM neckline",
-        "t1": 1966.41,
-        "t2": 2008.19,
-        "t3": 2077.12,
-        "rr_t1": 2.59,
-        "rr_t2": 3.5,
-        "entry_type": "BREAKOUT",
-        "condition": "Buy stop \u20b91847.37 above neckline \u20b91838.18",
-        "confidence": 45,
-        "reasoning": "TRIPLE BOTTOM forming. Murphy: 'Buy stop just above neckline for confirmation.' Target: \u20b91966.41.",
-        "risk_pct": -2.72,
-        "r1_pct": 6.44,
-        "r2_pct": 8.71,
-        "rr_ok": true,
-        "bars_ago": 0,
-        "decay_note": ""
-      }
-    ]
-  },
   "candles": {
     "candles": [
       {
@@ -623,7 +776,7 @@
         "desc": "Tweezer Top: Two candles with equal highs \u2014 strong resistance, bearish reversal.",
         "color": "#f75f5f",
         "date": "2026-10-07 00:00",
-        "bars_ago": 1,
+        "bars_ago": 2,
         "timeframe": "1D"
       },
       {
@@ -635,7 +788,7 @@
         "desc": "Bullish Engulfing: Large green candle engulfs previous red \u2014 strong reversal signal.",
         "color": "#3dd68c",
         "date": "2026-10-06 00:00",
-        "bars_ago": 2,
+        "bars_ago": 3,
         "timeframe": "1D"
       },
       {
@@ -647,7 +800,7 @@
         "desc": "Three Black Crows: 3 strong red candles \u2014 powerful bearish momentum.",
         "color": "#f75f5f",
         "date": "2026-10-05 00:00",
-        "bars_ago": 3,
+        "bars_ago": 4,
         "timeframe": "1D"
       }
     ],
@@ -661,7 +814,7 @@
         "desc": "Bullish Engulfing: Large green candle engulfs previous red \u2014 strong reversal signal.",
         "color": "#3dd68c",
         "date": "2026-10-06 00:00",
-        "bars_ago": 2,
+        "bars_ago": 3,
         "timeframe": "1D"
       }
     ],
@@ -675,7 +828,7 @@
         "desc": "Tweezer Top: Two candles with equal highs \u2014 strong resistance, bearish reversal.",
         "color": "#f75f5f",
         "date": "2026-10-07 00:00",
-        "bars_ago": 1,
+        "bars_ago": 2,
         "timeframe": "1D"
       },
       {
@@ -687,7 +840,7 @@
         "desc": "Three Black Crows: 3 strong red candles \u2014 powerful bearish momentum.",
         "color": "#f75f5f",
         "date": "2026-10-05 00:00",
-        "bars_ago": 3,
+        "bars_ago": 4,
         "timeframe": "1D"
       }
     ],
@@ -700,30 +853,90 @@
       "desc": "Tweezer Top: Two candles with equal highs \u2014 strong resistance, bearish reversal.",
       "color": "#f75f5f",
       "date": "2026-10-07 00:00",
-      "bars_ago": 1,
+      "bars_ago": 2,
       "timeframe": "1D"
     },
     "stochastic": {
       "signal": "OVERSOLD",
       "color": "#3dd68c",
       "description": "Stochastic 10 \u2014 Oversold zone. Watch for %K crossing above %D to buy.",
-      "k": 10.1,
-      "d": 16.6,
+      "k": 10.2,
+      "d": 10.3,
       "cross": "NONE"
     }
   },
+  "risks": {
+    "risks": [
+      {
+        "severity": "MEDIUM",
+        "category": "Technical",
+        "emoji": "\ud83d\udcca",
+        "title": "MACD Momentum BEARISH",
+        "description": "MACD signal: BEARISH. Upward momentum is slowing. May not be best entry timing.",
+        "action": "Wait for MACD to turn bullish before entering.",
+        "color": "#f5a623"
+      },
+      {
+        "severity": "MEDIUM",
+        "category": "Pattern",
+        "emoji": "\ud83d\udd3b",
+        "title": "DOUBLE TOP Pattern Detected",
+        "description": "Double Top (M): Peak1=\u20b91911.6 | Peak2=\u20b91897.4 | Valley=\u20b91752.2\nWatch for break below \u20b91752.2 Confidence: 65%. Murphy Ch.5: 'Reversal patterns signal end of trend.'",
+        "action": "Watching \u2014 tighten SL to \u20b91752.21 Target: \u20b91599.91",
+        "color": "#f5a623"
+      }
+    ],
+    "total": 2,
+    "high_count": 0,
+    "medium_count": 2,
+    "overall": "LOW-MODERATE",
+    "overall_color": "#7c6af7",
+    "overall_desc": "Minor risks present \u2014 standard position size OK"
+  },
+  "df2": {
+    "Open": 1756.199951171875,
+    "High": 1776.800048828125,
+    "Low": 1751.0,
+    "Close": 1760.0,
+    "Volume": 1346107,
+    "SMA_20": 1829.0850036621093,
+    "SMA_50": 1887.2760034179687,
+    "SMA_200": 1803.3051708984376,
+    "EMA_9": 1794.5552317999961,
+    "EMA_21": 1827.5657171414919,
+    "RSI": 33.66266612783272,
+    "RSI_signal": "BEARISH",
+    "MACD": -32.45351533101007,
+    "MACD_signal": -25.581260871921675,
+    "MACD_hist": -6.872254459088392,
+    "MACD_cross": "NONE",
+    "BB_upper": 1899.3724299473372,
+    "BB_lower": 1758.7975773768815,
+    "BB_mid": 1829.0850036621093,
+    "BB_width": 7.685528681772759,
+    "BB_pct": 0.008553611126968003,
+    "BB_squeeze": false,
+    "ATR": 32.962792286942985,
+    "ATR_pct": 1.87,
+    "Vol_MA20": 1612463.45,
+    "Vol_ratio": 0.83,
+    "OBV": 11400060,
+    "Dist_from_200MA": -2.4
+  },
+  "isDemo": true,
+  "demoAsOf": "2026-10-09",
   "ai": {
     "decision": "HOLD / ACCUMULATE ON PULLBACK",
-    "confidence": 78,
-    "summary": "Primary uptrend intact despite short-term consolidation. Strong institutional participation, low debt, and healthy operating margins.",
+    "confidence": 74,
+    "summary": "SUNPHARMA demonstrates robust multi-year consolidation above its 200-day moving average with solid operating margins (27.8%) and a negligible debt-to-equity ratio (0.05). Momentum has cooled into an intermediate oversold band (RSI 33.6), creating an asymmetric risk/reward accumulation pocket near structural support of \u20b91,710.",
     "key_positives": [
-      "SMA50 is above SMA200 (Long-term bullish trend intact)",
-      "Support at \u20b91691 with 3 strong touches",
-      "Institutional volume healthy at 0.99x 20-day average"
+      "Clean primary uptrend preservation (trading above 200 SMA on weekly basis)",
+      "Healthy quarterly revenue expansion of +10.4% YoY with industry-leading ROE (18.5%)",
+      "Strong institutional participation and high volume absorption at swing lows"
     ],
     "risks": [
-      "RSI is currently oversold (33.6) indicating near-term downward pressure",
-      "Resistance cluster at \u20b91790-\u20b91832"
+      "Short-term price divergence below the 20-day EMA requires confirmation bounce",
+      "Broad healthcare sector rotation may induce temporary consolidation before next leg"
     ]
   }
 }

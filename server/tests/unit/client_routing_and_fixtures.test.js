@@ -26,7 +26,7 @@ describe("Client Demo Fixtures & Landing Routing Logic", () => {
     expect(data.isDemo).toBe(true);
     expect(data.presets.conservative).toBeDefined();
     expect(data.presets.momentum).toBeDefined();
-    expect(data.presets.conservative.filters.symbol).toBe("RELIANCE");
+    expect(data.presets.conservative.filters.symbol).toBe("SUNPHARMA");
     expect(data.presets.momentum.filters.symbol).toBe("TATASTEEL");
   });
 
@@ -80,5 +80,22 @@ describe("Client Demo Fixtures & Landing Routing Logic", () => {
     expect(getTargetRoute(3, true)).toBe("/analyse/SUNPHARMA");
     expect(getTargetRoute(4, true)).toBe("/recommendations");
   });
+
+  test("journey.js exports valid entry paths, steps, under the hood note, and disclaimer", () => {
+    const journeyFile = path.resolve(__dirname, "../../../client/src/constants/journey.js");
+    expect(fs.existsSync(journeyFile)).toBe(true);
+
+    const content = fs.readFileSync(journeyFile, "utf-8");
+    // Verify required strings exist in constant file
+    expect(content).toContain("ENTRY_PATHS");
+    expect(content).toContain("JOURNEY_STEPS");
+    expect(content).toContain("UNDER_THE_HOOD");
+    expect(content).toContain("DISCLAIMER");
+    expect(content).toContain("historically");
+    expect(content).not.toContain("will perform well");
+    expect(content).toContain("Scans ~1,000 NSE stocks");
+    expect(content).toContain("Sample data only, not investment advice.");
+  });
 });
+
 

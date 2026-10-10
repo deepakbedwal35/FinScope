@@ -7,29 +7,29 @@ export default function Activity({data}){
                 <div className="text-sm text-center flex flex-row p-2 justify-between ">
                     <div>
                         <div className="text-gray-300 pb-2">Open</div>
-                        <div className="font-medium">{data?.Open.toFixed(2)}</div>
+                        <div className="font-medium">{data?.Open != null ? Number(data.Open).toFixed(2) : "—"}</div>
                     </div>
                     <div>
                         <div className="text-gray-300 pb-2">High</div>
-                        <div className="text-green-500 font-medium">{data?.High.toFixed(2)}</div>
+                        <div className="text-green-500 font-medium">{data?.High != null ? Number(data.High).toFixed(2) : "—"}</div>
                     </div>
                     <div>
                         <div className="text-gray-300 pb-2">Low</div>
-                        <div className="text-red-500 font-medium">{data?.Low.toFixed(2)}</div>
+                        <div className="text-red-500 font-medium">{data?.Low != null ? Number(data.Low).toFixed(2) : "—"}</div>
                     </div>
                     <div>
                         <div className="text-gray-300 pb-2">Close</div>
-                        <div className="font-medium">{data?.Close.toFixed(2)}</div>
+                        <div className="font-medium">{data?.Close != null ? Number(data.Close).toFixed(2) : "—"}</div>
                     </div>
 
                     <div>
                         <div className="text-gray-300 pb-2">Volume</div>
-                        <div className="font-medium">{(data?.Volume/10000000).toFixed(4)} Cr</div>
+                        <div className="font-medium">{data?.Volume != null ? `${(Number(data.Volume)/10000000).toFixed(4)} Cr` : "—"}</div>
                     </div>
 
                     <div>
                         <div className="text-gray-300 pb-2">Volume Ratio</div>
-                        <div className="font-medium">{data?.vol_ratio ?? data?.Vol_ratio}</div>
+                        <div className="font-medium">{data?.vol_ratio ?? data?.Vol_ratio ?? "—"}</div>
                     </div>
 
                 </div>

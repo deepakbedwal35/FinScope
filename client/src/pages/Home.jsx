@@ -4,6 +4,7 @@ import {api} from "../services/api"
 
 import Header from "../components/Header/Header"
 import DemoBanner from "../components/common/DemoBanner"
+import GettingStartedGuide from "../components/home/GettingStartedGuide"
 // import Navbar from "../components/Navbar"
 
 // import HomeBlock from "../components/home/HomeBlock"
@@ -23,6 +24,7 @@ function Home(){
         
         <Header />
         <DemoBanner />
+        <GettingStartedGuide />
         <IndexBlock/>
         <Indicators/>
         <TradingSignals/>

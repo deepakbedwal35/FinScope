@@ -22,6 +22,15 @@ function Header(){
                 
                 <div className=""><SearchStocks/></div>
                 <NavLink to="/home" className= {({isActive}) => `block  hover:text-blue-500 rounded-lg hover:bg-neutral-700  p-2 ${isActive ? 'text-blue-500' : 'text-gray-300'}`}><HomeFilledIcon /></NavLink>
+                <button
+                    onClick={() => {
+                        window.dispatchEvent(new CustomEvent('finscope:toggle_guide'));
+                    }}
+                    className="text-gray-300 hover:text-blue-500 rounded-lg hover:bg-neutral-700 p-2 cursor-pointer font-mono"
+                    title="Toggle Getting Started Guide"
+                >
+                    Guide
+                </button>
                 <NavLink to="/watchlist" className= {({isActive}) => `block  hover:text-blue-500 rounded-lg hover:bg-neutral-700  p-2 ${isActive ? 'text-blue-500' : 'text-gray-300'}`}>Watchlist</NavLink>
                 {/* <NavLink to="/list/trades" className= {({isActive}) => `block  hover:text-blue-500 rounded-lg hover:bg-neutral-700 font-medium p-2 ${isActive ? 'text-blue-500' : 'text-gray-300'}`}>Portfolio</NavLink> */}
                 <div className="ml-2 "><ToolsDropdown/></div>
