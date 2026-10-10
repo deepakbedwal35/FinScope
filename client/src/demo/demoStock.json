@@ -926,17 +926,170 @@
   "isDemo": true,
   "demoAsOf": "2026-10-09",
   "ai": {
-    "decision": "HOLD / ACCUMULATE ON PULLBACK",
-    "confidence": 74,
-    "summary": "SUNPHARMA demonstrates robust multi-year consolidation above its 200-day moving average with solid operating margins (27.8%) and a negligible debt-to-equity ratio (0.05). Momentum has cooled into an intermediate oversold band (RSI 33.6), creating an asymmetric risk/reward accumulation pocket near structural support of \u20b91,710.",
-    "key_positives": [
-      "Clean primary uptrend preservation (trading above 200 SMA on weekly basis)",
-      "Healthy quarterly revenue expansion of +10.4% YoY with industry-leading ROE (18.5%)",
-      "Strong institutional participation and high volume absorption at swing lows"
-    ],
-    "risks": [
-      "Short-term price divergence below the 20-day EMA requires confirmation bounce",
-      "Broad healthcare sector rotation may induce temporary consolidation before next leg"
-    ]
+    "symbol": "SUNPHARMA",
+    "company_name": "Sun Pharmaceutical",
+    "timestamp": "10 Oct 2026 16:03",
+    "news": {
+      "news_items": [
+        {
+          "title": "Sun Pharma raises dividend to ₹11 per share",
+          "detail": "Sun Pharmaceutical announced an increase in its interim dividend to ₹11 per share, up from ₹9.50 earlier, reflecting strong cash generation and confidence in earnings outlook.",
+          "category": "Regulatory",
+          "sentiment": "POSITIVE",
+          "impact": 8,
+          "date_approx": "Oct 2026",
+          "source_hint": "Simply Wall Street"
+        },
+        {
+          "title": "Sun Pharma gets NSE, BSE nod to reclassify Valia family as public shareholders",
+          "detail": "Regulatory approvals were secured to reclassify the Valia family holdings as public shareholding, improving corporate governance perception and potentially widening the free-float.",
+          "category": "Regulatory",
+          "sentiment": "POSITIVE",
+          "impact": 8,
+          "date_approx": "Sep 2026",
+          "source_hint": "scanx.trade"
+        },
+        {
+          "title": "Nifty Pharma jumps nearly 2% led by Sun Pharma gains",
+          "detail": "A broad rally in the pharma index lifted Sun Pharma shares, driven by strong US generic sales and positive earnings expectations, contributing to the index's near‑2% rise.",
+          "category": "Sector",
+          "sentiment": "POSITIVE",
+          "impact": 7,
+          "date_approx": "Oct 2026",
+          "source_hint": "Moneycontrol.com"
+        },
+        {
+          "title": "Indian pharma stocks dip after US President announces tariffs on generics",
+          "detail": "A potential 15% tariff on imported generic drugs announced by the US administration weighed on Sun Pharma and peers, raising concerns over export margins to the US market.",
+          "category": "Macro",
+          "sentiment": "NEGATIVE",
+          "impact": 6,
+          "date_approx": "Oct 2026",
+          "source_hint": "Investing.com India"
+        },
+        {
+          "title": "Sun Pharma hits new 52‑week high along with other BSE 500 leaders",
+          "detail": "The stock reached a fresh high, supported by the dividend hike and positive sector sentiment, marking its inclusion among the top performers in the BSE 500.",
+          "category": "Sector",
+          "sentiment": "POSITIVE",
+          "impact": 5,
+          "date_approx": "Oct 2026",
+          "source_hint": "Business Standard"
+        }
+      ],
+      "overall_news_sentiment": "POSITIVE",
+      "overall_news_score": 5,
+      "key_upcoming_events": [
+        "Q4 FY26 earnings release expected March 2027",
+        "Annual General Meeting and final dividend declaration scheduled April 2027"
+      ],
+      "analyst_consensus": "BUY",
+      "recent_price_drivers": [
+        "Dividend increase to ₹11 per share",
+        "Reclassification of Valia family holdings boosting governance perception",
+        "Broad pharma sector rally on strong US generic demand",
+        "Potential US tariff on generics creating downside pressure"
+      ],
+      "news_summary": "Sun Pharmaceutical has enjoyed a positive news flow in the past quarter, highlighted by a dividend hike and regulatory approval to reclassify the Valia family as public shareholders, both of which have bolstered investor confidence. The broader pharma rally further lifted the stock to new highs, though looming US tariff announcements pose a downside risk. Overall sentiment remains upbeat, with analysts maintaining a BUY stance ahead of the upcoming Q4 FY26 results.",
+      "positive": [
+        {
+          "title": "Sun Pharma raises dividend to ₹11 per share",
+          "detail": "Sun Pharmaceutical announced an increase in its interim dividend to ₹11 per share, up from ₹9.50 earlier, reflecting strong cash generation and confidence in earnings outlook.",
+          "category": "Regulatory",
+          "sentiment": "POSITIVE",
+          "impact": 8,
+          "date_approx": "Oct 2026",
+          "source_hint": "Simply Wall Street"
+        },
+        {
+          "title": "Sun Pharma gets NSE, BSE nod to reclassify Valia family as public shareholders",
+          "detail": "Regulatory approvals were secured to reclassify the Valia family holdings as public shareholding, improving corporate governance perception and potentially widening the free-float.",
+          "category": "Regulatory",
+          "sentiment": "POSITIVE",
+          "impact": 8,
+          "date_approx": "Sep 2026",
+          "source_hint": "scanx.trade"
+        },
+        {
+          "title": "Nifty Pharma jumps nearly 2% led by Sun Pharma gains",
+          "detail": "A broad rally in the pharma index lifted Sun Pharma shares, driven by strong US generic sales and positive earnings expectations, contributing to the index's near‑2% rise.",
+          "category": "Sector",
+          "sentiment": "POSITIVE",
+          "impact": 7,
+          "date_approx": "Oct 2026",
+          "source_hint": "Moneycontrol.com"
+        },
+        {
+          "title": "Sun Pharma hits new 52‑week high along with other BSE 500 leaders",
+          "detail": "The stock reached a fresh high, supported by the dividend hike and positive sector sentiment, marking its inclusion among the top performers in the BSE 500.",
+          "category": "Sector",
+          "sentiment": "POSITIVE",
+          "impact": 5,
+          "date_approx": "Oct 2026",
+          "source_hint": "Business Standard"
+        }
+      ],
+      "negative": [
+        {
+          "title": "Indian pharma stocks dip after US President announces tariffs on generics",
+          "detail": "A potential 15% tariff on imported generic drugs announced by the US administration weighed on Sun Pharma and peers, raising concerns over export margins to the US market.",
+          "category": "Macro",
+          "sentiment": "NEGATIVE",
+          "impact": 6,
+          "date_approx": "Oct 2026",
+          "source_hint": "Investing.com India"
+        }
+      ],
+      "neutral": [],
+      "source": "groq"
+    },
+    "decision": {
+      "verdict": "BUY",
+      "confidence": 68,
+      "timeframe": "1-3 months",
+      "one_liner": "Buy Sun Pharma on modest upside with target near ₹1,860, supported by solid fundamentals and positive news despite technical bearishness.",
+      "reasoning": "Sun Pharmaceutical shows a mixed technical picture: the composite score is low (11/30) and MACD is bearish with a double‑top pattern, suggesting short‑term downside pressure. However, the RSI at 33.7 indicates oversold conditions, and the primary trend remains an uptrend per Dow Theory, leaving room for a bounce. Fundamentally, the company delivers strong profit margins (20.2%) and healthy YoY growth in revenue (9%) and profit (14%), but valuation metrics are stretched (PE ~35, PB ~5) and the debt‑to‑equity ratio is unusually high at 5.5, which adds a layer of financial risk. The news environment is largely positive, highlighted by a dividend hike, regulatory approval for share reclassification, and a broader pharma rally, though US tariff announcements pose a downside catalyst. Balancing these factors, a cautious long position with defined risk is appropriate, targeting the first price objective of ₹1,859.56 and a secondary target of ₹1,919.53 while protecting against further downside.",
+      "action_plan": {
+        "entry_strategy": "Place a limit order around ₹1,760‑₹1,762; if price pulls back to the suggested entry of ₹1,761.8, initiate the position. Avoid chasing if price spikes above ₹1,770 without confirmation.",
+        "entry_price": 1761.8,
+        "sl_price": 1741.51,
+        "sl_reasoning": "SL is set just below the recent swing low and the 20‑day moving average, providing a clear technical breach point while limiting downside to ~1.2% of entry.",
+        "t1_price": 1859.56,
+        "t2_price": 1919.53,
+        "position_sizing": "Half position (≈50% of allocated capital) due to elevated debt levels and valuation concerns.",
+        "exit_strategy": "Take partial profit at T1 (≈50% of position) and move the remaining stop to breakeven. Exit the rest at T2 or if MACD turns sharply bearish or price breaches SL."
+      },
+      "bull_case": [
+        "Dividend hike to ₹11 per share boosts yield and signals confidence.",
+        "Regulatory approval to reclassify Valia family shares improves corporate governance and liquidity.",
+        "Broader Indian pharma rally and strong export demand support earnings growth."
+      ],
+      "bear_case": [
+        "Debt‑to‑Equity ratio of 5.5 is high for the sector, raising solvency concerns.",
+        "US tariff announcements on generics could hurt export revenues.",
+        "Technical bearish signals (MACD, double top) suggest potential further correction."
+      ],
+      "fundamental_view": "MODERATE",
+      "fundamental_comment": "Revenue and profit growth are respectable, and margins are healthy, but the stock trades at premium multiples and carries a high debt load, tempering the upside.",
+      "technical_view": "BEARISH",
+      "technical_comment": "Low composite score, bearish MACD, and a double‑top pattern dominate the short‑term outlook, though RSI oversold levels and an underlying uptrend leave room for a rebound.",
+      "news_view": "POSITIVE",
+      "news_comment": "Recent dividend increase, share reclassification approval, and sector‑wide rally have generated upbeat sentiment, offset slightly by US tariff concerns.",
+      "key_triggers": [
+        "Q4 FY26 earnings release (expected in early November).",
+        "US government decision on generic drug tariffs."
+      ],
+      "comparable_stocks": [
+        "Cipla Ltd.",
+        "Dr. Reddy's Laboratories Ltd."
+      ],
+      "sector_view": "The Indian pharmaceutical sector is benefiting from strong domestic demand and export opportunities, but faces headwinds from global trade policies and pricing pressures.",
+      "red_flags": [
+        "Debt/Equity ratio of 5.5 is unusually high for a pharma company."
+      ],
+      "overall_score": 70,
+      "source": "groq",
+      "timestamp": "10 October 2026"
+    }
   }
 }

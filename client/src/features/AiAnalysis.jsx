@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { api } from "../services/api";
 import AiDecision from "../components/aiAnalysis/AiDecision";
 import AiNewsAnalysis from "../components/aiAnalysis/AiNewsAnalysis";
@@ -8,6 +8,15 @@ export default function AiAnalysis({ symbol, demoData = null }) {
   const [analysisData, setAnalysisData] = useState(demoData);
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(demoData ? "decision" : null); 
+
+  useEffect(() => {
+    if (demoData) {
+      setAnalysisData(demoData);
+      if (!activeTab) {
+        setActiveTab("decision");
+      }
+    }
+  }, [demoData]); 
 
   
   const fetchAiPayload = async (targetTab) => {
