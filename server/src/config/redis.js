@@ -1,5 +1,6 @@
 // server/src/config/redis.js
 // Singleton Redis client — connects once, shared across the whole process.
+// Exporting the promise lets callers await initialization before use.
 
 const { createClient } = require("redis");
 
@@ -17,51 +18,31 @@ async function handleRedisCaching() {
   const redisPort = process.env.REDIS_PORT || "6379";
   const redisUrl  = process.env.REDIS_URL  || `redis://${redisHost}:${redisPort}`;
 
-  try {
-    client = createClient({
-      url: redisUrl,
-      socket: {
-        connectTimeout: 3000,
-        reconnectStrategy: (retries) => {
-          if (retries > 2) {
-            console.warn("[Redis] Maximum connection retries exceeded. Halting reconnect.");
-            return false; // Stop reconnecting
-          }
-          return Math.min(retries * 200, 1000);
-        },
-      },
-    });
+  client = createClient({ url: redisUrl });
 
-    client.on("error", (err) => console.error("[Redis] Client error →", err.message));
-    client.on("connect", () => console.log("[Redis] Connected to Redis successfully!"));
-    client.on("reconnecting", () => console.warn("[Redis] Reconnecting to Redis..."));
+  // Surface any background errors so they don't silently swallow problems.
+  client.on("error",   (err) => console.error("[Redis] Client error →", err));
+  client.on("connect", ()    => console.log("[Redis] Connected to Redis successfully!"));
+  client.on("reconnecting", () => console.warn("[Redis] Reconnecting..."));
 
-    await client.connect();
-    console.log("[Redis] Client ready.");
-    return client;
-  } catch (err) {
-    console.warn(`[Redis] ⚠️ Could not connect to Redis at ${redisUrl}: ${err.message}`);
-    console.warn("[Redis] ⚠️ Running in cache-bypass mode (direct DB/API queries).");
-    try {
-      if (client) await client.disconnect();
-    } catch (_) {}
-    client = null;
-    return null;
-  }
-}
-
-// --------------------------------------------------------------------------
-// Accessor — returns the initialized singleton client, or null if offline.
-// --------------------------------------------------------------------------
-function getRedisClient() {
+  await client.connect();
+  console.log("[Redis] Client ready.");
   return client;
 }
 
-// Support both object destructuring and direct function import
-handleRedisCaching.handleRedisCaching = handleRedisCaching;
-handleRedisCaching.getRedisClient = getRedisClient;
+// --------------------------------------------------------------------------
+// Accessor — every other module calls this instead of requiring the client
+// directly.  Throws if the server hasn't bootstrapped Redis yet (fast-fail
+// is better than mysterious null-dereference errors deep in a request).
+// --------------------------------------------------------------------------
+function getRedisClient() {
+  if (!client) {
+    throw new Error(
+      "[Redis] Client requested before initialization. " +
+      "Ensure handleRedisCaching() has resolved in index.js."
+    );
+  }
+  return client;
+}
 
-module.exports = {
-  handleRedisCaching,
-  getRedisClient,
-};
+module.exports = { handleRedisCaching, getRedisClient };

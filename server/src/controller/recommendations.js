@@ -43,6 +43,36 @@ const addRecommendations = async (req, res) => {
     }
 };
 
+// Pure helper: evaluates price against SL/T1/T2 levels with zero side-effects
+function evaluateRecommendationUpdate(stock, currentPrice) {
+    const updateFields = {};
+
+    // SL takes priority — if it's hit, the position is closed and
+    // nothing else about T1/T2 status matters for this tick.
+    if (currentPrice <= stock.stopLoss) {
+        updateFields.stopLossHit = true;
+        updateFields.isOpen = false;
+        updateFields.exitPrice = stock.stopLoss;
+    } else {
+        if (currentPrice >= stock.target1 && !stock.target1Hit) {
+            updateFields.target1Hit = true;
+        }
+
+        // Price hit T1 earlier, has since pulled back to T1 -> lock the exit there.
+        if (stock.isOpen && stock.target1Hit && currentPrice <= stock.target1) {
+            updateFields.isOpen = false;
+            updateFields.exitPrice = stock.target1;
+        }
+
+        if (currentPrice >= stock.target2 && !stock.target2Hit) {
+            updateFields.target2Hit = true;
+            updateFields.isOpen = false;
+            updateFields.exitPrice = stock.target2;
+        }
+    }
+    return updateFields;
+}
+
 // Reads every open recommendation, checks current price against its
 // SL/T1/T2 levels, and bulk-writes only the ones that actually changed.
 const handleRecommendations = async (req, res) => {
@@ -62,31 +92,7 @@ const handleRecommendations = async (req, res) => {
             if (!stockPriceData || typeof stockPriceData.price === "undefined") return;
 
             const currentPrice = stockPriceData.price;
-            const updateFields = {};
-
-            // SL takes priority — if it's hit, the position is closed and
-            // nothing else about T1/T2 status matters for this tick.
-            if (currentPrice <= stock.stopLoss) {
-                updateFields.stopLossHit = true;
-                updateFields.isOpen = false;
-                updateFields.exitPrice = stock.stopLoss;
-            } else {
-                if (currentPrice >= stock.target1 && !stock.target1Hit) {
-                    updateFields.target1Hit = true;
-                }
-
-                // Price hit T1 earlier, has since pulled back to T1 -> lock the exit there.
-                if (stock.isOpen && stock.target1Hit && currentPrice <= stock.target1) {
-                    updateFields.isOpen = false;
-                    updateFields.exitPrice = stock.target1;
-                }
-
-                if (currentPrice >= stock.target2 && !stock.target2Hit) {
-                    updateFields.target2Hit = true;
-                    updateFields.isOpen = false;
-                    updateFields.exitPrice = stock.target2; // was `stock.target2Hit` (a bool) — fixed
-                }
-            }
+            const updateFields = evaluateRecommendationUpdate(stock, currentPrice);
 
             if (Object.keys(updateFields).length > 0) {
                 bulkOperations.push({
@@ -142,4 +148,5 @@ module.exports = {
     getOpenRecommendations,
     getCloseRecommendations,
     handleRecommendations,
+    evaluateRecommendationUpdate,
 };

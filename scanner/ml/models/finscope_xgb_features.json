@@ -1,0 +1,1 @@
+["grade", "RSI_signal", "MACD", "MACD_signal", "MACD_hist", "MACD_cross", "BB_width", "BB_pct", "ATR_pct", "Vol_ratio", "Dist_from_200MA", "sma50_above_sma200", "perfect_bullish_alignment", "price_above_sma50", "rev_pat", "cont_pat", "candle_pat", "dow_signal_encoded"]

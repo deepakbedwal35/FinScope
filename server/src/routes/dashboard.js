@@ -8,7 +8,7 @@ const express    = require("express");
 const router     = express.Router();
 
 const { restrictToLoggedIn }  = require("../middleware/auth");
-const { dashboardLimiter }    = require("../middleware/rateLimiter");
+// const { dashboardLimiter }    = require("../middleware/rateLimiter");
 const { getDashboard }        = require("../controller/dashboardController");
 
 /**
@@ -25,7 +25,7 @@ const { getDashboard }        = require("../controller/dashboardController");
  */
 router.get(
   "/",
-  dashboardLimiter,       // Rate limit: 200 req / 15 min / IP
+//   dashboardLimiter,       // Rate limit: 200 req / 15 min / IP
   restrictToLoggedIn,     // JWT / cookie auth guard
   getDashboard            // Concurrent aggregator
 );

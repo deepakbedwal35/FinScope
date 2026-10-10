@@ -19,7 +19,7 @@ const cors         = require("cors");
 const cookieParser = require("cookie-parser");
 
 const connectDB               = require("./config/db");
-const { handleRedisCaching }  = require("./config/redis");   // ← updated singleton export
+const { handleRedisCaching }  = require("./config/redis");  
 const errorHandler            = require("./middleware/errorHandler");
 
 // Adaptive rate-limit profiles

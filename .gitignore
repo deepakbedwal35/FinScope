@@ -2,14 +2,12 @@ node_modules
 **/.env
 dump.rdb
 Notes.md
-**/backtest_for_ml.py
-notebook
-
+.venv/
+.pytest_cache/
+coverage/
 .DS_Store
 **/__pycache__/
 *.pyc
-ml_model.py
-model_loader.py
-ml
+
 
 

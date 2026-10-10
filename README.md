@@ -16,8 +16,21 @@ To deliver sub-second response times, the platform freezes features around three
 
 ##  System Architecture & Data Flow
 
-┌───────────────┐│  React Client │ (Tailwind CSS & Material-UI Layouts)└───────┬───────┘│ REST JSON API┌───────▼───────┐│  Node.js API  │ ── [ MongoDB ] (User Profiles & Watchlists)└───────┬───────┘│ Inter-Process Communication┌───────▼───────┐│  FastAPI Core │ ── [ Redis Cache ] (Full Market Data & Ticker Sync)└───────┬───────┘▼[ yfinance / NSE Engine ]
+```mermaid
+flowchart TD
+    A["React Client<br/>Tailwind CSS & Material UI"]
+    B["Node.js API<br/>REST JSON API"]
+    C[("MongoDB<br/>User Profiles & Watchlists")]
+    D["FastAPI Core"]
+    E[("Redis Cache<br/>Market Data & Ticker Sync")]
+    F["yfinance / NSE Engine"]
 
+    A -->|REST JSON API| B
+    B <--> C
+    B <-->|Inter-Process Communication| D
+    D <--> E
+    D --> F
+```
 
 ### ⚙️ Technology Stack Specifications
 * **Frontend:** React, Tailwind CSS, Material-UI layout controls.
@@ -98,14 +111,14 @@ npm start
 ```
 
 
+## 🌐 Live Demo
 
-https://finscope-scanner.onrender.com 
-https://finscope-w5th.onrender.com 
-https://finscope-client.onrender.com
+- **Frontend:** [FinScope Client](https://finscope-client.onrender.com)
+- **Backend API:** [FinScope Scanner](https://finscope-scanner.onrender.com)
+- **Additional Service:** [FinScope Service](https://finscope-w5th.onrender.com)
 
-on all env variable
-render url also
-NODE_ENV === "production";
+> **Note:** The application is hosted on Render. Free-tier services may take a few moments to wake up after inactivity.
 
 
-The asterisk (*) is a wildcard. By typing /*, you are telling Render: "Catch absolutely any sub-path the user types in, whether it is /home, /watchlist, /backtest, or /analyse/NMDC."Pointing the destination to /index.html ensures your main React application is always delivered as the foundational code wrapper to boot up your system.Click the blue Save Changes button. The rule takes effect immediately without rebuilding your project. Try refreshing your browser on the /home or /watchlist tabs now—they will load perfectly!
+
+

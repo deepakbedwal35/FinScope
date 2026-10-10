@@ -1,135 +1,139 @@
 // server/src/services/cacheService.js
 //
 // Cache-Aside pattern with Redis Mutex Locking (SETNX).
-// Solves the "Cache Stampede" (Thundering Herd) problem:
-// When high-traffic cached Redis keys expire, hundreds of simultaneous concurrent
-// user requests hit the database, exhausting MongoDB's connection pool and CPU.
+// Solves the "Cache Stampede" problem: when a hot key expires and hundreds of
+// concurrent requests all hit MongoDB at the same time.
 //
 // ─── Execution Flow ───────────────────────────────────────────────────────
 //
-//   1. Check Redis cache first. On a Cache Hit, return data immediately.
-//   2. On a Cache Miss, attempt to acquire the lock:
-//      redis.set(lockKey, 'LOCKED', { NX: true, EX: 10 })
-//   3. The thread that acquires the lock queries MongoDB/upstream services,
-//      updates Redis with the new TTL, and releases the lock.
-//   4. Threads that fail to acquire the lock wait 50–100ms and recursively
-//      retry reading from Redis (bypassing MongoDB entirely).
-//   5. Fail-Safe Mechanism: Explicit 10-second lock expiration prevents deadlocks
-//      if the primary worker thread throws an error. If Redis is unavailable,
-//      it gracefully falls back to direct execution.
+//   1. CHECK Redis for the cached key.
+//      └─ CACHE HIT  → return parsed JSON immediately. ✅
+//
+//   2. CACHE MISS → attempt to acquire a distributed Redis mutex lock.
+//      (uses atomic SET key NX EX so only ONE thread wins the race)
+//
+//      a. LOCK ACQUIRED (this thread is the "primary worker"):
+//         ├─ Execute the expensive fetchFn() (Python API / MongoDB query)
+//         ├─ Write result back to Redis with the caller-specified TTL
+//         └─ Release the lock (DEL lockKey)
+//
+//      b. LOCK NOT ACQUIRED (another thread is already fetching):
+//         ├─ Wait 75 ms  (jitter avoids thundering-herd on retry)
+//         └─ Recursively call withCache() again → goes back to step 1
+//            (the primary worker should have populated Redis by now)
+//
+//   3. FAIL-SAFE: lock has a 10-second hard expiry (set at acquisition time)
+//      so a crashed primary worker can't hold the lock forever.
+//
+// ─── Usage ────────────────────────────────────────────────────────────────
+//
+//   const data = await withCache(
+//     "candlestick:stocks",        // Redis cache key
+//     () => scanner.getCandlesticksStock(),  // expensive fetch fn
+//     300                          // TTL in seconds (5 min)
+//   );
 
 const { getRedisClient } = require("../config/redis");
 
-const LOCK_EXPIRY_SECONDS = 10; // Explicit 10s expiration to prevent deadlocks
-const MAX_LOCK_RETRIES    = 20; // Maximum recursive retries (~1.5s total wait)
+// How long (ms) a thread that failed to acquire the lock waits before
+// retrying.  A small random jitter prevents all waiters waking simultaneously.
+const LOCK_RETRY_DELAY_MS     = 50 + Math.floor(Math.random() * 50); // 50–100 ms
+const LOCK_EXPIRY_SECONDS     = 10; // Hard cap: prevents deadlocks if primary crashes
+const MAX_LOCK_RETRIES        = 20; // ~1-2 seconds of total wait (20 × 75ms)
 
 /**
- * Executes a function with Cache-Aside caching and Redis Mutex locking.
- *
- * @param {string}   cacheKey  - Unique Redis key for caching
- * @param {Function} fetchFn   - Async worker function (DB / API call)
- * @param {number}   ttlSec    - Cache Time-To-Live in seconds
- * @param {number}   [retries] - Current retry count
+ * @param {string}   cacheKey  - Redis key for the cached value
+ * @param {Function} fetchFn   - Async function that produces fresh data
+ * @param {number}   ttlSec    - Cache TTL in seconds
+ * @param {number}   [retries] - Internal retry counter (do not pass manually)
  * @returns {Promise<any>}
  */
 async function withCache(cacheKey, fetchFn, ttlSec, retries = 0) {
   const redis = getRedisClient();
 
-  // Fail-Safe: If Redis is offline or not ready, bypass cache and execute directly
-  if (!redis || !redis.isOpen) {
-    console.warn(`[CacheService] ⚠️ Redis offline/unavailable. Bypassing cache for key="${cacheKey}"`);
-    return await fetchFn();
+  // ── Step 1: Try the cache first ─────────────────────────────────────────
+  console.log(`[CacheService] 🔍 Checking Redis cache → key="${cacheKey}"`);
+  const cached = await redis.get(cacheKey);
+
+  if (cached !== null) {
+    console.log(`[CacheService] ✅ CACHE HIT  → key="${cacheKey}"`);
+    return JSON.parse(cached);
   }
 
+  console.log(`[CacheService] ❌ CACHE MISS → key="${cacheKey}" (attempt ${retries + 1})`);
+
+  // ── Step 2: Stampede guard — try to acquire the mutex lock ───────────────
   const lockKey = `lock:${cacheKey}`;
 
-  try {
-    // ── Step 1: Check Redis cache first ───────────────────────────────────
-    console.log(`[CacheService] 🔍 Checking Redis cache → key="${cacheKey}"`);
-    const cached = await redis.get(cacheKey);
+  // SET lockKey "LOCKED" NX EX 10
+  //   NX  → only set if the key does NOT already exist (atomic CAS)
+  //   EX  → auto-expire after LOCK_EXPIRY_SECONDS (deadlock prevention)
+  const lockAcquired = await redis.set(lockKey, "LOCKED", {
+    NX: true,             // Only if Not eXists
+    EX: LOCK_EXPIRY_SECONDS,
+  });
 
-    if (cached !== null) {
-      console.log(`[CacheService] ✅ CACHE HIT → key="${cacheKey}"`);
-      return JSON.parse(cached);
+  if (lockAcquired === "OK") {
+    // ── This thread WON the lock ────────────────────────────────────────
+    console.log(`[CacheService] 🔒 LOCK ACQUIRED → key="${cacheKey}" | fetching fresh data...`);
+    try {
+      // Execute the expensive operation (Python API call / DB query)
+      const freshData = await fetchFn();
+
+      // Persist to Redis so every subsequent request gets a cache hit
+      await redis.set(cacheKey, JSON.stringify(freshData), { EX: ttlSec });
+      console.log(`[CacheService] 💾 CACHE SET → key="${cacheKey}" | TTL=${ttlSec}s`);
+
+      return freshData;
+    } catch (err) {
+      // Do NOT rethrow without releasing the lock — that would deadlock
+      // all waiters for 10 full seconds.
+      console.error(`[CacheService] ⚠️  fetchFn FAILED for key="${cacheKey}":`, err.message);
+      throw err;
+    } finally {
+      // Always release the lock, even on error
+      await redis.del(lockKey);
+      console.log(`[CacheService] 🔓 LOCK RELEASED → key="${cacheKey}"`);
     }
-
-    console.log(`[CacheService] ❌ CACHE MISS → key="${cacheKey}" (attempt ${retries + 1})`);
-
-    // ── Step 2: On Cache Miss, attempt atomic mutex lock acquisition ───────
-    // SET lockKey "LOCKED" NX EX 10
-    const lockAcquired = await redis.set(lockKey, "LOCKED", {
-      NX: true, // Only set if Not eXists (atomic mutex)
-      EX: LOCK_EXPIRY_SECONDS, // Fail-safe auto-expire in 10s
-    });
-
-    if (lockAcquired === "OK") {
-      // ── Step 3: Primary worker thread acquired lock ─────────────────────
-      console.log(`[CacheService] 🔒 LOCK ACQUIRED → key="${cacheKey}" | Querying origin...`);
-      try {
-        const freshData = await fetchFn();
-
-        // Update Redis with fresh data and TTL
-        if (freshData !== undefined) {
-          await redis.set(cacheKey, JSON.stringify(freshData), { EX: ttlSec });
-          console.log(`[CacheService] 💾 CACHE SET → key="${cacheKey}" | TTL=${ttlSec}s`);
-        }
-
-        return freshData;
-      } catch (workerErr) {
-        console.error(`[CacheService] ⚠️ Worker execution failed for key="${cacheKey}":`, workerErr.message);
-        throw workerErr;
-      } finally {
-        // Release the mutex lock
-        try {
-          await redis.del(lockKey);
-          console.log(`[CacheService] 🔓 LOCK RELEASED → key="${cacheKey}"`);
-        } catch (delErr) {
-          console.error(`[CacheService] ⚠️ Failed to delete lock key="${lockKey}":`, delErr.message);
-        }
-      }
-    } else {
-      // ── Step 4: Secondary threads fail to acquire lock ──────────────────
-      if (retries >= MAX_LOCK_RETRIES) {
-        console.warn(
-          `[CacheService] ⏱️ Max lock retries (${MAX_LOCK_RETRIES}) reached for key="${cacheKey}". Bypassing cache.`
-        );
-        return await fetchFn();
-      }
-
-      // Dynamic backoff with 50-100ms jitter to prevent thundering herd on retry
-      const retryDelayMs = 50 + Math.floor(Math.random() * 51);
-      console.log(
-        `[CacheService] ⏳ LOCK CONTENTION → key="${cacheKey}" | Waiting ${retryDelayMs}ms then recursively retrying (${retries + 1}/${MAX_LOCK_RETRIES})...`
+  } else {
+    // ── Another thread holds the lock ──────────────────────────────────
+    if (retries >= MAX_LOCK_RETRIES) {
+      // Safety valve: if we've been spinning for ~2 seconds and the cache
+      // is still empty, bypass caching and fetch directly.
+      console.warn(
+        `[CacheService] ⏱️  Max lock retries (${MAX_LOCK_RETRIES}) reached for ` +
+        `key="${cacheKey}". Bypassing cache and fetching directly.`
       );
-
-      await sleep(retryDelayMs);
-
-      // Recursively retry reading from Redis (bypassing MongoDB entirely)
-      return withCache(cacheKey, fetchFn, ttlSec, retries + 1);
+      return fetchFn();
     }
-  } catch (err) {
-    console.error(`[CacheService] ❌ Redis error on key="${cacheKey}":`, err.message);
-    // Graceful degradation: query origin directly so request doesn't fail
-    return await fetchFn();
+
+    console.log(
+      `[CacheService] ⏳ LOCK CONTENTION → key="${cacheKey}" | ` +
+      `waiting ${LOCK_RETRY_DELAY_MS}ms then retrying (attempt ${retries + 1}/${MAX_LOCK_RETRIES})...`
+    );
+
+    // Wait a small amount then re-enter — the primary worker should have
+    // populated the cache during this window.
+    await sleep(LOCK_RETRY_DELAY_MS);
+    return withCache(cacheKey, fetchFn, ttlSec, retries + 1);
   }
 }
 
 /**
- * Manually invalidate a cache key (e.g. after database updates)
+ * Invalidate (delete) a specific cache key.
+ * Useful after admin write operations that stale data.
  */
 async function invalidateCache(cacheKey) {
-  try {
-    const redis = getRedisClient();
-    if (!redis || !redis.isOpen) return 0;
-    const deleted = await redis.del(cacheKey);
-    console.log(`[CacheService] 🗑️ invalidateCache → key="${cacheKey}" deleted=${deleted}`);
-    return deleted;
-  } catch (err) {
-    console.error(`[CacheService] ⚠️ Failed to invalidate key="${cacheKey}":`, err.message);
-    return 0;
-  }
+  const redis = getRedisClient();
+  const deleted = await redis.del(cacheKey);
+  console.log(`[CacheService] 🗑️  invalidateCache → key="${cacheKey}" deleted=${deleted}`);
+  return deleted;
 }
 
+/**
+ * Simple promise-based sleep helper
+ * @param {number} ms - Milliseconds to wait
+ */
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
