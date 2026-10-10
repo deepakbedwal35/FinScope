@@ -81,7 +81,7 @@ export default function StockDetails({ isDemo = false }){
                             {activeTab === "AI Analysis" && <div className="text-2xl font-bold "> <AiAnalysis symbol={stockData?.symbol} demoData={stockData?.ai}/> </div> }             
                             {activeTab === "Trade Setup" && <div className="text-2xl font-bold "><TradeSetup stockData={stockData}/> </div> } 
                             {activeTab === "Patterns" && <div className=""><Patterns stockData={stockData}/> </div> }
-                            {activeTab === "Backtest" && <div><StockBacktestTab stockSymbol={stockData?.symbol} stockGrade={stockData?.grade} /> </div> }    
+                            {/* {activeTab === "Backtest" && <div><StockBacktestTab stockSymbol={stockData?.symbol} stockGrade={stockData?.grade} /> </div> }     */}
                         </div>  
                 </div>
             }
